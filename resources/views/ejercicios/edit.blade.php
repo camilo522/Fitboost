@@ -73,17 +73,61 @@
                         <input type="number" name="duracionEstimada" id="duracionEstimada" class="form-control" value="{{ $ejercicio->duracionEstimada }}">
                     </div>
 
+                    <!-- Bloque para Imagen -->
                     <div class="mb-3">
-                        <label for="imagenURL" class="form-label">Imagen / GIF</label>
-                        <input type="file" name="imagenURL" id="imagenURL" class="form-control" accept="image/*">
+                        <label class="form-label fw-bold">Imagen del Ejercicio</label>
                         @if($ejercicio->imagenURL)
-                            <small class="text-muted d-block mt-1">Imagen actual: {{ $ejercicio->imagenURL }}</small>
+                            <p class="small">Imagen actual:</p>
+                            <img src="{{ $ejercicio->imagenURL }}" alt="{{ $ejercicio->nombre }}" style="max-width: 200px; border-radius: 8px;" onerror="this.src='https://via.placeholder.com/200';">
+                        @else
+                            <p class="small text-muted">No hay imagen.</p>
                         @endif
+
+                        <hr class="my-2">
+                        <p class="small text-muted">Puedes reemplazarla subiendo un archivo o pegando una nueva URL.</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="imagen_file" class="form-label">Subir Nueva Imagen</label>
+                                <input type="file" name="imagen_file" id="imagen_file" class="form-control rounded-pill" accept="image/*">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="imagen_url" class="form-label">O Pegar Nueva URL</label>
+                                <input type="url" name="imagen_url" id="imagen_url" class="form-control rounded-pill" placeholder="https://...">
+                            </div>
+                        </div>
                     </div>
 
+                    <!-- Bloque para Video/GIF -->
                     <div class="mb-3">
-                        <label for="videoURL" class="form-label">GIF URL (opcional)</label>
-                        <input type="text" name="videoURL" id="videoURL" class="form-control" value="{{ $ejercicio->videoURL }}">
+                        <label class="form-label fw-bold">Video/GIF del Ejercicio</label>
+                        @if($ejercicio->videoURL)
+                            <p class="small">Video/GIF actual:</p>
+                            @if(str_contains($ejercicio->videoURL, '.gif'))
+                                <img src="{{ $ejercicio->videoURL }}" alt="{{ $ejercicio->nombre }}" style="max-width: 200px; border-radius: 8px;">
+                            @else
+                                <video width="200" controls>
+                                    <source src="{{ $ejercicio->videoURL }}" type="video/mp4">
+                                    Tu navegador no soporta el tag de video.
+                                </video>
+                            @endif
+                        @else
+                            <p class="small text-muted">No hay video.</p>
+                        @endif
+
+                        <hr class="my-2">
+                        <p class="small text-muted">Puedes reemplazarlo subiendo un archivo o pegando una nueva URL.</p>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="video_file" class="form-label">Subir Nuevo Video/GIF</label>
+                                <input type="file" name="video_file" id="video_file" class="form-control rounded-pill" accept="video/*,.gif">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="video_url" class="form-label">O Pegar Nueva URL</label>
+                                <input type="url" name="video_url" id="video_url" class="form-control rounded-pill" placeholder="https://...">
+                            </div>
+                        </div>
                     </div>
                     
                 <!-- Botones -->

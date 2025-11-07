@@ -95,6 +95,12 @@
     </a>
 </div>
 
+<a href="{{ route('valoraciones.historial', $valoracion->id) }}" 
+   class="btn btn-outline-info btn-sm">
+   <i class="fas fa-history"></i> Ver historial
+</a>
+
+
 <style>
     .text-gradient {
         background: linear-gradient(90deg, #6a11cb, #2575fc);

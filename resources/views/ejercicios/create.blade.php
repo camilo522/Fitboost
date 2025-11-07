@@ -101,17 +101,29 @@
                     </div>   
 
                 <!-- Archivos -->
+                <!-- Bloque para Imagen -->
                 <div class="row mb-4">
                     <div class="col-md-6">
-                        <label for="imagenURL" class="form-label fw-bold">Imagen</label>
-                        <input type="file" name="imagenURL" id="imagenURL" class="form-control rounded-pill" accept="image/*">
+                        <label for="imagen_file" class="form-label fw-bold">Imagen (Subir Archivo)</label>
+                        <input type="file" name="imagen_file" id="imagen_file" class="form-control rounded-pill" accept="image/*">
                     </div>
                     <div class="col-md-6">
-                        <label for="videoURL" class="form-label fw-bold">Video (GIF o MP4)</label>
-                        <input type="file" name="videoURL" id="videoURL" class="form-control rounded-pill" accept="video/*,.gif">
+                        <label for="imagen_url" class="form-label fw-bold">Imagen (Pegar URL)</label>
+                        <input type="url" name="imagen_url" id="imagen_url" class="form-control rounded-pill" placeholder="https://.../imagen.jpg">
                     </div>
                 </div>
 
+                <!-- Bloque para Video/GIF -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label for="video_file" class="form-label fw-bold">Video/GIF (Subir Archivo)</label>
+                        <input type="file" name="video_file" id="video_file" class="form-control rounded-pill" accept="video/*,.gif">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="video_url" class="form-label fw-bold">Video/GIF (Pegar URL)</label>
+                        <input type="url" name="video_url" id="video_url" class="form-control rounded-pill" placeholder="https://.../video.mp4">
+                    </div>
+                </div>
                 <!-- Botones -->
                 <div class="d-flex justify-content-between mt-4">
                             <a href="{{ route('ejercicios.index') }}" 

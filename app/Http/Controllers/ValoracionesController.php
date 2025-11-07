@@ -56,4 +56,15 @@ class ValoracionesController extends Controller
                              ->with('error', 'No se puede eliminar esta valoración porque tiene entrenamientos asociados.');
         }
     }
+
+
+    
+
+    public function historial($id)
+    {
+    $valoracion = \App\Models\valoraciones::with(['usuario', 'historial.usuario'])->findOrFail($id);
+    return view('valoraciones.historial', compact('valoracion'));
+    }
+
+
 }

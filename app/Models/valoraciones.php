@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class valoraciones extends Model
 {
+
+   use HasFactory;
  protected $fillable = [
+         'valoracion_id',
         'idUsuario',
         'fecha',
         'altura',
@@ -35,4 +39,13 @@ class valoraciones extends Model
     {
         return $this->hasMany(entrenamientos::class, 'idValoracion');
     }
+
+    public function historial()
+    {
+    return $this->hasMany(HistorialValoracion::class, 'valoracion_id');
+    }
+
+    
+
+
 }

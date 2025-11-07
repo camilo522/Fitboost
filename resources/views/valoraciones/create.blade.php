@@ -97,7 +97,7 @@
                     </div>
 
                     
-                <div class="mb-3">
+                <div class="col-md-4">
                     <label for="fechaRegistro" class="form-label fw-bold">Fecha Registro</label>
                     <input type="date" class="form-control rounded-pill shadow-sm" id="fechaRegistro" name="fechaRegistro" placeholder   >
                 </div>

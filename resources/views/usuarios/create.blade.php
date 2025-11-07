@@ -24,8 +24,17 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="contrasena" class="form-label fw-bold">Contraseña</label>
-                    <input type="text" class="form-control rounded-pill shadow-sm" id="contrasena" name="contrasena" placeholder="****" required>
+                <label for="contrasena" class="form-label fw-bold">Contraseña</label>
+                
+                <!-- Contenedor para el input y el ojito -->
+                <div class="input-group">
+                    <input type="password" class="form-control rounded-pill shadow-sm" id="contrasena" name="contrasena" placeholder="****" required>
+                    
+                    <!-- Botón para mostrar/ocultar la contraseña -->
+                    <button class="btn btn-outline-secondary rounded-pill" type="button" id="togglePassword">
+                        <i class="bi bi-eye" id="eyeIcon"></i>
+                    </button>
+                </div>
                 </div>
                 
                 <div class="mb-3">
@@ -49,4 +58,19 @@
         </div>
     </div>
 </div>
+<script>
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('contrasena');
+    const eyeIcon = document.getElementById('eyeIcon');
+
+    togglePassword.addEventListener('click', function() {
+        // Cambia el tipo del input entre 'password' y 'text'
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+
+        // Cambia el icono del ojo
+        eyeIcon.classList.toggle('bi-eye');
+        eyeIcon.classList.toggle('bi-eye-slash');
+    });
+</script>
 @endsection

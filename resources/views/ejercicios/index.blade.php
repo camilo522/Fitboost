@@ -67,45 +67,44 @@
                             @endif
                         </td>
 
-
+                        <!-- --- COLUMNA DE VIDEO CORREGIDA --- -->
                         <td>
                             @if($ejercicio->videoURL)
-                                <video
-                                    src="{{ asset('storage/'.$ejercicio->videoURL) }}"
-                                    width="100"
-                                    autoplay
-                                    loop
-                                    muted
-                                    playsinline
-                                    class="rounded shadow cursor-pointer"
-                                    data-video="{{ asset('storage/'.$ejercicio->videoURL) }}"
-                                    onclick="abrirModal(this.dataset.video)">
-                                </video>
+                                @php
+                                    // Comprobamos si el video es un enlace externo o un archivo local
+                                    $isVideoExternal = Str::startsWith($ejercicio->videoURL, ['http://', 'https://']);
+                                    $videoSrc = $isVideoExternal ? $ejercicio->videoURL : asset('storage/'.$ejercicio->videoURL);
+                                @endphp
+
+                                @if(str_contains($ejercicio->videoURL, '.gif'))
+                                    <!-- Si es un GIF, lo mostramos como una imagen y usamos el modal de imagen -->
+                                    <img 
+                                        src="{{ $videoSrc }}" 
+                                        alt="GIF de {{ $ejercicio->nombre }}" 
+                                        width="100" 
+                                        class="rounded shadow cursor-pointer"
+                                        onclick="abrirModalImagen('{{ $videoSrc }}')">
+                                @else
+                                    <!-- Si es un video, mostramos el reproductor y usamos el modal de video -->
+                                    <video
+                                        src="{{ $videoSrc }}"
+                                        width="100"
+                                        autoplay
+                                        loop
+                                        muted
+                                        playsinline
+                                        class="rounded shadow cursor-pointer"
+                                        data-video="{{ $videoSrc }}"
+                                        onclick="abrirModal(this.dataset.video)">
+                                    </video>
+                                @endif
                             @else
                                 <span class="text-muted">No disponible</span>
                             @endif
                         </td>
-
-                        <!-- Modal -->
-                        <div id="modalGIF" 
-                            class="modal-fade d-none position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-flex justify-content-center align-items-center" 
-                            style="z-index: 1050;">
-                            <div class="position-relative" onclick="event.stopPropagation()">
-                                <video id="modalVideo" autoplay loop muted playsinline style="max-width: 90vw; max-height: 90vh;" class="rounded shadow"></video>
-                                <button 
-                                    type="button" 
-                                    class="btn btn-light position-absolute top-0 end-0 m-2" 
-                                    onclick="cerrarModal()">
-                                    ✕
-                                </button>
-                            </div>
-                        </div>
-
-
-                        
+                        <!-- --- FIN DE LA COLUMNA CORREGIDA --- -->
 
                         <td>
-
                             <a href="{{ route('ejercicios.edit', $ejercicio->id) }}" 
                                    class="btn btn-sm btn-outline-primary rounded-pill fw-bold me-2">
                                    <i class="bi bi-pencil-square"></i>editar
@@ -136,82 +135,92 @@
         
     </div>
 
+    <!-- Modal Video -->
+    <div id="modalGIF" 
+        class="modal-fade d-none position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-flex justify-content-center align-items-center" 
+        style="z-index: 1050;">
+        <div class="position-relative" onclick="event.stopPropagation()">
+            <video id="modalVideo" autoplay loop muted playsinline style="max-width: 90vw; max-height: 90vh;" class="rounded shadow"></video>
+            <button 
+                type="button" 
+                class="btn btn-light position-absolute top-0 end-0 m-2" 
+                onclick="cerrarModal()">
+                ✕
+            </button>
+        </div>
+    </div>
 
-                        <!-- Estilos -->
-                        <style>
-                            .modal-fade {
-                                opacity: 0;
-                                transition: opacity 0.3s ease;
-                            }
-                            .modal-fade.show {
-                                opacity: 1;
-                            }
-                        </style>
-
-                        <!-- Script -->
-                        <script>
-                            const modal = document.getElementById('modalGIF');
-                            const modalVideo = document.getElementById('modalVideo');
-
-                                function abrirModal(videoSrc) {
-                                    const modal = document.getElementById('modalGIF');
-                                    const modalVideo = document.getElementById('modalVideo');
-                                    modalVideo.src = videoSrc;
-                                    modal.classList.remove('d-none');
-                                    void modal.offsetWidth;
-                                    modal.classList.add('show');
-                            }
-                           
-
-                            function cerrarModal() {
-                                modal.classList.remove('show');
-                                setTimeout(() => {
-                                    modalVideo.pause();
-                                    modalVideo.src = '';
-                                    modal.classList.add('d-none');
-                                }, 300); // Espera a que termine la transición
-                            }
-
-                            // Cerrar modal si se hace clic fuera del video
-                            modal.addEventListener('click', function () {
-                                cerrarModal();
-                            });
-                        </script>
-                        <!-- Modal Imagen -->
-                <div id="modalImagen" 
-                    class="modal-fade d-none position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-flex justify-content-center align-items-center" 
-                    style="z-index: 1050;">
-                    <div class="position-relative" onclick="event.stopPropagation()">
-                        <img id="modalImagenSrc" src="" alt="Imagen" style="max-width: 90vw; max-height: 90vh;" class="rounded shadow">
-                        <button type="button" 
-                                class="btn btn-light position-absolute top-0 end-0 m-2" 
-                                onclick="cerrarModalImagen()">
-                            ✕
-                        </button>
-                    </div>
-                </div>
-
-                <script>
-                    const modalImagen = document.getElementById('modalImagen');
-                    const modalImagenSrc = document.getElementById('modalImagenSrc');
-
-                    function abrirModalImagen(src) {
-                        modalImagenSrc.src = src;
-                        modalImagen.classList.remove('d-none');
-                        void modalImagen.offsetWidth;
-                        modalImagen.classList.add('show');
-                    }
-
-                    function cerrarModalImagen() {
-                        modalImagen.classList.remove('show');
-                        setTimeout(() => {
-                            modalImagenSrc.src = '';
-                            modalImagen.classList.add('d-none');
-                        }, 300);
-                    }
-
-                    modalImagen.addEventListener('click', cerrarModalImagen);
-                </script>
+    <!-- Modal Imagen -->
+    <div id="modalImagen" 
+        class="modal-fade d-none position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-flex justify-content-center align-items-center" 
+        style="z-index: 1050;">
+        <div class="position-relative" onclick="event.stopPropagation()">
+            <img id="modalImagenSrc" src="" alt="Imagen" style="max-width: 90vw; max-height: 90vh;" class="rounded shadow">
+            <button type="button" 
+                    class="btn btn-light position-absolute top-0 end-0 m-2" 
+                    onclick="cerrarModalImagen()">
+                ✕
+            </button>
+        </div>
+    </div>
 
 @endsection
- 
+
+@push('styles')
+    <style>
+        .modal-fade {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal-fade.show {
+            opacity: 1;
+        }
+    </style>
+@endpush
+
+@push('scripts')
+    <script>
+        const modal = document.getElementById('modalGIF');
+        const modalVideo = document.getElementById('modalVideo');
+        const modalImagen = document.getElementById('modalImagen');
+        const modalImagenSrc = document.getElementById('modalImagenSrc');
+
+        function abrirModal(videoSrc) {
+            modalVideo.src = videoSrc;
+            modal.classList.remove('d-none');
+            void modal.offsetWidth; // Forzar reflow
+            modal.classList.add('show');
+        }
+
+        function cerrarModal() {
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modalVideo.pause();
+                modalVideo.src = '';
+                modal.classList.add('d-none');
+            }, 300);
+        }
+
+        function abrirModalImagen(src) {
+            modalImagenSrc.src = src;
+            modalImagen.classList.remove('d-none');
+            void modalImagen.offsetWidth; // Forzar reflow
+            modalImagen.classList.add('show');
+        }
+
+        function cerrarModalImagen() {
+            modalImagen.classList.remove('show');
+            setTimeout(() => {
+                modalImagenSrc.src = '';
+                modalImagen.classList.add('d-none');
+            }, 300);
+        }
+
+        // Cerrar modales si se hace clic fuera del contenido
+        modal.addEventListener('click', cerrarModal);
+        modalImagen.addEventListener('click', cerrarModalImagen);
+    </script>
+@endpush
+
+
+

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\usuario;
 use Illuminate\Http\Request;
 
@@ -56,14 +57,35 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,  $id)
-    {
-        $usuario = usuario::FindorFail($id);
-        $usuario->update($request->all());
+   
+        public function update(Request $request, $id)
+{
+            // Busca al usuario (usando el nombre del modelo en PascalCase es mejor práctica)
+            $usuario = Usuario::findOrFail($id);
 
-        return redirect()->route('usuario.index');  //->with('success','usuario actualizado correctamente')/
-    }
+            // Validación corregida
+            $request->validate([
+                'nombre' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:usuarios,email,' . $usuario->id, // Tabla corregida
+                'contrasena' => 'nullable|string|min:8|confirmed',
+                'fechaRegistro' => 'required|date', // Añadida validación para la fecha
+            ]);
 
+            // Actualiza los datos del usuario (nombres de campo corregidos)
+            $usuario->nombre = $request->nombre;
+            $usuario->email = $request->email;
+            $usuario->fechaRegistro = $request->fechaRegistro; // Línea añadida
+
+            // Solo actualiza la contraseña si el usuario escribió una nueva
+            if ($request->filled('contrasena')) {
+                $usuario->contrasena = bcrypt($request->contrasena);
+            }
+
+            // Guarda los cambios
+            $usuario->save();
+
+            return redirect()->route('usuario.index')->with('success', 'Usuario actualizado correctamente.');
+        }
     /**
      * Remove the specified resource from storage.
      */

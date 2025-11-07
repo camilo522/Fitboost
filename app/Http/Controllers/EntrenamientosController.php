@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class EntrenamientosController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra todos los entrenamientos.
      */
     public function index()
     {
@@ -17,7 +17,7 @@ class EntrenamientosController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario de creación.
      */
     public function create()
     {
@@ -25,53 +25,70 @@ class EntrenamientosController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda un nuevo entrenamiento.
      */
     public function store(Request $request)
     {
-        entrenamientos::create( $request->all());
+        // 🔒 Validación básica
+        $request->validate([
+            'nombre' => 'required|string|max:100',
+            'descripcion' => 'required|string',
+            'objetivo' => 'nullable|string|max:50',
+            'duracion' => 'nullable|string|max:20',
+            'nivel' => 'required|in:Principiante,Intermedio,Avanzado',
+            'diasSemana' => 'nullable|string|max:50',
+            'estado' => 'required|in:Activo,Inactivo',
+        ]);
 
-        return redirect()->route('entrenamientos.index'); //->with('sucess','entrenamiento creado correctamente');
+        entrenamientos::create($request->all());
+
+        return redirect()
+            ->route('entrenamientos.index')
+            ->with('success', 'Entrenamiento creado correctamente.');
     }
 
     /**
-     * Display the specified resource.
+     * Muestra el formulario de edición.
      */
-    public function show(entrenamientos $entrenamientos)
+    public function edit($id)
     {
-        //
+        $entrenamiento = entrenamientos::findOrFail($id);
+        return view('entrenamientos.edit', compact('entrenamiento'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Actualiza un entrenamiento existente.
      */
-  public function edit($id)
-{
-    $entrenamiento = entrenamientos::findOrFail($id);
-    return view('entrenamientos.edit', compact('entrenamiento'));
-}
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request,  $id)
+    public function update(Request $request, $id)
     {
-        $entrenamientos = entrenamientos::findorFail($id);
-        $entrenamientos->update($request->all());
+        $request->validate([
+            'nombre' => 'required|string|max:100',
+            'descripcion' => 'required|string',
+            'objetivo' => 'nullable|string|max:50',
+            'duracion' => 'nullable|string|max:20',
+            'nivel' => 'required|in:Principiante,Intermedio,Avanzado',
+            'diasSemana' => 'nullable|string|max:50',
+            'estado' => 'required|in:Activo,Inactivo',
+        ]);
 
-        return redirect()->route('entrenamientos.index');
+        $entrenamiento = entrenamientos::findOrFail($id);
+        $entrenamiento->update($request->all());
 
-
+        return redirect()
+            ->route('entrenamientos.index')
+            ->with('success', 'Entrenamiento actualizado correctamente.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un entrenamiento.
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
-        $entrenamientos = entrenamientos::findorFail($id);
-        $entrenamientos->delete();
+        $entrenamiento = entrenamientos::findOrFail($id);
+        $entrenamiento->delete();
 
-        return redirect()->route('entrenamientos.index'); //->with('sucess','entrenamiento eliminado correctamente');
+        return redirect()
+            ->route('entrenamientos.index')
+            ->with('success', 'Entrenamiento eliminado correctamente.');
     }
 }
