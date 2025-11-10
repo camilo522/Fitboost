@@ -16,6 +16,7 @@
         <div class="card-body p-5">
             <form action="{{ route('valoraciones.update', $valoraciones->id) }}" method="POST">
                 @csrf
+                
             
                 <div class="row g-4">
                     <div class="col-md-6">

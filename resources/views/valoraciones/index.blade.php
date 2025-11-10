@@ -68,6 +68,12 @@
                                    class="btn btn-success shadow rounded-pill px-3 me-2">
                                     <i class="bi bi-pencil-square"></i> Editar
                                 </a>
+
+                                <a href="{{ route('valoraciones.historial', $valoracion->id) }}" 
+                                class="btn btn-outline-info btn-sm">
+                                <i class="fas fa-history"></i> Ver historial
+                                </a>
+
                                 <form action="{{ route('valoraciones.destroy',$valoracion->id) }}" 
                                       method="post" style="display:inline-block;">
                                     @csrf
@@ -95,10 +101,6 @@
     </a>
 </div>
 
-<a href="" 
-   class="btn btn-outline-info btn-sm">
-   <i class="fas fa-history"></i> Ver historial
-</a>
 
 
 <style>

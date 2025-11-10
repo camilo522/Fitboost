@@ -1,16 +1,17 @@
-<?php
+<?php 
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class valoraciones extends Model
+class Valoraciones extends Model
 {
+    use HasFactory;
 
-   use HasFactory;
- protected $fillable = [
-         'valoracion_id',
+    protected $table = 'valoraciones';
+
+    protected $fillable = [
         'idUsuario',
         'fecha',
         'altura',
@@ -29,23 +30,23 @@ class valoraciones extends Model
         'fechaRegistro'
     ];
 
-    // Relaciones
+    // 🔗 Relación con Usuario
     public function usuario()
     {
         return $this->belongsTo(Usuario::class, 'idUsuario');
     }
 
+    // 🔗 Relación con Entrenamientos (si los usas)
     public function entrenamientos()
     {
-        return $this->hasMany(entrenamientos::class, 'idValoracion');
+        return $this->hasMany(Entrenamientos::class, 'idValoracion');
     }
 
+    // 🔗 Relación con Historial de Valoraciones
     public function historial()
     {
-    return $this->hasMany(HistorialValoracion::class, 'valoracion_id');
+        return $this->hasMany(HistorialValoracion::class, 'valoracion_id');
     }
 
     
-
-
 }

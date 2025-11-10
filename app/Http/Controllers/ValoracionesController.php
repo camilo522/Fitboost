@@ -2,53 +2,105 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\valoraciones;
-use App\Models\Usuario;   
+use App\Models\Valoraciones;
+use App\Models\Usuario;
+use App\Models\HistorialValoracion;
 use Illuminate\Http\Request;
 
 class ValoracionesController extends Controller
 {
     public function index()
     {
-        $valoraciones = valoraciones::with('usuario')->get();
+        $valoraciones = Valoraciones::with('usuario')->get();
         return view('valoraciones.index', compact('valoraciones'));
     }
 
     public function create()
     {
-        $usuarios = Usuario::all(); // 👈 carga todos los usuarios
+        $usuarios = Usuario::all();
         return view('valoraciones.create', compact('usuarios'));
     }
 
-    public function store(Request $request)
+   public function store(Request $request)
     {
-        valoraciones::create($request->all());
-        return redirect()->route('valoraciones.index')
-                         ->with('success', 'Valoración creada correctamente');
+    // ✅ Validación
+    $validated = $request->validate([
+        'idUsuario' => 'required|exists:usuarios,id',
+        'fecha' => 'required|date',
+        'peso' => 'required|numeric|min:0',
+        'altura' => 'required|numeric|min:0',
+        'pecho' => 'nullable|numeric|min:0',
+        'cintura' => 'nullable|numeric|min:0',
+        'cadera' => 'nullable|numeric|min:0',
+        'brazoIzquierdo' => 'nullable|numeric|min:0',
+        'brazoDerecho' => 'nullable|numeric|min:0',
+        'antebrazoIzquierdo' => 'nullable|numeric|min:0',
+        'antebrazoDerecho' => 'nullable|numeric|min:0',
+        'piernaIzquierda' => 'nullable|numeric|min:0',
+        'piernaDerecha' => 'nullable|numeric|min:0',
+        'pantorrillaIzquierda' => 'nullable|numeric|min:0',
+        'pantorrillaDerecha' => 'nullable|numeric|min:0',
+        'fechaRegistro' => 'nullable|date'
+    ]);
+
+    // ✅ Crear nueva valoración
+    $valoracion = Valoraciones::create($validated);
+
+    // ✅ AHORA SÍ, registrar en historial MANUALMENTE
+    
+
+    return redirect()->route('valoraciones.index')
+                     ->with('success', 'Valoración creada correctamente');
     }
+
 
     public function edit($id)
     {
-        $valoraciones = valoraciones::findOrFail($id);
-        $usuarios = Usuario::all(); // 👈 también en edit
+        $valoraciones = Valoraciones::findOrFail($id);
+        $usuarios = Usuario::all();
         return view('valoraciones.edit', compact('valoraciones', 'usuarios'));
     }
 
     public function update(Request $request, $id)
     {
-        $valoraciones = valoraciones::findOrFail($id);
-        $valoraciones->update($request->all());
+    $valoracion = Valoraciones::findOrFail($id);
 
-        return redirect()->route('valoraciones.index')
-                         ->with('success','Valoración actualizada correctamente');
+    // ✅ Validar datos antes de actualizar
+    $validated = $request->validate([
+        'idUsuario' => 'required|exists:usuarios,id',
+        'fecha' => 'required|date',
+        'peso' => 'required|numeric|min:0',
+        'altura' => 'required|numeric|min:0',
+        'pecho' => 'nullable|numeric|min:0',
+        'cintura' => 'nullable|numeric|min:0',
+        'cadera' => 'nullable|numeric|min:0',
+        'brazoIzquierdo' => 'nullable|numeric|min:0',
+        'brazoDerecho' => 'nullable|numeric|min:0',
+        'antebrazoIzquierdo' => 'nullable|numeric|min:0',
+        'antebrazoDerecho' => 'nullable|numeric|min:0',
+        'piernaIzquierda' => 'nullable|numeric|min:0',
+        'piernaDerecha' => 'nullable|numeric|min:0',
+        'pantorrillaIzquierda' => 'nullable|numeric|min:0',
+        'pantorrillaDerecha' => 'nullable|numeric|min:0',
+        'fechaRegistro' => 'nullable|date'
+    ]);
+
+    // ✅ Actualizar los datos
+    $valoracion->update($validated);
+
+    // ✅ AHORA SÍ, registrar en historial MANUALMENTE
+    
+
+    return redirect()->route('valoraciones.index')
+                     ->with('success', 'Valoración actualizada correctamente');
     }
 
     public function destroy($id)
     {
-        $valoraciones = valoraciones::findOrFail($id);
+        $valoracion = Valoraciones::findOrFail($id);
 
         try {
-            $valoraciones->delete();
+            $valoracion->delete();
             return redirect()->route('valoraciones.index')
                              ->with('success', 'Valoración eliminada correctamente');
         } catch (\Illuminate\Database\QueryException $e) {
@@ -57,14 +109,10 @@ class ValoracionesController extends Controller
         }
     }
 
-
-    
-
     public function historial($id)
     {
-    $valoracion = \App\Models\valoraciones::with(['usuario', 'historial.usuario'])->findOrFail($id);
-    return view('valoraciones.historial', compact('valoraciones'));
+        $valoracion = Valoraciones::with(['usuario', 'historial.usuario'])->findOrFail($id);
+        return view('valoraciones.historial', compact('valoracion'));
     }
-
-
 }
+
