@@ -115,3 +115,4 @@ class ValoracionesController extends Controller
         return view('valoraciones.historial', compact('valoracion'));
     }
 }
+
