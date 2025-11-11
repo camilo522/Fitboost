@@ -95,7 +95,7 @@
     </a>
 </div>
 
-<a href="{{ route('valoraciones.historial', $valoracion->id) }}" 
+<a href="" 
    class="btn btn-outline-info btn-sm">
    <i class="fas fa-history"></i> Ver historial
 </a>

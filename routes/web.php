@@ -66,4 +66,3 @@ Route::post('/valoraciones/update/{id}', [ValoracionesController::class, 'update
 Route::post('/valoraciones/destroy/{id}', [ValoracionesController::class, 'destroy'])->name('valoraciones.destroy');
 Route::get('/valoraciones/{id}/historial', [App\Http\Controllers\ValoracionesController::class, 'historial'])->name('valoraciones.historial');
 
-

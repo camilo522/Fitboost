@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\valoraciones;
-use App\Models\Usuario;   // 👈 importa el modelo de usuarios
+use App\Models\Usuario;   
 use Illuminate\Http\Request;
 
 class ValoracionesController extends Controller
@@ -63,7 +63,7 @@ class ValoracionesController extends Controller
     public function historial($id)
     {
     $valoracion = \App\Models\valoraciones::with(['usuario', 'historial.usuario'])->findOrFail($id);
-    return view('valoraciones.historial', compact('valoracion'));
+    return view('valoraciones.historial', compact('valoraciones'));
     }
 
 
