@@ -19,11 +19,16 @@ class DatabaseSeeder extends Seeder
         UsuarioSeeder::class,
         RutinaSeeder::class,
         EntrenamientosSeeder::class,
+        EjerciciosSeeder::class,
+
+
     ]);
 
     }
 
 }
+
+
 
 
 
