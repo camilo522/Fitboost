@@ -57,3 +57,5 @@ class EjerciciosSeeder extends Seeder
         DB::table('ejercicios')->insert($ejercicios);
     }
 }
+
+
