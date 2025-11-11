@@ -36,15 +36,56 @@ class HistorialValoracion extends Model
         'fecha_historial'
     ];
 
-    // 🔗 Si quieres la relación con la valoración original
+    // 🔗 Relación con la valoración original
     public function valoracion()
     {
-        return $this->belongsTo(valoraciones::class, 'valoracion_id');
+        return $this->belongsTo(Valoraciones::class, 'valoracion_id');
     }
 
-    // 🔗 Y la relación con el usuario, si existe
+    // 🔗 Relación con el usuario que hizo la valoración
     public function usuario()
     {
         return $this->belongsTo(Usuario::class, 'idUsuario');
+    }
+
+    // 🕒 Establece automáticamente la fecha del historial
+    protected static function booted()
+    {
+        static::creating(function ($historial) {
+            if (!$historial->fecha_historial) {
+                $historial->fecha_historial = now();
+            }
+        });
+    }
+
+    // ⚙️ Solo registrar CREAR y EDITAR (sin eliminar)
+    public static function registrarHistorial($valoracion, $tipoAccion)
+    {
+        // Solo permitimos "CREACIÓN" o "ACTUALIZACIÓN"
+        if (!in_array($tipoAccion, ['CREACIÓN', 'ACTUALIZACIÓN'])) {
+            return;
+        }
+
+        self::create([
+            'valoracion_id'       => $valoracion->id,
+            'idUsuario'           => $valoracion->idUsuario,
+            'fecha'               => $valoracion->fecha,
+            'altura'              => $valoracion->altura,
+            'peso'                => $valoracion->peso,
+            'pecho'               => $valoracion->pecho,
+            'cintura'             => $valoracion->cintura,
+            'cadera'              => $valoracion->cadera,
+            'brazoIzquierdo'      => $valoracion->brazoIzquierdo,
+            'brazoDerecho'        => $valoracion->brazoDerecho,
+            'antebrazoIzquierdo'  => $valoracion->antebrazoIzquierdo,
+            'antebrazoDerecho'    => $valoracion->antebrazoDerecho,
+            'piernaIzquierda'     => $valoracion->piernaIzquierda,
+            'piernaDerecha'       => $valoracion->piernaDerecha,
+            'pantorrillaIzquierda'=> $valoracion->pantorrillaIzquierda,
+            'pantorrillaDerecha'  => $valoracion->pantorrillaDerecha,
+            'fechaRegistro'       => $valoracion->fechaRegistro,
+            'tipo_accion'         => $tipoAccion,
+            'fecha_historial'     => now(),
+        ]);
     }
 }

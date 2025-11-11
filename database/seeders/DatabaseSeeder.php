@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         RutinaSeeder::class,
         EntrenamientosSeeder::class,
         EjerciciosSeeder::class,
+
+
     ]);
 
     }
