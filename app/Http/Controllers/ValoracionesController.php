@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\valoraciones;
-use App\Models\Usuario;   
+   
 use App\Models\Valoraciones;
 use App\Models\Usuario;
 use App\Models\HistorialValoracion;
@@ -115,16 +114,13 @@ class ValoracionesController extends Controller
     public function historial($id)
     {
 
-    $valoracion = \App\Models\valoraciones::with(['usuario', 'historial.usuario'])->findOrFail($id);
-    return view('valoraciones.historial', compact('valoraciones'));
-    }
-
-
-}
-
-        $valoracion = Valoraciones::with(['usuario', 'historial.usuario'])->findOrFail($id);
+      $valoracion = Valoraciones::with(['usuario', 'historial.usuario'])->findOrFail($id);
         return view('valoraciones.historial', compact('valoracion'));
     }
+
+
 }
+
+     
 
 
