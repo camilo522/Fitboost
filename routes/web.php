@@ -74,6 +74,7 @@ Route::get('/planes-nutricionales/index/', [PlanNutricionalController::class, 'i
 Route::get('/planes-nutricionales/create/', [PlanNutricionalController::class, 'create'])->name('planes-nutricionales.create');
 Route::post('/planes-nutricionales/store/', [PlanNutricionalController::class, 'store'])->name('planes-nutricionales.store');
 Route::get('/planes-nutricionales/edit/{id}', [PlanNutricionalController::class, 'edit'])->name('planes-nutricionales.edit');
+Route::post('/planes-nutricionales/update/{id}', [PlanNutricionalController::class, 'update'])->name('planes-nutricionales.update');
 Route::post('/planes-nutricionales/destroy/{id}', [PlanNutricionalController::class, 'destroy'])->name('planes-nutricionales.destroy');
 
 

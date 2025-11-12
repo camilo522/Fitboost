@@ -4,10 +4,9 @@
 
 @section('content')
 <div class="container my-5">
-    <!-- Logo del proyecto -->
+    
     <div class="text-center mb-5">
-        <img src="{{ asset('imagenes/logo.pgn.jpeg') }}" alt="Logo FitBoost" style="width: 150px; height: auto;">
-        <h1 class="fw-bold mt-3">Panel principal</h1>
+        <h1 class="fw-bold mt-6">Panel principal</h1>
     </div>
 
     <div  class="row justify-content-center g-4 mb-4">
