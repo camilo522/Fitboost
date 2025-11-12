@@ -81,6 +81,20 @@
             </div>
         </div>
 
+        <!-- plan nutricional -->
+        <div class="col-md-4">
+            <div class="card text-center shadow-lg border-0 rounded-4 card-hover">
+                <div class="card-body">
+                    <img src="" alt="Ejercicios" class="card-img-top mb-3 custom-img">
+                    <h5 class="card-title">Plan nutrici onal</h5>
+                    <p class="card-text">Plan nutrici onal</p>
+                    <a href="{{ route('planes-nutricionales.index') }}" class="btn rounded-pill shadow-sm px-4 text-white fw-bold" 
+                    style="background: linear-gradient(90deg, #6a11cb, #2575fc);">Ir</a>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
