@@ -1,12 +1,15 @@
 <?php
 
+use App\Http\Controllers\CalculadoraController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EjerciciosController;
 use App\Http\Controllers\EntrenamientosController;
+use App\Http\Controllers\PlanNutricionalController;
 use App\Http\Controllers\RutinaEjerciciosController;
 use App\Http\Controllers\RutinasController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ValoracionesController;
+use App\Models\PlanNutricional;
 
 // Página inicial (landing con el logo de FitBoost)
 Route::get('/', function () {
@@ -66,3 +69,15 @@ Route::post('/valoraciones/update/{id}', [ValoracionesController::class, 'update
 Route::post('/valoraciones/destroy/{id}', [ValoracionesController::class, 'destroy'])->name('valoraciones.destroy');
 Route::get('/valoraciones/{id}/historial', [App\Http\Controllers\ValoracionesController::class, 'historial'])->name('valoraciones.historial');
 
+// ------------------- planes-nutricionales -------------------
+Route::get('/planes-nutricionales/index/', [PlanNutricionalController::class, 'index'])->name('planes-nutricionales.index');
+Route::get('/planes-nutricionales/create/', [PlanNutricionalController::class, 'create'])->name('planes-nutricionales.create');
+Route::post('/planes-nutricionales/store/', [PlanNutricionalController::class, 'store'])->name('planes-nutricionales.store');
+Route::get('/planes-nutricionales/edit/{id}', [PlanNutricionalController::class, 'edit'])->name('planes-nutricionales.edit');
+Route::post('/planes-nutricionales/update/{id}', [PlanNutricionalController::class, 'update'])->name('planes-nutricionales.update');
+Route::post('/planes-nutricionales/destroy/{id}', [PlanNutricionalController::class, 'destroy'])->name('planes-nutricionales.destroy');
+
+
+// Rutas para la Calculadora de Macronutrientes
+Route::get('/calculadora', [CalculadoraController::class, 'index'])->name('calculadora.index');
+Route::post('/calculadora/calcular', [CalculadoraController::class, 'calcular'])->name('calculadora.calcular');

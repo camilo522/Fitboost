@@ -257,7 +257,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'welcome',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -343,6 +343,13 @@ return [
         'route'  => 'ejercicios.index',
         'icon' => 'fas fa-fw fa-running',
     ],
+
+    [
+        'text' => 'Plan Nutricional',
+        'route'  => 'planes-nutricionales.index',
+        'icon' => 'fas fa-fw fa-utensils',
+    ],
+
 ],
 
 

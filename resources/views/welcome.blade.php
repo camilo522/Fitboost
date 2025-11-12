@@ -4,10 +4,9 @@
 
 @section('content')
 <div class="container my-5">
-    <!-- Logo del proyecto -->
+    
     <div class="text-center mb-5">
-        <img src="{{ asset('imagenes/logo.pgn.jpeg') }}" alt="Logo FitBoost" style="width: 150px; height: auto;">
-        <h1 class="fw-bold mt-3">Panel principal</h1>
+        <h1 class="fw-bold mt-6">Panel principal</h1>
     </div>
 
     <div  class="row justify-content-center g-4 mb-4">
@@ -80,6 +79,20 @@
                 </div>
             </div>
         </div>
+
+        <!-- plan nutricional -->
+        <div class="col-md-4">
+            <div class="card text-center shadow-lg border-0 rounded-4 card-hover">
+                <div class="card-body">
+                    <img src="" alt="Ejercicios" class="card-img-top mb-3 custom-img">
+                    <h5 class="card-title">Plan nutrici onal</h5>
+                    <p class="card-text">Plan nutrici onal</p>
+                    <a href="{{ route('planes-nutricionales.index') }}" class="btn rounded-pill shadow-sm px-4 text-white fw-bold" 
+                    style="background: linear-gradient(90deg, #6a11cb, #2575fc);">Ir</a>
+                </div>
+            </div>
+        </div>
+
 
     </div>
 </div>
