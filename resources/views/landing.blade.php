@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FitBoost - Bienvenido</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -68,11 +69,14 @@
         }
     </style>
 </head>
+
 <body>
     <div class="welcome-container">
         <h1>Bienvenido a <span style="color:#ff4d4d;">FitBoost</span></h1>
         <p>Tu compañero ideal para alcanzar tus metas fitness</p>
-        <a href="{{ route('welcome') }}" class="btn btn-custom">Ingresar</a>
+
+        <!-- BOTÓN QUE REDIRIGE AL LOGIN -->
+        <a href="{{ route('login') }}" class="btn btn-custom">Iniciar sesión</a>
     </div>
 </body>
 </html>

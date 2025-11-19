@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalculadoraController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EjerciciosController;
@@ -81,3 +82,9 @@ Route::post('/planes-nutricionales/destroy/{id}', [PlanNutricionalController::cl
 // Rutas para la Calculadora de Macronutrientes
 Route::get('/calculadora', [CalculadoraController::class, 'index'])->name('calculadora.index');
 Route::post('/calculadora/calcular', [CalculadoraController::class, 'calcular'])->name('calculadora.calcular');
+
+//rutas para login 
+
+Route::get('/login', [AuthController::class, 'verlogin'])->name('login');
+Route::post('/loginsubmit', [AuthController::class, 'login'])->name('login.submit');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

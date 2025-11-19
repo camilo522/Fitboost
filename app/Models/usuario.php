@@ -2,31 +2,50 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
-class Usuario extends Model
+class Usuario extends Authenticatable
 {
-    use HasFactory;
+    use Notifiable;
 
     protected $table = 'usuarios';
 
     protected $fillable = [
         'nombre',
         'email',
-        'contrasena',
+        'password',
         'fechaRegistro'
     ];
 
-    // Relación: un usuario puede tener muchas valoraciones
+    protected $hidden = [
+        'password',
+    ];
+
+    // Auth::attempt usará esta columna
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
+
+    // 🔹 Mutator: siempre guarda la contraseña hasheada
+    public function setPasswordAttribute($value)
+    {
+        if ($value) {
+            $this->attributes['password'] = Hash::make($value);
+        }
+    }
+
     public function valoraciones()
     {
         return $this->hasMany(valoraciones::class, 'idUsuario');
     }
 
-    // Relación: un usuario puede tener muchos registros en el historial
     public function historialValoraciones()
     {
         return $this->hasMany(HistorialValoracion::class, 'idUsuario');
     }
+
+    
 }

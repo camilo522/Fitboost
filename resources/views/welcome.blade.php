@@ -1,15 +1,35 @@
 @extends('layouts.app')
 
-@section('title', 'FitBoost')
+@section('title', 'FitBo  ost')
+
 
 @section('content')
+
+
+<div class="d-flex justify-content-end mb-4">
+    <!-- Form oculto -->
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+
+    <!-- Botón visible -->
+    <a href="#"
+       onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+       class="btn rounded-pill shadow-sm px-4 text-white fw-bold"
+       style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+       <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
+    </a>
+</div>
+
 <div class="container my-5">
+    
     
     <div class="text-center mb-5">
         <h1 class="fw-bold mt-6">Panel principal</h1>
     </div>
 
     <div class="row justify-content-center g-4 mb-4">
+
         
         <!-- Usuarios -->
         <div class="col-md-4">
@@ -99,8 +119,8 @@
             </div>
         </div>
 
-    </div>
-</div>
+
+
 
 <style>
     /* Tamaño uniforme de imágenes */

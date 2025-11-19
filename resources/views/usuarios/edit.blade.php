@@ -40,11 +40,11 @@
                 </div>
 
                 <div class="mb-3">
-                <label for="contrasena" class="form-label fw-bold">Nueva Contraseña</label>
+                <label for="password" class="form-label fw-bold">Nueva Contraseña</label>
                 <small class="text-muted d-block mb-2">(Déjalo en blanco si no deseas cambiarla)</small>
                 
                 <div class="input-group">
-                    <input type="password" class="form-control rounded-pill shadow-sm" id="contrasena" name="contrasena" placeholder="Escribe una nueva contraseña">
+                    <input type="password" class="form-control rounded-pill shadow-sm" id="password" name="password" placeholder="Escribe una nueva contraseña">
                     
                     <button class="btn btn-outline-secondary rounded-pill" type="button" id="togglePassword">
                         <i class="bi bi-eye" id="eyeIcon"></i>
@@ -53,8 +53,8 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="contrasena_confirmation" class="form-label fw-bold">Confirmar Nueva Contraseña</label>
-                    <input type="password" class="form-control rounded-pill shadow-sm" id="contrasena_confirmation" name="contrasena_confirmation" placeholder="Confirma la nueva contraseña">
+                    <label for="password_confirmation" class="form-label fw-bold">Confirmar Nueva Contraseña</label>
+                    <input type="password" class="form-control rounded-pill shadow-sm" id="password_confirmation" name="password_confirmation" placeholder="Confirma la nueva contraseña">
                 </div>
                 
                 <div class="mb-3">
@@ -80,7 +80,7 @@
 </div>
 <script>
     const togglePassword = document.getElementById('togglePassword');
-    const passwordInput = document.getElementById('contrasena');
+    const passwordInput = document.getElementById('password');
     const eyeIcon = document.getElementById('eyeIcon');
 
     togglePassword.addEventListener('click', function() {

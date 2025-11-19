@@ -10,24 +10,35 @@ class ValoracionesSeeder extends Seeder
 {
     public function run(): void
     {
-        // Array para almacenar los registros que se insertarán en la base de datos
         $valoraciones = [];
 
-        // Diferentes opciones de valoración que se asignarán aleatoriamente
-        $opciones = ['Excelente', 'Buena', 'Regular', 'Mala'];
-
-        // Generar 10 registros de ejemplo con datos variados
         for ($i = 1; $i <= 10; $i++) {
             $valoraciones[] = [
-                'Nombre' => 'Usuario ' . $i,
-                'Horario' => '0' . rand(6, 9) . ':00 AM - ' . rand(10, 12) . ':00 PM',
-                'Descripción' => 'Comentario del usuario ' . $i . ' sobre su experiencia de entrenamiento.',
-                'Valoración' => rand(1, 5), // Ejemplo: valores numéricos de 1 a 5 (puedes adaptarlo)
-                'Opciones' => $opciones[array_rand($opciones)], // Se elige una opción al azar
+                'idUsuario' => rand(1, 10), // Cambia según existan usuarios
+                'fecha' => Carbon::now()->subDays(rand(1, 30))->format('Y-m-d'),
+                'altura' => rand(150, 200),
+                'peso' => rand(50, 100),
+
+                'pecho' => rand(80, 120),
+                'cintura' => rand(60, 100),
+                'cadera' => rand(80, 120),
+
+                'brazoIzquierdo' => rand(20, 45),
+                'brazoDerecho' => rand(20, 45),
+                'antebrazoIzquierdo' => rand(15, 35),
+                'antebrazoDerecho' => rand(15, 35),
+
+                'piernaIzquierda' => rand(40, 70),
+                'piernaDerecha' => rand(40, 70),
+                'pantorrillaIzquierda' => rand(25, 45),
+                'pantorrillaDerecha' => rand(25, 45),
+
+                'fechaRegistro' => Carbon::now()->format('Y-m-d'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ];
         }
 
-        // Inserta todos los registros generados en la tabla "valoraciones"
         DB::table('valoraciones')->insert($valoraciones);
     }
 }

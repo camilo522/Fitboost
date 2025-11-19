@@ -15,6 +15,17 @@
             <form action="{{ route('ejercicios.update', $ejercicio->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     
+                                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <strong>¡Error!</strong> Por favor corrige los siguientes campos:
+                            <ul class="mb-0 mt-2">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
 
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
