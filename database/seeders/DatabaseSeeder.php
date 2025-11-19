@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
         EjerciciosSeeder::class,
         ValoracionesSeeder::class,
 
-
     ]);
 
     }

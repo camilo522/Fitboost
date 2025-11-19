@@ -36,7 +36,7 @@ class PlanNutricionalController extends Controller
 
         PlanNutricional::create($request->all());
 
-        return redirect()->route('planes-nutricionales.index')->with('success', 'Plan creado correctamente.');
+        return redirect()->route('planes-nutricionlaes.index')->with('success', 'Plan creado correctamente.');
     }
 
     public function edit($id)
