@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UsuarioRequest;
 use App\Models\User;
 use App\Models\usuario;
 use Illuminate\Http\Request;
@@ -29,11 +30,11 @@ class UsuarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UsuarioRequest $request)
     {
         usuario::create( $request->all());
 
-        return redirect()->route('usuario.index'); //->with('success', 'usuario creada correctamente')/
+        return redirect()->route('usuario.index')->with('success', 'usuario creada correctamente');
     }
 
     /**
@@ -92,21 +93,21 @@ class UsuarioController extends Controller
     public function destroy( $id)
     {
         {
-        {
-
-            $usuario = usuario::findOrFail($id);
-         $usuario->delete();
-
-       return redirect()->route('usuario.index');
-        /*$usuario = usuario::FindorFail($id);
+        
+        
+        $usuario = usuario::FindorFail($id);
         try{
         $usuario -> delete();
         return redirect()->route('usuario.index')
-        /*->with('success','usuario Eliminado correctamente');
-        }  catch (\Illuminate\Database\QueryException $e) {
+        ->with('success','usuario Eliminado correctamente');
+       }  catch (\Illuminate\Database\QueryException $e) {
         return redirect()->route('usuario.index')
-        ->with('error', 'No se puede eliminar este usuario porque tiene visualizaciones asociadas.');*/
+                ->with('error', 'No se puede eliminar este usuario porque tiene valoraciones asociadas.');
         }
     }
     }
-    }
+}
+
+        
+        
+    

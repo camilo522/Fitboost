@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EjercicioRequest;
 use App\Models\ejercicios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +20,7 @@ class EjerciciosController extends Controller
         return view('ejercicios.create');
     }
 
-    public function store(Request $request)
+    public function store(EjercicioRequest $request)
     {
         // ✅ Validación actualizada
         $request->validate([
@@ -141,7 +142,8 @@ class EjerciciosController extends Controller
 
     public function destroy($id)
     {
-        $ejercicio = ejercicios::findOrFail($id);
+        $ejercicio = ejercicios::FindorFail($id);
+        try{
 
         // Eliminar imagen y video del almacenamiento si son archivos locales
         if ($ejercicio->imagenURL && str_starts_with($ejercicio->imagenURL, '/storage')) {
@@ -153,8 +155,14 @@ class EjerciciosController extends Controller
             Storage::disk('public')->delete($path);
         }
 
-        $ejercicio->delete();
-
-        return redirect()->route('ejercicios.index')->with('success', 'Ejercicio eliminado correctamente.');
-    }
+ 
+        $ejercicio -> delete();
+        return redirect()->route('ejercicios.index')
+        ->with('success', 'ejercicios eliminado correctamente.');
+       }  catch (\Illuminate\Database\QueryException $e) {
+        return redirect()->route('ejercicios.index')
+                ->with('error', 'No se puede eliminar esta ejercicios porque tiene  entrenamientos asociadas.');
+        }
+       }
 }
+  

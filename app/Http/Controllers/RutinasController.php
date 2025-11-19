@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RutinaRequest;
 use App\Models\entrenamientos;
 use App\Models\rutinas;
 use Illuminate\Http\Request;
@@ -30,11 +31,11 @@ class RutinasController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(RutinaRequest $request)
     {
         rutinas::create( $request->all());
 
-        return redirect()->route('rutinas.index'); //->with('success', 'rutinas creada correctamente')/
+        return redirect()->route('rutinas.index')->with('success', 'rutinas creada correctamente');
     }
 
     /**
@@ -65,32 +66,27 @@ class RutinasController extends Controller
         $rutinas = rutinas::FindorFail($id);
         $rutinas->update($request->all());
 
-        return redirect()->route('rutinas.index');  //->with('success','rutinas actualizado correctamente')/
+        return redirect()->route('rutinas.index')->with('success','rutinas actualizado correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+
+ 
+    public function destroy( $id)
     {
-        {
-
-        $rutina = rutinas::findOrFail($id);
-        $rutina->delete();
-
-       return redirect()->route('rutinas.index');
-
-
-
-
-        /*$rutinas = rutinas::FindorFail($id);
+    {
+        
+        $rutina = rutinas::FindorFail($id);
         try{
-        $rutinas -> delete();
+        $rutina -> delete();
         return redirect()->route('rutinas.index')
-        ->with('success','rutinas Eliminado correctamente');
+        ->with('success', 'rutina eliminado correctamente.');
        }  catch (\Illuminate\Database\QueryException $e) {
         return redirect()->route('rutinas.index')
-                ->with('error', 'No se puede eliminar este rutinas porque tiene visualizaciones asociadas.');*/
+                ->with('error', 'No se puede eliminar esta rutina porque tiene  entrenamientos asociadas.');
         }
     }
     }
+}

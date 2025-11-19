@@ -10,20 +10,28 @@ class ValoracionesSeeder extends Seeder
 {
     public function run(): void
     {
-        // Array para almacenar los registros que se insertarán en la base de datos
+        // Array para almacenar los registros que se insertarán
         $valoraciones = [];
 
-        // Diferentes opciones de valoración que se asignarán aleatoriamente
-        $opciones = ['Excelente', 'Buena', 'Regular', 'Mala'];
-
-        // Generar 10 registros de ejemplo con datos variados
+        // Generar 10 registros de ejemplo con datos de medidas corporales
         for ($i = 1; $i <= 10; $i++) {
             $valoraciones[] = [
-                'Nombre' => 'Usuario ' . $i,
-                'Horario' => '0' . rand(6, 9) . ':00 AM - ' . rand(10, 12) . ':00 PM',
-                'Descripción' => 'Comentario del usuario ' . $i . ' sobre su experiencia de entrenamiento.',
-                'Valoración' => rand(1, 5), // Ejemplo: valores numéricos de 1 a 5 (puedes adaptarlo)
-                'Opciones' => $opciones[array_rand($opciones)], // Se elige una opción al azar
+                'idUsuario' => $i, // Suponiendo que ya existen usuarios con id del 1 al 10
+                'fecha' => Carbon::now(),
+                'altura' => rand(150, 190), // altura en cm
+                'peso' => rand(50, 100), // peso en kg
+                'pecho' => rand(80, 110),
+                'cintura' => rand(70, 100),
+                'cadera' => rand(80, 110),
+                'brazoIzquierdo' => rand(25, 40),
+                'brazoDerecho' => rand(25, 40),
+                'antebrazoIzquierdo' => rand(20, 30),
+                'antebrazoDerecho' => rand(20, 30),
+                'piernaIzquierda' => rand(40, 60),
+                'piernaDerecha' => rand(40, 60),
+                'pantorrillaIzquierda' => rand(30, 45),
+                'pantorrillaDerecha' => rand(30, 45),
+                'fechaRegistro' => Carbon::now(),
             ];
         }
 

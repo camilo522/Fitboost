@@ -15,11 +15,18 @@
                     <form action="{{ route('rutinas.store') }}" method="POST">
                         @csrf
 
+                        {{-- Mensaje de éxito --}}
+                            @if(session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
                         {{-- Entrenamiento --}}
                         <div class="mb-3">
                             <label for="idEntrenamiento" class="form-label fw-bold">Entrenamiento</label>
                             <select name="idEntrenamiento" id="idEntrenamiento" 
-                                    class="form-control rounded-pill px-3 py-2 shadow-sm" required>
+                                    class="form-control rounded-pill px-3 py-2 shadow-sm @error('idEntrenamiento')is-invalid  @enderror" >
                                 <option value="" disabled selected>Seleccione un entrenamiento</option>
                                 @foreach ($entrenamientos as $entrenamiento)
                                     <option value="{{ $entrenamiento->id }}">
@@ -27,29 +34,41 @@
                                     </option>
                                 @endforeach
                             </select>
+                             @error('idEntrenamiento')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
                         {{-- Nombre --}}
                         <div class="mb-3">
                             <label for="nombre" class="form-label fw-bold">Nombre de la Rutina</label>
                             <input type="text" name="nombre" id="nombre" 
-                                   class="form-control rounded-pill px-3 py-2 shadow-sm" 
-                                   placeholder="Ejemplo: Fuerza Avanzada" required>
+                                   class="form-control rounded-pill px-3 py-2 shadow-sm @error('nombre')is-invalid  @enderror" 
+                                   placeholder="Ejemplo: Fuerza Avanzada" >
+                                   @error('nombre')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
                         {{-- Horario --}}
                         <div class="mb-3">
                             <label for="horario" class="form-label fw-bold">Horario</label>
                             <input type="time" name="horario" id="horario" 
-                                   class="form-control rounded-pill px-3 py-2 shadow-sm" required>
+                                   class="form-control rounded-pill px-3 py-2 shadow-sm @error('horario')is-invalid  @enderror">
+                                   @error('horario')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
                         {{-- Descripción --}}
                         <div class="mb-3">
                             <label for="descripcion" class="form-label fw-bold">Descripción</label>
                             <textarea name="descripcion" id="descripcion" rows="3" 
-                                      class="form-control rounded-4 px-3 py-2 shadow-sm"
+                                      class="form-control rounded-4 px-3 py-2 shadow-sm @error('descripcion')is-invalid  @enderror"
                                       placeholder="Ingrese una breve descripción..."></textarea>
+                                      @error('descripcion')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
                         {{-- Botones --}}

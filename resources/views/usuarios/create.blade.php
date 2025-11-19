@@ -12,15 +12,30 @@
         <div class="card-body p-4">
             <form action="{{ route('usuario.store') }}" method="POST">
                 @csrf
+                 {{-- Mensaje de éxito --}}
+                            @if(session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
 
                 <div class="mb-3">
                     <label for="nombre" class="form-label fw-bold">Nombre</label>
-                    <input type="text" class="form-control rounded-pill shadow-sm" id="nombre" name="nombre" placeholder="Escribe el nombre" required>
+                    <input type="text" class="form-control rounded-pill shadow-sm @error('nombre')is-invalid  @enderror " id="nombre" name="nombre" placeholder="Escribe el nombre"  >
+                     @error('nombre')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                 </div>
 
                 <div class="mb-3">
+
+                    
                     <label for="email" class="form-label fw-bold">Correo Electrónico</label>
-                    <input type="email" class="form-control rounded-pill shadow-sm" id="email" name="email" placeholder="ejemplo@correo.com" required>
+                    <input type="email" class="form-control rounded-pill shadow-sm" id="email" name="email" placeholder="ejemplo@correo.com"  @error('email')is-invalid  @enderror>
+                     @error('email')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                 </div>
 
                 <div class="mb-3">
@@ -28,18 +43,26 @@
                 
                 <!-- Contenedor para el input y el ojito -->
                 <div class="input-group">
-                    <input type="password" class="form-control rounded-pill shadow-sm" id="contrasena" name="contrasena" placeholder="****" required>
-                    
+                    <input type="password" class="form-control rounded-pill shadow-sm" id="contrasena" name="contrasena" placeholder="****"  @error('contrasena')is-invalid  @enderror>
+                     
+
                     <!-- Botón para mostrar/ocultar la contraseña -->
                     <button class="btn btn-outline-secondary rounded-pill" type="button" id="togglePassword">
                         <i class="bi bi-eye" id="eyeIcon"></i>
                     </button>
+                   
                 </div>
+                 @error('contrasena')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                 </div>
                 
                 <div class="mb-3">
                     <label for="fechaRegistro" class="form-label fw-bold">fechaRegistro</label>
-                    <input type="date" class="form-control rounded-pill shadow-sm" id="fechaRegistro" name="fechaRegistro" placeholder >
+                    <input type="date" class="form-control rounded-pill shadow-sm" id="fechaRegistro" name="fechaRegistro"  @error('fechaRegistro')is-invalid  @enderror>
+                     @error('fechaRegistro')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
