@@ -20,7 +20,7 @@ class EjerciciosController extends Controller
         return view('ejercicios.create');
     }
 
-    public function store(EjercicioRequest $request)
+    public function store(Request $request)
     {
         // ✅ Validación actualizada
         $request->validate([
@@ -41,33 +41,33 @@ class EjerciciosController extends Controller
 
         $data = $request->all();
 
-        // --- Lógica para la IMAGEN ---
-        if ($request->hasFile('imagen_file')) {
-            $data['imagenURL'] = $request->file('imagen_file')->store('ejercicios/imagenes', 'public');
-            $data['imagenURL'] = Storage::url($data['imagenURL']); // Guardamos la URL completa
-        } elseif ($request->filled('imagen_url')) {
-            $data['imagenURL'] = $request->imagen_url;
-        } else {
-            $data['imagenURL'] = null; // Aseguramos que sea nulo si no se proporciona nada
-        }
-
-        // --- Lógica para el VIDEO ---
-        if ($request->hasFile('video_file')) {
-            $data['videoURL'] = $request->file('video_file')->store('ejercicios/videos', 'public');
-            $data['videoURL'] = Storage::url($data['videoURL']); // Guardamos la URL completa
-        } elseif ($request->filled('video_url')) {
-            $data['videoURL'] = $request->video_url;
-        } else {
-            $data['videoURL'] = null;
-        }
-
-        // Eliminamos los campos de archivo del array de datos para no guardarlos en la BD
-        unset($data['imagen_file'], $data['video_file']);
-
-        ejercicios::create($data);
-
-        return redirect()->route('ejercicios.index')->with('success', 'Ejercicio creado correctamente.');
+    // --- Lógica para la IMAGEN ---
+    if ($request->hasFile('imagen_file')) {
+        $data['imagenURL'] = $request->file('imagen_file')->store('ejercicios/imagenes', 'public');
+        $data['imagenURL'] = Storage::url($data['imagenURL']);
+    } elseif ($request->filled('imagen_url')) {
+        $data['imagenURL'] = $request->imagen_url;
+    } else {
+        $data['imagenURL'] = null;
     }
+
+    // --- Lógica para el VIDEO ---
+    if ($request->hasFile('video_file')) {
+        $data['videoURL'] = $request->file('video_file')->store('ejercicios/videos', 'public');
+        $data['videoURL'] = Storage::url($data['videoURL']);
+    } elseif ($request->filled('video_url')) {
+        $data['videoURL'] = $request->video_url;
+    } else {
+        $data['videoURL'] = null;
+    }
+
+    // Quita los campos temporales antes de guardar
+    unset($data['imagen_file'], $data['video_file']);
+
+    ejercicios::create($data);
+
+    return redirect()->route('ejercicios.index')->with('success', 'Ejercicio creado correctamente.');
+}
 
     public function edit($id)
     {

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Valoraciones;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -17,8 +18,8 @@ class DatabaseSeeder extends Seeder
             
       $this->call([
         UsuarioSeeder::class,
+       EntrenamientosSeeder::class,
         RutinaSeeder::class,
-        EntrenamientosSeeder::class,
         EjerciciosSeeder::class,
         ValoracionesSeeder::class,
 

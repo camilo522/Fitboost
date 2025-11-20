@@ -6,6 +6,7 @@
     <h1 class="fw-bold text-gradient"><i class="bi bi-person-plus-fill"></i> Nuevo Usuario</h1>
 @endsection
 
+
 @section('content')
 <div class="container mt-4">
     <div class="card shadow-lg border-0 rounded-4">
@@ -39,13 +40,12 @@
                 </div>
 
                 <div class="mb-3">
-                <label for="contrasena" class="form-label fw-bold">Contraseña</label>
+                <label for="password" class="form-label fw-bold">Contraseña</label>
                 
                 <!-- Contenedor para el input y el ojito -->
                 <div class="input-group">
-                    <input type="password" class="form-control rounded-pill shadow-sm" id="contrasena" name="contrasena" placeholder="****"  @error('contrasena')is-invalid  @enderror>
-                     
-
+                    <input type="password" class="form-control rounded-pill shadow-sm" id="contrasena" name="contrasena" placeholder="****" required>
+                    
                     <!-- Botón para mostrar/ocultar la contraseña -->
                     <button class="btn btn-outline-secondary rounded-pill" type="button" id="togglePassword">
                         <i class="bi bi-eye" id="eyeIcon"></i>

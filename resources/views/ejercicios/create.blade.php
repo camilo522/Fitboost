@@ -15,6 +15,18 @@
             <form action="{{ route('ejercicios.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
+                                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <strong>¡Error!</strong> Por favor corrige los siguientes campos:
+                            <ul class="mb-0 mt-2">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+
                 
                         {{-- Mensaje de éxito --}}
                             @if(session('success'))

@@ -22,6 +22,12 @@ class UsuarioController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+
+    
+
+    
+
+
     public function create()
     {
         return view('usuarios.create');
@@ -30,11 +36,11 @@ class UsuarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UsuarioRequest $request)
+    public function store(Request $request)
     {
         usuario::create( $request->all());
 
-        return redirect()->route('usuario.index')->with('success', 'usuario creada correctamente');
+        return redirect()->route('usuario.index'); //->with('success', 'usuario creada correctamente')/
     }
 
     /**
@@ -59,37 +65,33 @@ class UsuarioController extends Controller
      * Update the specified resource in storage.
      */
    
-        public function update(Request $request, $id)
+     public function update(Request $request, $id)
 {
-            // Busca al usuario (usando el nombre del modelo en PascalCase es mejor práctica)
-            $usuario = Usuario::findOrFail($id);
+    $usuario = Usuario::findOrFail($id);
 
-            // Validación corregida
-            $request->validate([
-                'nombre' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:usuarios,email,' . $usuario->id, // Tabla corregida
-                'contrasena' => 'nullable|string|min:8|confirmed',
-                'fechaRegistro' => 'required|date', // Añadida validación para la fecha
-            ]);
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:usuarios,email,' . $usuario->id,
+        'password' => 'nullable|string|min:8|confirmed',
+        'fechaRegistro' => 'required|date',
+    ]);
 
-            // Actualiza los datos del usuario (nombres de campo corregidos)
-            $usuario->nombre = $request->nombre;
-            $usuario->email = $request->email;
-            $usuario->fechaRegistro = $request->fechaRegistro; // Línea añadida
+    $usuario->nombre = $request->nombre;
+    $usuario->email = $request->email;
+    $usuario->fechaRegistro = $request->fechaRegistro;
 
-            // Solo actualiza la contraseña si el usuario escribió una nueva
-            if ($request->filled('contrasena')) {
-                $usuario->contrasena = bcrypt($request->contrasena);
-            }
+    if ($request->filled('password')) {
+        $usuario->password = $request->password; // mutator lo hashea
+    }
 
-            // Guarda los cambios
-            $usuario->save();
+    $usuario->save();
 
-            return redirect()->route('usuario.index')->with('success', 'Usuario actualizado correctamente.');
-        }
-    /**
-     * Remove the specified resource from storage.
-     */
+    // 🔹 Cambiado para redirigir al listado de usuarios
+    return redirect()->route('usuario.index')->with('success', 'Usuario actualizado correctamente');
+}
+
+
+
     public function destroy( $id)
     {
         {
