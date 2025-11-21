@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitBoost - Iniciar Sesión</title>
+    <title>FitBoost - Registro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
@@ -11,24 +11,37 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 2rem 0;
         }
 
-        .login-card {
+        .register-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border: none;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.5s ease;
         }
 
-        .login-header {
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .register-header {
             background: linear-gradient(90deg, #6a11cb, #2575fc);
             padding: 2rem;
             text-align: center;
         }
 
-        .login-logo {
+        .register-logo {
             width: 80px;
             height: 80px;
             background: white;
@@ -40,7 +53,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .login-logo i {
+        .register-logo i {
             font-size: 2.5rem;
             background: linear-gradient(90deg, #6a11cb, #2575fc);
             -webkit-background-clip: text;
@@ -59,7 +72,7 @@
             box-shadow: 0 0 0 0.2rem rgba(106, 17, 203, 0.15);
         }
 
-        .btn-login {
+        .btn-register {
             background: linear-gradient(90deg, #6a11cb, #2575fc);
             border: none;
             border-radius: 25px;
@@ -70,19 +83,20 @@
             box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3);
         }
 
-        .btn-login:hover {
+        .btn-register:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(106, 17, 203, 0.4);
+            color: white;
         }
 
-        .register-link {
+        .login-link {
             color: #6a11cb;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
         }
 
-        .register-link:hover {
+        .login-link:hover {
             color: #2575fc;
             text-decoration: underline;
         }
@@ -107,20 +121,41 @@
             border-radius: 10px;
             border: none;
         }
+
+        .form-label {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-badge {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(90deg, rgba(106, 17, 203, 0.1), rgba(37, 117, 252, 0.1));
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin: 0.25rem;
+            font-size: 0.85rem;
+            color: #6a11cb;
+        }
+
+        .feature-badge i {
+            margin-right: 0.5rem;
+        }
     </style>
 </head>
 <body>
 
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="login-card" style="width: 450px; max-width: 95%;">
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="register-card" style="width: 500px; max-width: 95%;">
         
         <!-- Header con logo -->
-        <div class="login-header">
-            <div class="login-logo">
+        <div class="register-header">
+            <div class="register-logo">
                 <i class="bi bi-lightning-charge-fill"></i>
             </div>
             <h3 class="text-white fw-bold mb-0">FitBoost</h3>
-            <p class="text-white-50 mb-0 mt-1">Bienvenido de vuelta</p>
+            <p class="text-white-50 mb-0 mt-1">Comienza tu transformación</p>
         </div>
 
         <!-- Cuerpo del formulario -->
@@ -145,22 +180,40 @@
                 </div>
             @endif
 
-            <form action="{{ route('login.submit') }}" method="POST">
+            <form action="{{ route('registro.submit') }}" method="POST">
                 @csrf
 
-                <!-- Email -->
+                <!-- Nombre -->
                 <div class="mb-3">
-                    <label class="form-label fw-semibold text-dark">
-                        <i class="bi bi-envelope me-2"></i>Correo Electrónico
+                    <label class="form-label">
+                        <i class="bi bi-person-fill me-2"></i>Nombre Completo
                     </label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="bi bi-person"></i>
                         </span>
+                        <input type="text" 
+                               name="name" 
+                               class="form-control" 
+                               placeholder="Ingresa tu nombre completo" 
+                               value="{{ old('name') }}"
+                               required>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        <i class="bi bi-envelope-fill me-2"></i>Correo Electrónico
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-envelope"></i>
+                        </span>
                         <input type="email" 
                                name="email" 
                                class="form-control" 
-                               placeholder="email@example.com" 
+                               placeholder="correo@example.com" 
                                value="{{ old('email') }}"
                                required>
                     </div>
@@ -168,8 +221,8 @@
 
                 <!-- Contraseña -->
                 <div class="mb-4">
-                    <label class="form-label fw-semibold text-dark">
-                        <i class="bi bi-lock me-2"></i>Contraseña
+                    <label class="form-label">
+                        <i class="bi bi-lock-fill me-2"></i>Contraseña
                     </label>
                     <div class="input-group">
                         <span class="input-group-text">
@@ -178,23 +231,41 @@
                         <input type="password" 
                                name="password" 
                                class="form-control" 
-                               placeholder="••••••••" 
+                               placeholder="Mínimo 8 caracteres" 
                                required>
+                    </div>
+                    <small class="text-muted d-block mt-1">
+                        <i class="bi bi-info-circle me-1"></i>Usa al menos 8 caracteres para mayor seguridad
+                    </small>
+                </div>
+
+                <!-- Features -->
+                <div class="mb-4 text-center">
+                    <div class="d-flex flex-wrap justify-content-center gap-2">
+                        <span class="feature-badge">
+                            <i class="bi bi-check-circle-fill"></i> Entrenamientos personalizados
+                        </span>
+                        <span class="feature-badge">
+                            <i class="bi bi-check-circle-fill"></i> Planes nutricionales
+                        </span>
+                        <span class="feature-badge">
+                            <i class="bi bi-check-circle-fill"></i> Seguimiento de progreso
+                        </span>
                     </div>
                 </div>
 
-                <!-- Botón de login -->
-                <button type="submit" class="btn btn-login w-100 mb-3">
-                    <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
+                <!-- Botón de registro -->
+                <button type="submit" class="btn btn-register w-100 mb-3">
+                    <i class="bi bi-person-plus-fill me-2"></i>Crear mi cuenta
                 </button>
 
                 <!-- Separador -->
                 <div class="text-center">
                     <hr class="my-3">
                     <p class="text-muted mb-0">
-                        ¿No tienes cuenta? 
-                        <a href="{{ route('registro') }}" class="register-link">
-                            Crear una cuenta
+                        ¿Ya tienes una cuenta? 
+                        <a href="{{ route('login') }}" class="login-link">
+                            Iniciar sesión
                         </a>
                     </p>
                 </div>

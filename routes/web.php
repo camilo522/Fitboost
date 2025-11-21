@@ -8,18 +8,41 @@ use App\Http\Controllers\EntrenamientosController;
 use App\Http\Controllers\PlanNutricionalController;
 use App\Http\Controllers\RutinaEjerciciosController;
 use App\Http\Controllers\RutinasController;
+use App\Http\Controllers\usersController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ValoracionesController;
 use App\Models\PlanNutricional;
+use Illuminate\Support\Facades\Auth;
+
+//RUTA PRINCIPAL
+Route::get('/', function () {
+    return redirect()->route('login');
+});
 
 // Página inicial (landing con el logo de FitBoost)
-Route::get('/', function () {
+Route::get('/landing', function () {
     return view('landing');
 });
 
+
 Route::get('/welcome', function () {
-    return view('welcome'); // aquí va el welcome
+    return view('welcome');
 })->name('welcome');
+
+
+//rutas para login
+Route::get('/login',[usersController::class,'verlogin'])->name('login');
+Route::post('/loginsubmit',[usersController::class,'login'])->name('login.submit');
+
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect()->route('login');
+})->name('logout');
+
+//RUTAS REGISTRO
+Route::get('/registro', [usersController::class, 'verRegistro'])->name('registro');
+Route::post('/registro-submit', [usersController::class, 'registro'])->name('registro.submit');
+
 
 // ------------------- EJERCICIOS -------------------
 Route::get('/ejercicios/index/', [EjerciciosController::class, 'index'])->name('ejercicios.index');
