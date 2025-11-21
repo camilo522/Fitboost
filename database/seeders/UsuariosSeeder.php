@@ -6,12 +6,13 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class UsuarioSeeder extends Seeder
+class UsuariosSeeder extends Seeder
 {
     public function run(): void
     {
         // Limpia la tabla antes de insertar (solo en desarrollo)
-        DB::table('usuarios')->truncate();
+        DB::table('usuarios')->delete(); // ✔ limpio y compatible con FK
+
 
         $usuarios = [];
 
