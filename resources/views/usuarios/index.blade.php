@@ -12,6 +12,33 @@
 @endsection
 
 @section('content')
+
+@if(session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: "{{ session('success') }}",
+            confirmButtonText: 'Aceptar',
+            timer: 3000
+        });
+    });
+</script>
+@endif
+
+   @if(session('error'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'error',
+                title: '¡Atención!',
+                text: "{{ session('error') }}",
+                confirmButtonText: 'Aceptar',
+            });
+        });
+    </script>
+    @endif
 <div class="container">
 
     {{-- Botón Crear --}}
@@ -56,7 +83,7 @@
                                     
                                     <button type="submit" 
                                             class="btn btn-danger shadow rounded-pill px-3"
-                                            onclick="return confirm('¿Seguro que deseas eliminar este usuario?')">
+                                            onclick="confirmarEliminacion(event)">
                                         <i class="bi bi-trash"></i> Eliminar
                                     </button>
                                 </form>
@@ -84,4 +111,33 @@
         </div>
     </div>
 </div>
+
+
+
+ 
+  
+
+    <script>
+        function confirmarEliminacion(event) {
+            event.preventDefault();
+            const form = event.target.closest('form');
+
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        }
+</script>
+
+
 @endsection

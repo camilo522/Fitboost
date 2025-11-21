@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CalculadoraRequest;
 use Illuminate\Http\Request;
 
 class CalculadoraController extends Controller
@@ -22,7 +23,7 @@ class CalculadoraController extends Controller
    /**
  * Procesa los datos del formulario y calcula los macronutrientes.
  */
-    public function calcular(Request $request)
+    public function calcular(CalculadoraRequest $request)
     {
     // 1. Validar los datos de entrada
     $request->validate([

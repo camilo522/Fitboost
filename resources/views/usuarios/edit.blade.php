@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Editar Usuario') <!-- Cambié el título -->
+@section('title', 'Editar Usuario') 
 
 @section('titleContent')
     <h1 class="fw-bold text-gradient"><i class="bi bi-person-gear"></i> Editar Usuario</h1>
@@ -8,26 +8,14 @@
 
 @section('content')
 
-    <!-- AÑADE ESTE BLOQUE PARA VER ERRORES -->
-    @if ($errors->any())
-        <div class="alert alert-danger" role="alert">
-            <h4 class="alert-heading">¡Por favor, corrige los siguientes errores!</h4>
-            <hr>
-            <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+   
 
-    <!-- ... el resto de tu código ... -->
 <div class="container mt-4">
     <div class="card shadow-lg border-0 rounded-4">
         <div class="card-body p-4">
             <form action="{{ route('usuario.update', $usuario->id) }}" method="POST">
                 @csrf
-                 <!-- <-- ¡LÍNEA AÑADIDA! -->
+               
 
                 <div class="mb-3">
                     <label for="nombre" class="form-label fw-bold">Nombre</label>

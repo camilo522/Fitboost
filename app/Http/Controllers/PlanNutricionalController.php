@@ -67,12 +67,23 @@ class PlanNutricionalController extends Controller
         return redirect()->route('planes-nutricionales.index')->with('success', 'Plan actualizado correctamente.');
     }
 
-    public function destroy($id)
-    {
-        // CAMBIO CLAVE: Ahora recibe $id, no el Modelo
-        $planNutricional = PlanNutricional::findOrFail($id);
-        $planNutricional->delete();
+    
 
-        return redirect()->route('planes-nutricionales.index')->with('success', 'Plan eliminado correctamente.');
+    
+    public function destroy( $id)
+    {
+    {
+        
+       
+        $planNutricional = PlanNutricional::FindorFail($id);
+        try{
+        $planNutricional -> delete();
+        return redirect()->route('planes-nutricionales.index')
+        ->with('success', 'PlanNutricional eliminado correctamente.');
+       }  catch (\Illuminate\Database\QueryException $e) {
+        return redirect()->route('planes-nutricionales.index')
+                ->with('error', 'No se puede eliminar esta PlanNutricional porque tiene  valoraciones asociadas.');
+        }
+    }
     }
 }

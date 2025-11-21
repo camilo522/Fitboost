@@ -27,15 +27,28 @@
                     @endif
 
 
+                
+                        {{-- Mensaje de éxito --}}
+                            @if(session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
                 <!-- Nombre y Categoría -->
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="nombre" class="form-label fw-bold">Nombre</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control rounded-pill" required>
+                        <input type="text" name="nombre" id="nombre" class="form-control rounded-pill @error('nombre')is-invalid  @enderror">
+                         @error('nombre')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                     </div>
+
+
                     <div class="col-md-6">
                         <label for="categoria" class="form-label fw-bold">Categoría</label>
-                        <select name="categoria" id="categoria" class="form-select rounded-pill" required>
+                        <select name="categoria" id="categoria" class="form-select rounded-pill @error('categoria')is-invalid  @enderror">
                             <option value="">Seleccionar</option>
                             <option value="Calentamiento">Calentamiento</option>
                             <option value="Fuerza">Fuerza</option>
@@ -43,20 +56,27 @@
                             <option value="Estiramiento">Estiramiento</option>
                             <option value="Resistencia">Resistencia</option>
                         </select>
+                         @error('categoria')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                     </div>
+                    
                 </div>
 
                 <!-- Descripción -->
                 <div class="mb-3">
                     <label for="descripcion" class="form-label fw-bold">Descripción</label>
-                    <textarea name="descripcion" id="descripcion" rows="3" class="form-control rounded-4" required></textarea>
+                    <textarea name="descripcion" id="descripcion" rows="3" class="form-control rounded-4 @error('descripcion')is-invalid  @enderror"></textarea>
+                     @error('descripcion')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                 </div>
 
                 <!-- Grupo muscular, Dificultad y Duración -->
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="grupoMuscular" class="form-label fw-bold">Grupo Muscular</label>
-                        <select name="grupoMuscular" id="grupoMuscular" class="form-select rounded-pill" required>
+                        <select name="grupoMuscular" id="grupoMuscular" class="form-select rounded-pill @error('grupoMuscular')is-invalid  @enderror" >
                             <option value="">Seleccionar</option>
                             <option value="Pecho">Pecho</option>
                             <option value="Espalda">Espalda</option>
@@ -66,21 +86,30 @@
                             <option value="Piernas">Piernas</option>
                             <option value="Full Body">Cuerpo completo</option>
                         </select>
+                         @error('grupoMuscular')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                     </div>
 
                     <div class="col-md-4">
                         <label for="dificultad" class="form-label fw-bold">Dificultad</label>
-                        <select name="dificultad" id="dificultad" class="form-select rounded-pill" required>
+                        <select name="dificultad" id="dificultad" class="form-select rounded-pill @error('dificultad')is-invalid  @enderror" >
                             <option value="">Seleccionar</option>
                             <option value="Baja">Baja</option>
                             <option value="Media">Media</option>
                             <option value="Alta">Alta</option>
                         </select>
+                         @error('dificultad')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                     </div>
 
                     <div class="col-md-4">
                         <label for="duracionEstimada" class="form-label fw-bold">Duración Estimada (minutos)</label>
-                        <input type="number" name="duracionEstimada" id="duracionEstimada" class="form-control rounded-pill" min="1" required>
+                        <input type="number" name="duracionEstimada" id="duracionEstimada" class="form-control rounded-pill @error('duracionEstimada')is-invalid  @enderror" min="1" >
+                          @error('duracionEstimada')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                     </div>
                 </div>
 
@@ -88,18 +117,21 @@
                 <div class="row mb-3">
                         <div class="col-md-6">
                                 <label for="intensidad" class="form-label fw-bold">Intensidad</label>
-                                <select name="intensidad" id="intensidad" class="form-select rounded-pill" required>
+                                <select name="intensidad" id="intensidad" class="form-select rounded-pill @error('intensidad')is-invalid  @enderror" >
                                     <option value="">Seleccionar</option>
                                     <option value="Baja">Baja</option>
                                     <option value="Moderada">Moderada</option>
                                     <option value="Alta">Alta</option>
                                     <option value="Extrema">Extrema</option>
                                 </select>
+                                 @error('intensidad')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                             </div>    
                             
                         <div class="col-md-6">
                                 <label for="equipoNecesario" class="form-label fw-bold">Equipo Necesario</label>
-                                <select name="equipoNecesario" id="equipoNecesario" class="form-select rounded-pill">
+                                <select name="equipoNecesario" id="equipoNecesario" class="form-select rounded-pill @error('equipoNecesario')is-invalid  @enderror">
                                     <option value="">Ninguno</option>
                                     <option value="Mancuernas">Mancuernas</option>
                                     <option value="Banda elástica">Banda elástica</option>
@@ -108,7 +140,11 @@
                                     <option value="Colchoneta">Colchoneta</option>
                                     <option value="Banco">Banco</option>
                                 </select>
+                                @error('equipoNecesario')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                             </div>
+                             
                         </div>
                     </div>   
 

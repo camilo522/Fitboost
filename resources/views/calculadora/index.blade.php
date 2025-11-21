@@ -3,10 +3,13 @@
 @section('title', 'Calculadora de Macronutrientes')
 
 @section('content')
+
+
+
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold">Calculadora de Macronutrientes</h2>
-        <!-- El botón de "Volver" lo pondremos abajo para una mejor experiencia de usuario -->
+       
     </div>
 
     <div class="card shadow-lg border-0 rounded-4">
@@ -21,7 +24,7 @@
                 <!-- Usuario (Para quién es el plan) -->
                 <div class="mb-3">
                     <label for="id_usuario" class="form-label fw-bold">Asignar a Usuario</label>
-                    <select class="form-select" id="id_usuario" name="id_usuario" required>
+                    <select class="form-select" id="id_usuario" name="id_usuario" >
                         <option value="" disabled selected>Selecciona un usuario...</option>
                         @foreach($usuarios as $usuario)
                             <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
@@ -48,26 +51,35 @@
                     <!-- Edad -->
                     <div class="col-md-4 mb-3">
                         <label for="edad" class="form-label fw-bold">Edad (años)</label>
-                        <input type="number" class="form-control" id="edad" name="edad" required>
+                        <input type="number" class="form-control @error('edad')is-invalid  @enderror" id="edad" name="edad" >
+                         @error('edad')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                     </div>
 
                     <!-- Peso -->
                     <div class="col-md-4 mb-3">
                         <label for="peso" class="form-label fw-bold">Peso (kg)</label>
-                        <input type="number" step="0.1" class="form-control" id="peso" name="peso" required>
+                        <input type="number" step="0.1" class="form-control @error('peso')is-invalid  @enderror" id="peso" name="peso" >
+                         @error('peso')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                     </div>
 
                     <!-- Altura -->
                     <div class="col-md-4 mb-3">
                         <label for="altura" class="form-label fw-bold">Altura (cm)</label>
-                        <input type="number" class="form-control" id="altura" name="altura" required>
+                        <input type="number" class="form-control @error('altura')is-invalid  @enderror" id="altura" name="altura" >
+                         @error('altura')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                     </div>
                 </div>
 
                 <!-- Nivel de Actividad -->
                 <div class="mb-3">
                     <label for="nivel_actividad" class="form-label fw-bold">Nivel de Actividad</label>
-                    <select class="form-select" id="nivel_actividad" name="nivel_actividad" required>
+                    <select class="form-select" id="nivel_actividad" name="nivel_actividad" >
                         <option value="sedentario">Sedentario (poco o ningún ejercicio)</option>
                         <option value="ligero">Ligeramente activo (ejercicio ligero 1-3 días/semana)</option>
                         <option value="moderado" selected>Moderadamente activo (ejercicio moderado 3-5 días/semana)</option>
@@ -111,4 +123,6 @@
         </a>
     </div>
 </div>
+
+
 @endsection

@@ -113,11 +113,11 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'imagenes/logo.pgn.jpeg',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
-            'width' => 60,
-            'height' => 60,
+            'width' => 250,
+            'height' => 250,
         ],
     ],
 
@@ -299,10 +299,10 @@ return [
     */
 
     'menu' => [
-    // Navbar items:
+    // Navbar items
     
     [
-        'type' => 'fullscreen-widget',
+        'type' => 'fullscreen-widget ',
         'topnav_right' => true,
     ],
 
@@ -314,6 +314,9 @@ return [
 
     // Menú principal:
     [
+
+
+
         'text' => 'Inicio',
         'route'  => 'welcome',
         'icon' => 'fas fa-fw fa-home',

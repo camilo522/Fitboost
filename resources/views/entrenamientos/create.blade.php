@@ -16,30 +16,49 @@
             <form action="{{ route('entrenamientos.store') }}" method="POST">
                 @csrf
 
+                {{-- Mensaje de éxito --}}
+                            @if(session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
                 <div class="row g-4">
                     <div class="col-md-6">
                         <label for="nombre" class="form-label fw-semibold">Nombre</label>
-                        <input type="text" name="nombre" class="form-control rounded-3 shadow-sm" required>
+                        <input type="text" name="nombre" class="form-control rounded-3 shadow-sm @error('nombre')is-invalid  @enderror" >
+                        @error('nombre')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                     </div>
 
                     <div class="col-md-6">
                         <label for="objetivo" class="form-label fw-semibold">Objetivo</label>
-                        <input type="text" name="objetivo" class="form-control rounded-3 shadow-sm" required>
+                        <input type="text" name="objetivo" class="form-control rounded-3 shadow-sm @error('objetivo')is-invalid  @enderror" >
+                        @error('objetivo')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                     </div>
 
                     <div class="col-md-12">
                         <label for="descripcion" class="form-label fw-semibold">Descripción</label>
-                        <input name="descripcion" class="form-control rounded-3 shadow-sm" rows="3" required></textarea>
+                        <input name="descripcion" class="form-control rounded-3 shadow-sm @error('descripcion')is-invalid  @enderror" rows="3 " ></textarea>
+                        @error('descripcion')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                     </div>
 
                     <div class="col-md-4">
                         <label for="duracion" class="form-label fw-semibold">Duración (minutos)</label>
-                        <input type="number" name="duracion" class="form-control rounded-3 shadow-sm" required>
+                        <input type="number" name="duracion" class="form-control rounded-3 shadow-sm @error('duracion')is-invalid  @enderror" >
+                        @error('duracion')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                     </div>
 
                     <div class="col-md-4">
                         <label for="nivel" class="form-label fw-semibold">Nivel</label>
-                        <select name="nivel" class="form-select rounded-3 shadow-sm" required>
+                        <select name="nivel" class="form-select rounded-3 shadow-sm " >
                             <option value="Principiante">Principiante</option>
                             <option value="Intermedio">Intermedio</option>
                             <option value="Avanzado">Avanzado</option>
@@ -48,7 +67,10 @@
 
                     <div class="col-md-4">
                         <label for="diasSemana" class="form-label fw-semibold">Días por Semana</label>
-                        <input type="number" name="diasSemana" class="form-control rounded-3 shadow-sm" required>
+                        <input type="number" name="diasSemana" class="form-control rounded-3 shadow-sm @error('diasSemana')is-invalid  @enderror" >
+                        @error('diasSemana')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                     </div>
 
                     <div class="col-md-6">

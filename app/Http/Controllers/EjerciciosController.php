@@ -20,9 +20,26 @@ class EjerciciosController extends Controller
         return view('ejercicios.create');
     }
 
-    public function store(EjercicioRequest $request)
-{
-    $data = $request->validated();
+    public function store(Request $request)
+    {
+        // ✅ Validación actualizada
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+            'categoria' => 'required|string',
+            'grupoMuscular' => 'required|string',
+            'dificultad' => 'nullable|string',
+            'duracionEstimada' => 'nullable|integer',
+            'intensidad' => 'required|string',
+            'equipoNecesario' => 'nullable|string',
+            // Validaciones para imagen y video (archivo o URL)
+            'imagen_file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+            'imagen_url' => 'nullable|url',
+            'video_file' => 'nullable|mimes:mp4,mov,avi,gif|max:10240', // 10MB para videos
+            'video_url' => 'nullable|url',
+        ]);
+
+        $data = $request->all();
 
     // --- Lógica para la IMAGEN ---
     if ($request->hasFile('imagen_file')) {
@@ -125,7 +142,8 @@ class EjerciciosController extends Controller
 
     public function destroy($id)
     {
-        $ejercicio = ejercicios::findOrFail($id);
+        $ejercicio = ejercicios::FindorFail($id);
+        try{
 
         // Eliminar imagen y video del almacenamiento si son archivos locales
         if ($ejercicio->imagenURL && str_starts_with($ejercicio->imagenURL, '/storage')) {
@@ -137,8 +155,14 @@ class EjerciciosController extends Controller
             Storage::disk('public')->delete($path);
         }
 
-        $ejercicio->delete();
-
-        return redirect()->route('ejercicios.index')->with('success', 'Ejercicio eliminado correctamente.');
-    }
+ 
+        $ejercicio -> delete();
+        return redirect()->route('ejercicios.index')
+        ->with('success', 'ejercicios eliminado correctamente.');
+       }  catch (\Illuminate\Database\QueryException $e) {
+        return redirect()->route('ejercicios.index')
+                ->with('error', 'No se puede eliminar esta ejercicios porque tiene  entrenamientos asociadas.');
+        }
+       }
 }
+  

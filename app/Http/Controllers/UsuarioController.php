@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UsuarioRequest;
 use App\Models\User;
 use App\Models\usuario;
 use Illuminate\Http\Request;
@@ -35,26 +36,12 @@ class UsuarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   public function store(Request $request)
-{
-    $request->validate([
-        'nombre' => 'required',
-        'email' => 'required|email|unique:usuarios,email',
-        'password' => 'required|min:4',
-        'fechaRegistro' => 'required|date'
-    ]);
+    public function store(Request $request)
+    {
+        usuario::create( $request->all());
 
-    Usuario::create([
-        'nombre' => $request->nombre,
-        'email' => $request->email,
-        'password' => bcrypt($request->password),
-        'fechaRegistro' => $request->fechaRegistro
-    ]);
-
-    return redirect()->route('usuario.index')
-        ->with('success', 'Usuario creado correctamente.');
-}
-
+        return redirect()->route('usuario.index'); //->with('success', 'usuario creada correctamente')/
+    }
 
     /**
      * Display the specified resource.
@@ -108,21 +95,21 @@ class UsuarioController extends Controller
     public function destroy( $id)
     {
         {
-        {
-
-            $usuario = usuario::findOrFail($id);
-         $usuario->delete();
-
-       return redirect()->route('usuario.index');
-        /*$usuario = usuario::FindorFail($id);
+        
+        
+        $usuario = usuario::FindorFail($id);
         try{
         $usuario -> delete();
         return redirect()->route('usuario.index')
-        /*->with('success','usuario Eliminado correctamente');
-        }  catch (\Illuminate\Database\QueryException $e) {
+        ->with('success','usuario Eliminado correctamente');
+       }  catch (\Illuminate\Database\QueryException $e) {
         return redirect()->route('usuario.index')
-        ->with('error', 'No se puede eliminar este usuario porque tiene visualizaciones asociadas.');*/
+                ->with('error', 'No se puede eliminar este usuario porque tiene valoraciones asociadas.');
         }
     }
     }
-    }
+}
+
+        
+        
+    
