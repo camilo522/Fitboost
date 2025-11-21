@@ -15,12 +15,12 @@ use App\Models\PlanNutricional;
 use Illuminate\Support\Facades\Auth;
 
 //RUTA PRINCIPAL
-Route::get('/', function () {
+Route::get('/login', function () {
     return redirect()->route('login');
 });
 
 // Página inicial (landing con el logo de FitBoost)
-Route::get('/landing', function () {
+Route::get('/', function () {
     return view('landing');
 });
 
