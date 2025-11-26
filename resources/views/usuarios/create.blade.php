@@ -44,7 +44,7 @@
                 
                 <!-- Contenedor para el input y el ojito -->
                 <div class="input-group">
-                    <input type="password" class="form-control rounded-pill shadow-sm" id="contrasena" name="contrasena" placeholder="****" required>
+                    <input type="password" class="form-control rounded-pill shadow-sm" id="password" name="password" placeholder="****" required>
                     
                     <!-- Botón para mostrar/ocultar la contraseña -->
                     <button class="btn btn-outline-secondary rounded-pill" type="button" id="togglePassword">
