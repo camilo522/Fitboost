@@ -74,7 +74,7 @@
                             <a href="{{ route('planes-nutricionales.index') }}" class="btn btn-secondary rounded-pill">
                                 <i class="bi bi-arrow-left-circle me-2"></i> Volver
                             </a>
-                            <button type="submit" class="btn text-white fw-bold rounded-pill px-4 shadow-sm" style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+                            <button type="submit" class="btn text-white fw-bold rounded-pill px-4 shadow-sm" style="background: linear-gradient(90deg, #11cb64, #03c937);">
                                 <i class="bi bi-save me-2"></i> Actualizar Plan
                             </button>
                         </div>

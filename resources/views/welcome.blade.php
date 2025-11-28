@@ -1,37 +1,41 @@
 @extends('layouts.app')
 
-@section('title', 'FitBo  ost')
+@section('title', 'FitBo Host - Panel Principal')
 
 
 @section('content')
 
+{{-- Define el Verde Corporativo del SENA --}}
+@php
+    // Usaremos un verde representativo del SENA. (Los códigos exactos varían según el manual, 
+    // pero este es un buen punto de partida para web).
+    $senaGreen = '#00703C'; 
+    $senaDark = '#004d2a';
+@endphp
+
 
 <div class="d-flex justify-content-end mb-4">
-    <!-- Form oculto -->
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
     </form>
 
-    <!-- Botón visible -->
     <a href="#"
-       onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-       class="btn rounded-pill shadow-sm px-4 text-white fw-bold"
-       style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
-       <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
+        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+        class="btn rounded-pill shadow-sm px-4 text-white fw-bold"
+        style="background-color: green;"> {{-- Usamos el color plano SENA --}}
+        <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
     </a>
 </div>
 
 <div class="container my-5">
     
-    
     <div class="text-center mb-5">
-        <h1 class="fw-bold mt-6">Panel principal</h1>
+        <h1 class="fw-bold mt-6" style="color: green;">Panel principal</h1>
     </div>
 
     <div class="row justify-content-center g-4 mb-4">
 
         
-        <!-- Usuarios -->
         <div class="col-md-4">
             <div class="card text-center shadow-lg border-0 rounded-4 card-hover h-100">
                 <div class="card-body d-flex flex-column align-items-center justify-content-between">
@@ -39,13 +43,12 @@
                     <h5 class="card-title">Usuarios</h5>
                     <p class="card-text">Gestiona todos los usuarios de la aplicación.</p>
                     <a href="{{ route('usuario.index') }}" 
-                       class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
-                       style="background: linear-gradient(90deg, #6a11cb, #2575fc);">Ir</a>
+                        class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
+                        style="background-color: green;">Ir</a> {{-- Botón con color SENA --}}
                 </div>
             </div>
         </div>
 
-        <!-- Entrenamientos -->
         <div class="col-md-4">
             <div class="card text-center shadow-lg border-0 rounded-4 card-hover h-100">
                 <div class="card-body d-flex flex-column align-items-center justify-content-between">
@@ -53,13 +56,12 @@
                     <h5 class="card-title">Entrenamientos</h5>
                     <p class="card-text">Administra sesiones de entrenamiento.</p>
                     <a href="{{ route('entrenamientos.index') }}" 
-                       class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
-                       style="background: linear-gradient(90deg, #6a11cb, #2575fc);">Ir</a>
+                        class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
+                        style="background-color: green;">Ir</a> {{-- Botón con color SENA --}}
                 </div>
             </div>
         </div>
 
-        <!-- Valoraciones -->
         <div class="col-md-4">
             <div class="card text-center shadow-lg border-0 rounded-4 card-hover h-100">
                 <div class="card-body d-flex flex-column align-items-center justify-content-between">
@@ -67,8 +69,8 @@
                     <h5 class="card-title">Valoraciones</h5>
                     <p class="card-text">Consulta el progreso físico y mediciones.</p>
                     <a href="{{ route('valoraciones.index') }}" 
-                       class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
-                       style="background: linear-gradient(90deg, #6a11cb, #2575fc);">Ir</a>
+                        class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
+                        style="background-color: green">Ir</a> {{-- Botón con color SENA --}}
                 </div>
             </div>
         </div>
@@ -77,7 +79,6 @@
 
     <div class="row justify-content-center g-4">
 
-        <!-- Rutinas -->
         <div class="col-md-4">
             <div class="card text-center shadow-lg border-0 rounded-4 card-hover h-100">
                 <div class="card-body d-flex flex-column align-items-center justify-content-between">
@@ -85,13 +86,12 @@
                     <h5 class="card-title">Rutinas</h5>
                     <p class="card-text">Administra rutinas de entrenamiento.</p>
                     <a href="{{ route('rutinas.index') }}" 
-                       class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
-                       style="background: linear-gradient(90deg, #6a11cb, #2575fc);">Ir</a>
+                        class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
+                        style="background-color: green;">Ir</a> {{-- Botón con color SENA --}}
                 </div>
             </div>
         </div>
 
-        <!-- Ejercicios -->
         <div class="col-md-4">
             <div class="card text-center shadow-lg border-0 rounded-4 card-hover h-100">
                 <div class="card-body d-flex flex-column align-items-center justify-content-between">
@@ -99,13 +99,12 @@
                     <h5 class="card-title">Ejercicios</h5>
                     <p class="card-text">Consulta tu rutina para ver qué lleva.</p>
                     <a href="{{ route('ejercicios.index') }}" 
-                       class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
-                       style="background: linear-gradient(90deg, #6a11cb, #2575fc);">Ir</a>
+                        class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
+                        style="background-color: green;">Ir</a> {{-- Botón con color SENA --}}
                 </div>
             </div>
         </div>
 
-        <!-- Plan nutricional -->
         <div class="col-md-4">
             <div class="card text-center shadow-lg border-0 rounded-4 card-hover h-100">
                 <div class="card-body d-flex flex-column align-items-center justify-content-between">
@@ -113,13 +112,13 @@
                     <h5 class="card-title">Plan nutricional</h5>
                     <p class="card-text">Administra tus planes alimenticios.</p>
                     <a href="{{ route('planes-nutricionales.index') }}" 
-                       class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
-                       style="background: linear-gradient(90deg, #6a11cb, #2575fc);">Ir</a>
+                        class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
+                        style="background-color:green;">Ir</a> {{-- Botón con color SENA --}}
                 </div>
             </div>
         </div>
-
-
+    </div>
+</div>
 
 
 <style>
@@ -137,7 +136,7 @@
         min-height: 350px;
     }
 
-    /* Hover animado */
+    /* Hover animado (Puedes mantener este efecto) */
     .card-hover {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }

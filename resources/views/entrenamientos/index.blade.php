@@ -42,7 +42,7 @@
     <div class="col text-end">
          <a href="{{ route('entrenamientos.create')}}"  type="submit" 
                             class="btn rounded-pill shadow-sm px-4 text-white fw-bold" 
-                            style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+                            style="background: linear-gradient(90deg, #11cb64, #03c937);">
                         <i class="bi bi-check-circle me-2"></i>Nuevo Entrenamiento
             </a>
          </div>
@@ -113,7 +113,7 @@
  <div class="d-flex justify-content-between mt-4">
                     <a href="{{ route('welcome') }}" 
                        class="btn rounded-pill shadow-sm px-4 text-white fw-bold" 
-                       style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+                       style="background: linear-gradient(90deg, #11cb64, #03c937);">
                        <i class="bi bi-arrow-left-circle me-2"></i> Volver
                     </a>
             </a>

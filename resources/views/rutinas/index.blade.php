@@ -37,7 +37,7 @@
         <h2 class="fw-bold">Rutinas</h2>
         <a href="{{ route('rutinas.create') }}" 
            class="btn text-white fw-bold rounded-pill px-4 shadow-sm"
-           style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+           style="background: linear-gradient(90deg, #11cb64, #03c937);">
            <i class="bi bi-plus-circle me-2"></i> Crear una nueva rutina
         </a>
     </div>
@@ -91,7 +91,7 @@
     <div class="mt-4">
         <a href="{{ route('welcome') }}" 
            class="btn text-white fw-bold rounded-pill px-4 shadow-sm"
-           style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+           style="background: linear-gradient(90deg, #11cb64, #03c937);">
            <i class="bi bi-arrow-left-circle me-2"></i> Volver
         </a>
     </div>

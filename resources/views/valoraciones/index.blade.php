@@ -43,7 +43,7 @@
     <div class="col text-end">
         <a href="{{ route('valoraciones.create')}}"  
            class="btn rounded-pill shadow-sm px-4 text-white fw-bold" 
-           style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+           style="background: linear-gradient(90deg, #11cb64, #03c937);">
             <i class="bi bi-plus-circle me-2"></i>Nueva Valoración
         </a>
     </div>
@@ -124,13 +124,13 @@
 <div class="d-flex justify-content-between mt-4">
     <a href="{{ route('welcome') }}" 
        class="btn rounded-pill shadow-sm px-4 text-white fw-bold" 
-       style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+       style="background: linear-gradient(90deg, #11cb64, #03c937);">
        <i class="bi bi-arrow-left-circle me-2"></i> Volver
     </a>
 </div>
 <style>
     .text-gradient {
-        background: linear-gradient(90deg, #6a11cb, #2575fc);
+        background: linear-gradient(90deg, #11cb64, #03c937);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }

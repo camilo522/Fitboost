@@ -150,7 +150,7 @@
 
                     <button type="submit" 
                             class="btn text-white fw-bold rounded-pill px-4 shadow-sm"
-                            style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+                            style="background: linear-gradient(90deg, #11cb64, #03c937);">
                         <i class="bi bi-save me-2"></i> Actualizar Ejercicio
                     </button>
                 </div>

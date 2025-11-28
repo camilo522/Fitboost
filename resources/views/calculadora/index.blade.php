@@ -108,7 +108,7 @@
                 </div>
 
                 <button type="submit" class="btn text-white fw-bold rounded-pill px-4 shadow-sm w-100" 
-                        style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+                        style="background: linear-gradient(90deg, #11cb64, #03c937);">
                    <i class="bi bi-calculator me-2"></i> Calcular Mis Macros
                 </button>
             </form>
@@ -116,9 +116,9 @@
     </div>
 
     <div class="mt-4">
-        <a href="{{ route('planes-nutricionales.index') }}" 
+       <a href="{{ route('planes-nutricionales.index') }}"
            class="btn text-white fw-bold rounded-pill px-4 shadow-sm"
-           style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+           style="background: linear-gradient(90deg, #11cb64, #03c937);">
            <i class="bi bi-arrow-left-circle me-2"></i> Volver 
         </a>
     </div>
