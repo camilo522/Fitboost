@@ -71,6 +71,12 @@
                             <td>{{ $usuario->nombre }}</td>
                             <td>{{ $usuario->fechaRegistro }}</td>
                             <td class="text-center">
+
+                            <a href="{{ route('usuario.show', $usuario->id) }}" 
+                            class="btn btn-primary btn-sm rounded-pill px-3 me-2">
+                            <i class="bi bi-person-vcard"></i> Perfil
+                            </a>
+
                                 <a href="{{ route('usuario.edit',$usuario->id) }}" 
                                    class="btn btn-success shadow rounded-pill px-3 me-2">
                                     <i class="bi bi-pencil-square"></i> Editar
