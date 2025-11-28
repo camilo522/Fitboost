@@ -75,4 +75,8 @@ class RutinaEjerciciosController extends Controller
         return redirect()->route('rutinaEjercicios.index'); 
         // ->with('success', 'Rutina de ejercicios eliminada correctamente');
     }
+
+    
+
 }
+

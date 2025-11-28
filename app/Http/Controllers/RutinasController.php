@@ -89,4 +89,6 @@ class RutinasController extends Controller
         }
     }
     }
+
+   
 }

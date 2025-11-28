@@ -111,3 +111,17 @@ Route::post('/calculadora/calcular', [CalculadoraController::class, 'calcular'])
 Route::get('/login', [AuthController::class, 'verlogin'])->name('login');
 Route::post('/loginsubmit', [AuthController::class, 'login'])->name('login.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+//perfil usuario
+
+Route::get('/usuario/{id}/perfil', [UsuarioController::class, 'show'])->name('usuario.show');
+
+Route::get('/rutina/asignar/{id}', [RutinasController::class, 'asignar'])->name('rutina.asignar');
+
+Route::get('/plan/{id}/asignar', [PlanNutricionalController::class, 'asignar'])->name('plan.asignar');
+
+Route::post('/usuario/{id}/foto', [UsuarioController::class, 'subirFoto'])->name('usuario.subirFoto');
+
+
+
