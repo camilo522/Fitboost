@@ -40,21 +40,26 @@ class UsuarioController extends Controller
     /**
      * Display the specified resource (PERFIL DEL USUARIO).
      */
+    
+
     public function show($id)
     {
         $usuario = Usuario::findOrFail($id);
 
-        // Cargar relaciones si existen
+        // Obtener última valoración (si existe la relación)
         $ultimaValoracion = method_exists($usuario, 'valoraciones') 
-            ? $usuario->valoraciones()->latest()->first()
+            ? $usuario->valoraciones()->orderBy('created_at', 'desc')->first()
             : null;
 
-        // Si no tienes las relaciones aún creadas no genera Error
+        // Cargar rutina asignada (si tienes relación)
         $rutina = $usuario->rutina ?? null;
+
+        // Cargar plan nutricional (si tienes relación)
         $plan = $usuario->planNutricional ?? null;
 
         return view('usuarios.perfil', compact('usuario', 'ultimaValoracion', 'rutina', 'plan'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
