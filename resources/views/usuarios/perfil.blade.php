@@ -5,108 +5,83 @@
 @section('content')
 <div class="container mt-4">
 
-    {{-- ============================ --}}
-    {{-- PORTADA ESTILO FACEBOOK     --}}
-    {{-- ============================ --}}
     <div class="card shadow border-0">
-        <div class="position-relative">
+        <div class="card-body">
 
-            {{-- Imagen de portada (estática o editable si quieres) --}}
-            
-            {{-- Foto de perfil --}}
-            <div class="position-absolute" style="bottom: -60px; left: 30px;">
-                <img src="{{ $usuario->foto ? asset('imagenes/perfiles/imagen1perfil.jpg' . $usuario->foto) : asset('imagenes/perfiles/imagen1perfil.jpg') }}"
-                     class="rounded-circle border border-3 border-white shadow"
-                     style="width:120px; height:120px; object-fit:cover;">
-            </div>
-
-            {{-- Botón para subir foto --}}
-            <div class="position-absolute" style="bottom: -10px; left: 165px;">
-                <form action="{{ route('usuario.subirFoto', $usuario->id) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <label class="btn btn-light btn-sm shadow-sm">
-                        <i class="bi bi-camera-fill"></i> Cambiar foto
-                        <input type="file" name="foto" class="d-none" onchange="this.form.submit()">
-                    </label>
-                </form>
-            </div>
-        </div>
-
-     
-
-        {{-- ============================ --}}
-        {{-- INFORMACIÓN DEL USUARIO     --}}
-        {{-- ============================ --}}
-        <div class="card-body mt-5">
-
-            <h2 class="fw-bold">{{ $usuario->nombre }}</h2>
+            {{-- ============================ --}}
+            {{-- NOMBRE DEL USUARIO           --}}
+            {{-- ============================ --}}
+            <h2 class="fw-bold text-primary">{{ $usuario->nombre }}</h2>
             <p class="text-muted">{{ $usuario->email }}</p>
-           
-   
-        <h5 class="fw-bold">Última valoración</h5> 
-
-@if($ultimaValoracion)
-    <div class="mt-3">
-
-        <p class="mb-1"><strong>Peso:</strong> {{ $ultimaValoracion->peso }} kg</p>
-        <p class="mb-1"><strong>Altura:</strong> {{ $ultimaValoracion->altura }} cm</p>
-        <p class="mb-1"><strong>IMC:</strong> {{ $ultimaValoracion->imc }}</p>
-        <p class="mb-3"><strong>Fecha:</strong> {{ $ultimaValoracion->created_at->format('d/m/Y') }}</p>
-
-        <hr>
-
-        <p class="mb-1"><strong>Pecho:</strong> {{ $ultimaValoracion->pecho }} cm</p>
-        <p class="mb-1"><strong>Cintura:</strong> {{ $ultimaValoracion->cintura }} cm</p>
-        <p class="mb-1"><strong>Cadera:</strong> {{ $ultimaValoracion->cadera }} cm</p>
-
-        <hr>
-
-        <p class="mb-1"><strong>Brazo izquierdo:</strong> {{ $ultimaValoracion->brazoIzquierdo }} cm</p>
-        <p class="mb-1"><strong>Brazo derecho:</strong> {{ $ultimaValoracion->brazoDerecho }} cm</p>
-
-        <hr>
-
-        <p class="mb-1"><strong>Pierna izquierda:</strong> {{ $ultimaValoracion->piernaIzquierda }} cm</p>
-        <p class="mb-1"><strong>Pierna derecha:</strong> {{ $ultimaValoracion->piernaDerecha }} cm</p>
-
-        <hr>
-
-        <p class="mb-1"><strong>Pantorrilla izquierda:</strong> {{ $ultimaValoracion->pantorrillaIzquierda }} cm</p>
-        <p class="mb-1"><strong>Pantorrilla derecha:</strong> {{ $ultimaValoracion->pantorrillaDerecha }} cm</p>
-
-        <a href="{{ route('valoraciones.historial', $ultimaValoracion->id) }}"
-           class="btn btn-outline-primary rounded-pill mt-3 fw-bold">
-            <i class="bi bi-clock-history"></i> Ver historial completo
-        </a>
-    </div>
-
-@else
-    <p class="text-muted mt-2">No hay valoraciones registradas.</p>
-
-    <a href="{{ route('valoraciones.create', $usuario->id) }}" 
-       class="btn btn-outline-primary rounded-pill mt-2 fw-bold">
-        <i class="bi bi-plus-circle"></i> Crear primera valoración
-    </a>
-@endif
-
-
 
             <hr>
 
-
-            {{-- ============================ --}}
-
-
-
-            <div class="row g-4 mt-3">
+            {{-- ====================================== --}}
+            {{-- SECCIÓN SUPERIOR: VALORACIÓN + PLAN     --}}
+            {{-- ====================================== --}}
+            <div class="row g-4">
 
                 {{-- ============================ --}}
                 {{-- ÚLTIMA VALORACIÓN            --}}
                 {{-- ============================ --}}
                 <div class="col-md-6">
+                    <h4 class="fw-bold">Última valoración</h4>
+
+                    @if($ultimaValoracion)
+                        <p class="mb-1"><strong>Peso:</strong> {{ $ultimaValoracion->peso }} kg</p>
+                        <p class="mb-1"><strong>Altura:</strong> {{ $ultimaValoracion->altura }} cm</p>
+                        <p class="mb-1"><strong>IMC:</strong> {{ $ultimaValoracion->imc }}</p>
+                        <p class="mb-3"><strong>Fecha:</strong> {{ $ultimaValoracion->created_at->format('d/m/Y') }}</p>
+
+                        <a href="{{ route('valoraciones.historial', $ultimaValoracion->id) }}"
+                           class="btn btn-outline-primary rounded-pill fw-bold">
+                            <i class="bi bi-clock-history"></i> Ver historial completo
+                        </a>
+                    @else
+                        <p class="text-muted">No hay valoraciones registradas.</p>
+
+                        <a href="{{ route('valoraciones.create', $usuario->id) }}" 
+                           class="btn btn-outline-primary rounded-pill fw-bold">
+                            <i class="bi bi-plus-circle"></i> Crear primera valoración
+                        </a>
+                    @endif
+                </div>
+
+
+                {{-- ============================ --}}
+                {{-- PLAN NUTRICIONAL ACTIVO      --}}
+                {{-- ============================ --}}
+                <div class="col-md-6">
+                    <h4 class="fw-bold">Plan Nutricional</h4>
+
+                    @if($planNutricional)
+                        <p class="mb-1"><strong>Calorías diarias:</strong> {{ $planNutricional->calorias_diarias }} kcal</p>
+                        <p class="mb-1"><strong>Proteínas:</strong> {{ $planNutricional->proteinas_gramos }} g</p>
+                        <p class="mb-1"><strong>Carbohidratos:</strong> {{ $planNutricional->carbohidratos_gramos }} g</p>
+                        <p class="mb-1"><strong>Grasas:</strong> {{ $planNutricional->grasas_gramos }} g</p>
+                    @else
+                        <p class="text-muted">No hay plan nutricional asignado.</p>
+                    @endif
+
+                    <a href="{{ route('planes-nutricionales.index') }}" 
+                       class="btn btn-outline-primary rounded-pill mt-2 fw-bold">
+                        <i class="bi bi-plus-circle"></i> Gestionar Plan
+                    </a>
+                </div>
+
+            </div>
+
+            <hr>
+
+            {{-- ============================ --}}
+            {{-- TARJETAS DE OPCIONES         --}}
+            {{-- ============================ --}}
+            <div class="row g-4 mt-3">
+
+                {{-- VALORACIONES --}}
+                <div class="col-md-6">
                     <div class="card shadow rounded-4 p-4">
-                        <h5 class="fw-bold"> valoración</h5>
-                        
+                        <h5 class="fw-bold">Valoraciones</h5>
                         <a href="{{ route('valoraciones.index') }}" 
                            class="btn btn-outline-primary rounded-pill mt-2 fw-bold">
                             <i class="bi bi-clock-history"></i> Ver valoraciones
@@ -114,9 +89,7 @@
                     </div>
                 </div>
 
-                {{-- ============================ --}}
-                {{-- RUTINA ASIGNADA              --}}
-                {{-- ============================ --}}
+                {{-- RUTINAS --}}
                 <div class="col-md-6">
                     <div class="card shadow rounded-4 p-4">
                         <h5 class="fw-bold">Rutina asignada</h5>
@@ -124,20 +97,6 @@
                         <a href="{{ route('rutinas.index') }}" 
                            class="btn btn-outline-primary rounded-pill mt-2 fw-bold">
                             <i class="bi bi-plus-circle"></i> Asignar rutina
-                        </a>
-                    </div>
-                </div>
-
-                {{-- ============================ --}}
-                {{-- PLAN NUTRICIONAL             --}}
-                {{-- ============================ --}}
-                <div class="col-md-6">
-                    <div class="card shadow rounded-4 p-4">
-                        <h5 class="fw-bold">Plan nutricional</h5>
-
-                        <a href="{{ route('planes-nutricionales.index') }}" 
-                           class="btn btn-outline-primary rounded-pill mt-2 fw-bold">
-                            <i class="bi bi-plus-circle"></i> Asignar plan
                         </a>
                     </div>
                 </div>

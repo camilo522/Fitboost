@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PlanNutricional;
 use App\Http\Requests\UsuarioRequest;
 use App\Models\User;
 use App\Models\Usuario;
@@ -43,23 +44,25 @@ class UsuarioController extends Controller
     
 
     public function show($id)
-    {
-        $usuario = Usuario::findOrFail($id);
+{
+    $usuario = Usuario::findOrFail($id);
 
-        // Obtener última valoración (si existe la relación)
-        $ultimaValoracion = method_exists($usuario, 'valoraciones') 
-            ? $usuario->valoraciones()->orderBy('created_at', 'desc')->first()
-            : null;
+    // Última valoración
+    $ultimaValoracion = $usuario->valoraciones()
+        ->orderBy('created_at', 'desc')
+        ->first();
 
-        // Cargar rutina asignada (si tienes relación)
-        $rutina = $usuario->rutina ?? null;
+    // Obtener el plan nutricional activo del usuario
+    $planNutricional = PlanNutricional::where('id_usuario', $id)
+        ->where('activo', true)
+        ->first();
 
-        // Cargar plan nutricional (si tienes relación)
-        $plan = $usuario->planNutricional ?? null;
-
-        return view('usuarios.perfil', compact('usuario', 'ultimaValoracion', 'rutina', 'plan'));
-    }
-
+    return view('usuarios.perfil', compact(
+        'usuario',
+        'ultimaValoracion',
+        'planNutricional'
+    ));
+}
 
     /**
      * Show the form for editing the specified resource.
