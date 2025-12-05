@@ -23,7 +23,7 @@ class EntrenamientoRequest extends FormRequest
            
             'nombre' => 'required|string|max:100',
             'descripcion' => 'required|string|max:800',
-            'objetivo' => 'required|string|max:100',
+            'objetivo' => 'required|string|max:50',
             'duracion' => 'required|string|max:20',
             'nivel' => 'required|in:Principiante,Intermedio,Avanzado',
             'diasSemana' => 'required|string|max:50',
@@ -47,7 +47,7 @@ class EntrenamientoRequest extends FormRequest
             'descripcion.max' => 'La descripción no puede tener más de 800 caracteres.',
 
             'objetivo.required' => 'El objetivo del entrenamiento es obligatorio.',
-            'objetivo.max' => 'El objetivo no puede superar los 100 caracteres.',
+            'objetivo.max' => 'El objetivo no puede superar los 50 caracteres.',
 
             'duracion.required' => 'El duracion del entrenamiento es obligatorio.',
             'duracion.max' => 'La duración no puede superar los 20 caracteres.',

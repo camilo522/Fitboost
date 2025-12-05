@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\PlanNutricional;
 use App\Http\Requests\UsuarioRequest;
 use App\Models\User;
@@ -134,6 +135,57 @@ public function subirFoto(Request $request, $id)
 
     return back()->with('success', 'Foto actualizada correctamente');
 }
+
+
+
+/**
+ * Exportar perfil del usuario a PDF (clase: dompdf)
+ */
+public function exportar($id)
+{
+    $usuario = Usuario::findOrFail($id);
+
+    // Última valoración
+    $ultimaValoracion = $usuario->valoraciones()
+        ->orderBy('created_at', 'desc')
+        ->first();
+
+    // Plan nutricional activo (si existe)
+    $planNutricional = PlanNutricional::where('id_usuario', $id)
+        ->where('activo', true)
+        ->first();
+
+    // Historial (últimos 6 registros)
+    $valoracionesHistorico = $usuario->valoraciones()
+        ->orderBy('created_at', 'asc')
+        ->get()
+        ->pluck('imc');
+
+    // Pasamos datos a la vista pdf
+    $data = compact('usuario', 'ultimaValoracion', 'planNutricional', 'valoracionesHistorico');
+
+    $pdf = Pdf::loadView('usuarios.pdf', $data)
+        ->setPaper('a4', 'portrait');
+
+    $filename = 'perfil_usuario_' . $usuario->id . '.pdf';
+
+    return $pdf->download($filename);
+}
+
+    public function asignarRutina(Request $request, $id)
+    {
+        $usuario = Usuario::findOrFail($id);
+
+        $request->validate([
+            'rutina_id' => 'required|exists:rutinas,id',
+        ]);
+
+        $usuario->rutina_id = $request->rutina_id;
+        $usuario->save();
+
+        return back()->with('success', 'Rutina asignada correctamente');
+    }
+
 
 
 }

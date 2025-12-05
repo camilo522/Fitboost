@@ -24,7 +24,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Capa oscura con gradiente */
+        /* Capa oscura con gradiente - Color SENA: Verde */
         body::before {
             content: "";
             position: absolute;
@@ -32,7 +32,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(106, 17, 203, 0.85) 0%, rgba(37, 117, 252, 0.85) 100%);
+            background: linear-gradient(135deg, rgba(57, 169, 0, 0.85) 0%, rgba(45, 130, 0, 0.85) 100%);
             z-index: 1;
         }
 
@@ -77,7 +77,7 @@
 
         .logo-container i {
             font-size: 4rem;
-            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            background: linear-gradient(90deg, #39a900, #2d8200);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -175,13 +175,13 @@
 
         .btn-primary-custom {
             background: white;
-            color: #6a11cb;
+            color: #39a900;
         }
 
         .btn-primary-custom:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 40px rgba(255, 255, 255, 0.4);
-            color: #2575fc;
+            color: #2d8200;
         }
 
         .btn-secondary-custom {

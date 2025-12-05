@@ -120,7 +120,7 @@
         </a>
        <a href="{{ route('planes-nutricionales.index') }}"
            class="btn text-white fw-bold rounded-pill px-4 shadow-sm"
-           style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+           style="background: linear-gradient(90deg,#11cb64, #03c937);">
            <i class="bi bi-house me-2"></i> Volver 
         </a>
     </div>

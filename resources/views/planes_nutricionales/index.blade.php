@@ -40,7 +40,7 @@
         <h2 class="fw-bold">Planes Nutricionales</h2>
         <a href="{{ route('calculadora.index') }}" 
         class="btn text-white fw-bold rounded-pill px-4 shadow-sm"
-        style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+        style="background: linear-gradient(90deg,#11cb64, #03c937);">
         <i class="bi bi-calculator me-2"></i> Crear un nuevo plan con la calculadora
         </a>
     </div>
@@ -108,7 +108,7 @@
     <div class="mt-4">
         <a href="{{ route('welcome') }}" 
            class="btn text-white fw-bold rounded-pill px-4 shadow-sm"
-           style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+           style="background: linear-gradient(90deg,#11cb64, #03c937);">
            <i class="bi bi-arrow-left-circle me-2"></i> Volver
         </a>
     </div>

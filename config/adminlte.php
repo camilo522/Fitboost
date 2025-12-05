@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'imagenes/logo.pgn.jpeg',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -113,7 +113,7 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'imagenes/logo.pgn.jpeg',
+            'path' => 'imagenes/logo.jpeg',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 250,
@@ -353,11 +353,7 @@ return [
         'icon' => 'fas fa-fw fa-utensils',
     ],
 
-    [
-        'text' => 'entrenamineto a usuario',
-        'route'  => '',
-        'icon' => 'fas fa-fw fa-user',
-    ],
+    
 
 
 ],

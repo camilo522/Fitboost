@@ -8,90 +8,135 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #000000;
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(57, 169, 0, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(45, 130, 0, 0.1) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
         }
 
         .login-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: linear-gradient(135deg, rgba(57, 169, 0, 0.95) 0%, rgba(45, 130, 0, 0.95) 100%);
             backdrop-filter: blur(10px);
-            border: none;
+            border: 2px solid rgba(57, 169, 0, 0.3);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(57, 169, 0, 0.4),
+                        0 0 100px rgba(57, 169, 0, 0.2);
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                box-shadow: 0 20px 60px rgba(57, 169, 0, 0.4),
+                            0 0 100px rgba(57, 169, 0, 0.2);
+            }
+            50% {
+                box-shadow: 0 20px 60px rgba(57, 169, 0, 0.6),
+                            0 0 120px rgba(57, 169, 0, 0.3);
+            }
         }
 
         .login-header {
-            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            background: rgba(0, 0, 0, 0.3);
             padding: 2rem;
             text-align: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .login-logo {
             width: 80px;
             height: 80px;
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 1rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 25px rgba(57, 169, 0, 0.5),
+                        0 0 40px rgba(57, 169, 0, 0.3);
         }
 
         .login-logo i {
             font-size: 2.5rem;
-            background: linear-gradient(90deg, #6a11cb, #2575fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #39a900;
         }
 
         .form-control {
             border-radius: 10px;
             padding: 12px 15px;
-            border: 2px solid #e0e0e0;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.95);
             transition: all 0.3s ease;
+            color: #000;
         }
 
         .form-control:focus {
-            border-color: #6a11cb;
-            box-shadow: 0 0 0 0.2rem rgba(106, 17, 203, 0.15);
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+            background: #ffffff;
+        }
+
+        .form-control::placeholder {
+            color: rgba(0, 0, 0, 0.5);
         }
 
         .btn-login {
-            background: linear-gradient(90deg, #6a11cb, #2575fc);
-            border: none;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 25px;
             padding: 12px;
             font-weight: bold;
-            color: white;
+            color: #39a900;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
         }
 
         .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(106, 17, 203, 0.4);
+            box-shadow: 0 6px 30px rgba(255, 255, 255, 0.5);
+            background: #ffffff;
+            color: #2d8200;
+            border-color: #ffffff;
         }
 
         .register-link {
-            color: #6a11cb;
+            color: #ffffff;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
         .register-link:hover {
-            color: #2575fc;
+            color: #ffffff;
             text-decoration: underline;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
 
         .input-group-text {
-            background: transparent;
-            border: 2px solid #e0e0e0;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-right: none;
             border-radius: 10px 0 0 10px;
+            color: #39a900;
         }
 
         .input-group .form-control {
@@ -100,12 +145,26 @@
         }
 
         .input-group:focus-within .input-group-text {
-            border-color: #6a11cb;
+            border-color: rgba(255, 255, 255, 0.8);
+            background: #ffffff;
         }
 
         .alert {
             border-radius: 10px;
             border: none;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .form-label {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .text-muted {
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+
+        hr {
+            border-color: rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>

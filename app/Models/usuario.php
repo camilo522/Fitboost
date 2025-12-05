@@ -48,5 +48,11 @@ class Usuario extends Authenticatable
         return $this->hasMany(HistorialValoracion::class, 'idUsuario');
     }
 
+    public function rutina()
+{
+    return $this->belongsTo(rutinas::class, 'rutina_id');
+}
+
+
     
 }

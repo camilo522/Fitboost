@@ -125,3 +125,14 @@ Route::post('/usuario/{id}/foto', [UsuarioController::class, 'subirFoto'])->name
 
 
 
+
+
+Route::get('usuario/{id}/exportar', [UsuarioController::class, 'exportar'])->name('usuario.exportar');
+
+
+Route::post('/rutinas/{id}/asignar', [RutinasController::class, 'asignar'])->name('rutinas.asignar');
+
+
+
+
+

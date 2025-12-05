@@ -17,6 +17,10 @@ return new class extends Migration
         $table->string('email', 100)->unique();
         $table->string('contrasena');
         $table->date('fechaRegistro');
+
+       
+        $table->unsignedBigInteger('rutina_id')->nullable()->after('id');
+        
         $table->timestamps();
     });
     }
@@ -28,4 +32,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('usuarios');
     }
+
+    
 };

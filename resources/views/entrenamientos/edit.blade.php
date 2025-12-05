@@ -68,12 +68,12 @@
                 <div class="d-flex justify-content-between mt-5">
                     <a href="{{ route('entrenamientos.index') }}" 
                        class="btn rounded-pill shadow-sm px-4 py-2 fw-bold text-white" 
-                       style="background: linear-gradient(135deg, #6a11cb, #2575fc);">
+                       style="background: linear-gradient(135deg, #11cb64, #03c937);">
                        <i class="bi bi-arrow-left-circle me-2"></i> Volver
                     </a>
                     <button type="submit" 
                             class="btn rounded-pill shadow-sm px-4 py-2 fw-bold text-white" 
-                            style="background: linear-gradient(135deg, #6a11cb, #2575fc);">
+                            style="background: linear-gradient(135deg, #11cb64, #03c937);">
                         <i class="bi bi-check-circle me-2"></i> Guardar
                     </button>
                 </div>
@@ -84,7 +84,7 @@
 
 <style>
     .text-gradient {
-        background: linear-gradient(90deg, #6a11cb, #2575fc);
+        background: linear-gradient(90deg, #11cb64, #03c937);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
