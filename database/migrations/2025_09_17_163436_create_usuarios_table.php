@@ -11,18 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-          Schema::create('usuarios', function (Blueprint $table) {
-        $table->id();
-        $table->string('nombre', 100);
-        $table->string('email', 100)->unique();
-        $table->string('contrasena');
-        $table->date('fechaRegistro');
+        Schema::create('usuarios', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('rutina_id')->nullable(); // Columna de rutina
 
-       
-        $table->unsignedBigInteger('rutina_id')->nullable()->after('id');
-        
-        $table->timestamps();
-    });
+            $table->string('nombre', 100);
+            $table->string('email', 100)->unique();
+            $table->string('contrasena');
+            $table->date('fechaRegistro');
+            $table->timestamps();
+
+            // Clave foránea
+            $table->foreign('rutina_id')->references('id')->on('rutinas')->onDelete('set null');
+        });
     }
 
     /**
@@ -32,6 +33,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('usuarios');
     }
-
-    
 };

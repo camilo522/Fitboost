@@ -50,8 +50,9 @@ class Usuario extends Authenticatable
 
     public function rutina()
 {
-    return $this->belongsTo(rutinas::class, 'rutina_id');
+    return $this->belongsTo(Rutinas::class, 'rutina_id');
 }
+
 
 
     
