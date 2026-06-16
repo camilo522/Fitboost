@@ -1,149 +1,254 @@
 @extends('layouts.app')
 
-@section('title', 'FitBo Host - Panel Principal')
-
+@section('title', 'Dashboard | FitBoost')
 
 @section('content')
 
-{{-- Define el Verde Corporativo del SENA --}}
-@php
-    // Usaremos un verde representativo del SENA. (Los códigos exactos varían según el manual, 
-    // pero este es un buen punto de partida para web).
-    $senaGreen = '#00703C'; 
-    $senaDark = '#004d2a';
-@endphp
+<div class="container-fluid">
 
+{{-- HEADER --}}
+<div class="row mb-4">
 
-<div class="d-flex justify-content-end mb-4">
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
 
-    <a href="#"
-        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-        class="btn rounded-pill shadow-sm px-4 text-white fw-bold"
-        style="background-color: green;"> {{-- Usamos el color plano SENA --}}
-        <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
-    </a>
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+
+                    <div>
+                        <h2 class="fw-bold text-success mb-1">
+                            Bienvenido a FitBoost
+                        </h2>
+
+                        <p class="text-muted mb-0">
+                            Plataforma de entrenamiento y seguimiento físico - SENA
+                        </p>
+                    </div>
+
+                    <div class="mt-3 mt-md-0">
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+
+                            <button class="btn btn-success">
+                                <i class="bi bi-box-arrow-right me-2"></i>
+                                Cerrar Sesión
+                            </button>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {{-- CARD INFO --}}
+    <div class="col-md-4">
+        <div class="small-box bg-success shadow">
+
+            <div class="inner">
+                <h3>FitBoost</h3>
+
+                <p>Sistema de gestión fitness</p>
+            </div>
+
+            <div class="icon">
+                <i class="fas fa-dumbbell"></i>
+            </div>
+
+        </div>
+    </div>
+
 </div>
 
-<div class="container my-5">
-    
-    <div class="text-center mb-5">
-        <h1 class="fw-bold mt-6" style="color: green;">Panel principal</h1>
-    </div>
+{{-- MODULOS --}}
+<div class="row">
 
-    <div class="row justify-content-center g-4 mb-4">
+    {{-- USUARIOS --}}
+    <div class="col-lg-4 col-md-6 mb-4">
 
-        
-        <div class="col-md-4">
-            <div class="card text-center shadow-lg border-0 rounded-4 card-hover h-100">
-                <div class="card-body d-flex flex-column align-items-center justify-content-between">
-                    <img src="{{ asset('imagenes/image.png') }}" alt="Usuarios" class="custom-img mb-3">
-                    <h5 class="card-title">Usuarios</h5>
-                    <p class="card-text">Gestiona todos los usuarios de la aplicación.</p>
-                    <a href="{{ route('usuario.index') }}" 
-                        class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
-                        style="background-color: green;">Ir</a> {{-- Botón con color SENA --}}
+        <div class="card h-100 dashboard-card">
+
+            <div class="card-body text-center">
+
+                <div class="dashboard-icon bg-success">
+                    <i class="fas fa-users"></i>
                 </div>
-            </div>
-        </div>
 
-        <div class="col-md-4">
-            <div class="card text-center shadow-lg border-0 rounded-4 card-hover h-100">
-                <div class="card-body d-flex flex-column align-items-center justify-content-between">
-                    <img src="{{ asset('imagenes/2.png') }}" alt="Entrenamientos" class="custom-img mb-3">
-                    <h5 class="card-title">Entrenamientos</h5>
-                    <p class="card-text">Administra sesiones de entrenamiento.</p>
-                    <a href="{{ route('entrenamientos.index') }}" 
-                        class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
-                        style="background-color: green;">Ir</a> {{-- Botón con color SENA --}}
-                </div>
-            </div>
-        </div>
+                <h4 class="fw-bold mt-3">
+                    Usuarios
+                </h4>
 
-        <div class="col-md-4">
-            <div class="card text-center shadow-lg border-0 rounded-4 card-hover h-100">
-                <div class="card-body d-flex flex-column align-items-center justify-content-between">
-                    <img src="{{ asset('imagenes/7.jpg') }}" alt="Valoraciones" class="custom-img mb-3">
-                    <h5 class="card-title">Valoraciones</h5>
-                    <p class="card-text">Consulta el progreso físico y mediciones.</p>
-                    <a href="{{ route('valoraciones.index') }}" 
-                        class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
-                        style="background-color: green">Ir</a> {{-- Botón con color SENA --}}
-                </div>
+                <p class="text-muted">
+                    Gestiona los usuarios registrados en el sistema.
+                </p>
+
+                <a href="{{ route('usuario.index') }}"
+                   class="btn btn-success mt-2">
+                    Ingresar
+                </a>
+
             </div>
+
         </div>
 
     </div>
 
-    <div class="row justify-content-center g-4">
+    {{-- ENTRENAMIENTOS --}}
+    <div class="col-lg-4 col-md-6 mb-4">
 
-        <div class="col-md-4">
-            <div class="card text-center shadow-lg border-0 rounded-4 card-hover h-100">
-                <div class="card-body d-flex flex-column align-items-center justify-content-between">
-                    <img src="{{ asset('imagenes/5.png') }}" alt="Rutinas" class="custom-img mb-3">
-                    <h5 class="card-title">Rutinas</h5>
-                    <p class="card-text">Administra rutinas de entrenamiento.</p>
-                    <a href="{{ route('rutinas.index') }}" 
-                        class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
-                        style="background-color: green;">Ir</a> {{-- Botón con color SENA --}}
+        <div class="card h-100 dashboard-card">
+
+            <div class="card-body text-center">
+
+                <div class="dashboard-icon bg-primary">
+                    <i class="fas fa-dumbbell"></i>
                 </div>
+
+                <h4 class="fw-bold mt-3">
+                    Entrenamientos
+                </h4>
+
+                <p class="text-muted">
+                    Administra los entrenamientos y objetivos físicos.
+                </p>
+
+                <a href="{{ route('entrenamientos.index') }}"
+                   class="btn btn-success mt-2">
+                    Ingresar
+                </a>
+
             </div>
+
         </div>
 
-        <div class="col-md-4">
-            <div class="card text-center shadow-lg border-0 rounded-4 card-hover h-100">
-                <div class="card-body d-flex flex-column align-items-center justify-content-between">
-                    <img src="{{ asset('imagenes/6.png') }}" alt="Ejercicios" class="custom-img mb-3">
-                    <h5 class="card-title">Ejercicios</h5>
-                    <p class="card-text">Consulta tu rutina para ver qué lleva.</p>
-                    <a href="{{ route('ejercicios.index') }}" 
-                        class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
-                        style="background-color: green;">Ir</a> {{-- Botón con color SENA --}}
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card text-center shadow-lg border-0 rounded-4 card-hover h-100">
-                <div class="card-body d-flex flex-column align-items-center justify-content-between">
-                    <img src="{{ asset('imagenes/8.png') }}" alt="Plan nutricional" class="custom-img mb-3">
-                    <h5 class="card-title">Plan nutricional</h5>
-                    <p class="card-text">Administra tus planes alimenticios.</p>
-                    <a href="{{ route('planes-nutricionales.index') }}" 
-                        class="btn rounded-pill shadow-sm px-4 text-white fw-bold mt-2"
-                        style="background-color:green;">Ir</a> {{-- Botón con color SENA --}}
-                </div>
-            </div>
-        </div>
     </div>
+
+    {{-- VALORACIONES --}}
+    <div class="col-lg-4 col-md-6 mb-4">
+
+        <div class="card h-100 dashboard-card">
+
+            <div class="card-body text-center">
+
+                <div class="dashboard-icon bg-warning">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+
+                <h4 class="fw-bold mt-3">
+                    Valoraciones
+                </h4>
+
+                <p class="text-muted">
+                    Consulta el progreso físico y mediciones corporales.
+                </p>
+
+                <a href="{{ route('valoraciones.index') }}"
+                   class="btn btn-success mt-2">
+                    Ingresar
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {{-- RUTINAS --}}
+    <div class="col-lg-4 col-md-6 mb-4">
+
+        <div class="card h-100 dashboard-card">
+
+            <div class="card-body text-center">
+
+                <div class="dashboard-icon bg-danger">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+
+                <h4 class="fw-bold mt-3">
+                    Rutinas
+                </h4>
+
+                <p class="text-muted">
+                    Organiza rutinas y planes de entrenamiento.
+                </p>
+
+                <a href="{{ route('rutinas.index') }}"
+                   class="btn btn-success mt-2">
+                    Ingresar
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {{-- EJERCICIOS --}}
+    <div class="col-lg-4 col-md-6 mb-4">
+
+        <div class="card h-100 dashboard-card">
+
+            <div class="card-body text-center">
+
+                <div class="dashboard-icon bg-info">
+                    <i class="fas fa-running"></i>
+                </div>
+
+                <h4 class="fw-bold mt-3">
+                    Ejercicios
+                </h4>
+
+                <p class="text-muted">
+                    Gestiona ejercicios y actividades físicas.
+                </p>
+
+                <a href="{{ route('ejercicios.index') }}"
+                   class="btn btn-success mt-2">
+                    Ingresar
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {{-- PLANES --}}
+    <div class="col-lg-4 col-md-6 mb-4">
+
+        <div class="card h-100 dashboard-card">
+
+            <div class="card-body text-center">
+
+                <div class="dashboard-icon bg-secondary">
+                    <i class="fas fa-utensils"></i>
+                </div>
+
+                <h4 class="fw-bold mt-3">
+                    Plan Nutricional
+                </h4>
+
+                <p class="text-muted">
+                    Controla y administra los planes alimenticios.
+                </p>
+
+                <a href="{{ route('planes-nutricionales.index') }}"
+                   class="btn btn-success mt-2">
+                    Ingresar
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
 </div>
 
-
-<style>
-    /* Tamaño uniforme de imágenes */
-    .custom-img {
-        width: 120px;
-        height: 120px;
-        object-fit: contain;
-        display: block;
-        margin: 0 auto;
-    }
-
-    /* Cards del mismo tamaño */
-    .card {
-        min-height: 350px;
-    }
-
-    /* Hover animado (Puedes mantener este efecto) */
-    .card-hover {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card-hover:hover {
-        transform: translateY(-10px) scale(1.03);
-        box-shadow: 0 12px 24px rgba(0,0,0,0.2);
-    }
-</style>
 @endsection

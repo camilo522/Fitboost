@@ -1,11 +1,119 @@
-@import 'tailwindcss';
+/* =========================
+FITBOOST - TEMA SENA
+========================= */
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+:root {
+--sena-green: #39A900;
+--sena-dark: #007832;
+--fit-dark: #1E1E1E;
+--fit-light: #F4F6F9;
+--fit-white: #FFFFFF;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+/* Fondo general */
+body {
+background-color: #f4f6f9 !important;
+font-family: 'Segoe UI', sans-serif;
+}
+
+/* Navbar */
+.main-header {
+background: #ffffff !important;
+border-bottom: 2px solid var(--sena-green);
+}
+
+/* Sidebar */
+.main-sidebar {
+background: linear-gradient(180deg, #111111, #1c1c1c) !important;
+}
+
+/* Logo */
+.brand-link {
+background-color: var(--sena-green) !important;
+border-bottom: none !important;
+}
+
+.brand-text {
+color: white !important;
+font-weight: bold;
+}
+
+/* Links sidebar */
+.nav-sidebar .nav-link {
+color: #cfcfcf !important;
+border-radius: 10px;
+margin: 4px 8px;
+transition: all 0.3s ease;
+}
+
+.nav-sidebar .nav-link:hover {
+background: rgba(57, 169, 0, 0.2);
+color: white !important;
+}
+
+.nav-sidebar .nav-link.active {
+background: var(--sena-green) !important;
+color: white !important;
+}
+
+/* Cards */
+.card {
+border-radius: 18px;
+border: none;
+overflow: hidden;
+box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+transition: all 0.3s ease;
+}
+
+.card:hover {
+transform: translateY(-4px);
+}
+
+/* Botones */
+.btn-success {
+background: var(--sena-green) !important;
+border: none !important;
+}
+
+.btn-success:hover {
+background: var(--sena-dark) !important;
+}
+
+/* Titulos */
+.content-header h1 {
+font-weight: bold;
+color: var(--sena-dark);
+}
+
+/* Tablas */
+.table thead {
+background: var(--sena-green);
+color: white;
+}
+
+/* Inputs */
+.form-control {
+border-radius: 10px;
+}
+
+/* Footer */
+.main-footer {
+background: white;
+border-top: 1px solid #ddd;
+}
+
+/* Dashboard cards */
+.small-box {
+border-radius: 18px !important;
+overflow: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+background: var(--sena-green);
+border-radius: 20px;
 }

@@ -14,9 +14,9 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
-    'title_prefix' => 'FitBoost',
-    'title_postfix' => '',
+    'title' => 'FitBoost',
+    'title_prefix' => '',
+    'title_postfix' => ' | SENA',
 
     /*
     |--------------------------------------------------------------------------
@@ -64,11 +64,13 @@ return [
     */
 
     'logo' => '<b>FIT</b>BOOST',
-    'logo_img' => 'vendor/adminlte/dist/img/logo.pgn.jpeg',
+
+    'logo_img' => 'imagenes/logo.png',
+
     'logo_img_class' => 'brand-image img-circle elevation-3',
-    'logo_img_xl' => null,
-    'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+
+    'logo_img_alt' => 'FitBoost Logo',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -86,11 +88,10 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'Auth Logo',
-            'class' => '',
-            'width' => 50,
-            'height' => 50,
+            'path' => 'imagenes/logo.png',
+            'effect' => 'animation__pulse',
+            'width' => 180,
+            'height' => 180,
         ],
     ],
 
@@ -113,7 +114,7 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'imagenes/logo.pgn.jpeg',
+            'path' => 'imagenes/logo.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 250,
@@ -157,7 +158,7 @@ return [
     'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
-    'layout_dark_mode' => null,
+    'layout_dark_mode' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -190,17 +191,28 @@ return [
     |
     */
 
-    'classes_body' => '',
-    'classes_brand' => 'bg-white',
-    'classes_brand_text' => '',
-    'classes_content_wrapper' => '',
-    'classes_content_header' => '',
-    'classes_content' => 'success',
-    'classes_sidebar' => 'sidebar-light-success elevation-4',
-    'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-success navbar-light',
+    'classes_body' => 'layout-navbar-fixed layout-fixed',
+
+    'classes_brand' => 'bg-success',
+
+    'classes_brand_text' => 'text-white font-weight-bold',
+
+    'classes_content_wrapper' => 'bg-light',
+
+    'classes_content_header' => 'bg-white',
+
+    'classes_content' => '',
+
+    'classes_sidebar' => 'sidebar-dark-success elevation-4',
+
+    'classes_sidebar_nav' => 'nav-flat nav-legacy',
+
+    'classes_topnav' => 'navbar-white navbar-light',
+
     'classes_topnav_nav' => 'navbar-expand',
-    'classes_topnav_container' => 'container',
+
+    'classes_topnav_container' => 'container-fluid',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -354,7 +366,7 @@ return [
     ],
 
     [
-        'text' => 'entrenamineto a usuario',
+        'text' => 'Entrenamiento Usuario',
         'route'  => '',
         'icon' => 'fas fa-fw fa-user',
     ],
@@ -399,7 +411,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -444,7 +456,7 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
