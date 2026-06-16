@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\PlanNutricional;
-use App\Http\Requests\UsuarioRequest;
-use App\Models\User;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\QueryException;
 
 class UsuarioController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * LISTAR USUARIOS
      */
     public function index()
     {
@@ -20,120 +21,179 @@ class UsuarioController extends Controller
         return view('usuarios.index', compact('usuarios'));
     }
 
+
     /**
-     * Show the form for creating a new resource.
+     * FORM CREAR
      */
     public function create()
     {
         return view('usuarios.create');
     }
 
+
     /**
-     * Store a newly created resource in storage.
+     * GUARDAR USUARIO
      */
     public function store(Request $request)
-    {
-        Usuario::create($request->all());
-
-        return redirect()->route('usuario.index');
-    }
-
-    /**
-     * Display the specified resource (PERFIL DEL USUARIO).
-     */
-    
-
-    public function show($id)
 {
-    $usuario = Usuario::findOrFail($id);
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'email' => 'required|email|unique:usuarios,email',
+        'password' => 'required|min:8',
+        'fechaRegistro' => 'required|date',
+    ]);
 
-    // Última valoración
-    $ultimaValoracion = $usuario->valoraciones()
-        ->orderBy('created_at', 'desc')
-        ->first();
+    Usuario::create([
+        'nombre' => $request->nombre,
+        'email' => $request->email,
+        'password' => $request->password,
+        'fechaRegistro' => $request->fechaRegistro,
+    ]);
 
-    // Obtener el plan nutricional activo del usuario
-    $planNutricional = PlanNutricional::where('id_usuario', $id)
-        ->where('activo', true)
-        ->first();
-
-    return view('usuarios.perfil', compact(
-        'usuario',
-        'ultimaValoracion',
-        'planNutricional'
-    ));
+    return redirect()
+        ->route('usuario.index')
+        ->with('success', 'Usuario creado correctamente');
 }
 
+
     /**
-     * Show the form for editing the specified resource.
+     * PERFIL USUARIO
+     */
+    public function show($id)
+    {
+
+        $usuario = Usuario::findOrFail($id);
+
+        // Última valoración
+        $ultimaValoracion = $usuario->valoraciones()
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        // Plan nutricional activo
+        $planNutricional = PlanNutricional::where('id_usuario', $id)
+            ->where('activo', true)
+            ->first();
+
+        return view('usuarios.perfil', compact(
+            'usuario',
+            'ultimaValoracion',
+            'planNutricional'
+        ));
+    }
+
+
+    /**
+     * FORM EDITAR
      */
     public function edit($id)
     {
+
         $usuario = Usuario::findOrFail($id);
 
         return view('usuarios.edit', compact('usuario'));
+
     }
 
+
     /**
-     * Update the specified resource in storage.
+     * ACTUALIZAR USUARIO
      */
     public function update(Request $request, $id)
     {
+
         $usuario = Usuario::findOrFail($id);
 
         $request->validate([
+
             'nombre' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:usuarios,email,' . $usuario->id,
-            'password' => 'nullable|string|min:8|confirmed',
+
+            'email' => 'required|email|unique:usuarios,email,' . $usuario->id,
+
+            'password' => 'nullable|min:8|confirmed',
+
             'fechaRegistro' => 'required|date',
+
         ]);
 
         $usuario->nombre = $request->nombre;
+
         $usuario->email = $request->email;
+
         $usuario->fechaRegistro = $request->fechaRegistro;
 
+        // SOLO ACTUALIZA PASSWORD SI SE ESCRIBE
         if ($request->filled('password')) {
-            $usuario->password = $request->password; // Mutator lo hashea
+
+            $usuario->password = $request->password;
+
         }
 
         $usuario->save();
 
-        return redirect()->route('usuario.index')->with('success', 'Usuario actualizado correctamente');
+        return redirect()
+            ->route('usuario.index')
+            ->with('success', 'Usuario actualizado correctamente');
+
     }
 
+
+    /**
+     * ELIMINAR USUARIO
+     */
     public function destroy($id)
     {
+
         $usuario = Usuario::findOrFail($id);
 
         try {
+
             $usuario->delete();
 
-            return redirect()->route('usuario.index')
+            return redirect()
+                ->route('usuario.index')
                 ->with('success', 'Usuario eliminado correctamente');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('usuario.index')
-                ->with('error', 'No se puede eliminar este usuario porque tiene valoraciones asociadas.');
+
+        } catch (QueryException $e) {
+
+            return redirect()
+                ->route('usuario.index')
+                ->with('error', 'No se puede eliminar porque tiene registros asociados');
+
         }
+
     }
 
-public function subirFoto(Request $request, $id)
-{
-    $request->validate([
-        'foto' => 'required|image|mimes:jpg,png,jpeg|max:2048',
-    ]);
 
-    $usuario = Usuario::findOrFail($id);
+    /**
+     * SUBIR FOTO PERFIL
+     */
+    public function subirFoto(Request $request, $id)
+    {
 
-    $nombre = time() . '.' . $request->foto->extension();
+        $request->validate([
 
-    // GUARDAR EN STORAGE
-    $request->foto->storeAs('public/imagenes/perfiles', $nombre);
+            'foto' => 'required|image|mimes:jpg,jpeg,png|max:2048',
 
-    $usuario->foto = $nombre;
-    $usuario->save();
+        ]);
 
-    return back()->with('success', 'Foto actualizada correctamente');
-}
+        $usuario = Usuario::findOrFail($id);
 
+        $nombre = time() . '.' . $request->foto->extension();
+
+        $request->foto->storeAs(
+            'public/imagenes/perfiles',
+            $nombre
+        );
+
+        $usuario->foto = $nombre;
+
+        $usuario->save();
+
+        return back()->with(
+            'success',
+            'Foto actualizada correctamente'
+        );
+
+    }
 
 }

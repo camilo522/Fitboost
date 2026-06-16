@@ -13,40 +13,85 @@ class Usuario extends Authenticatable
     protected $table = 'usuarios';
 
     protected $fillable = [
+
         'nombre',
+
         'email',
-        'contrasena',
-        'fechaRegistro',
-        'password'
-    ];
 
-    protected $hidden = [
         'password',
+
+        'fechaRegistro',
+
+        'foto',
+
     ];
 
-    // Auth::attempt usará esta columna
+    /**
+     * OCULTAR CAMPOS
+     */
+    protected $hidden = [
+
+        'password',
+
+        'remember_token',
+
+    ];
+
+    /**
+     * CASTS
+     */
+    protected $casts = [
+
+        'fechaRegistro' => 'date',
+
+    ];
+
+    /**
+     * AUTH PASSWORD
+     */
     public function getAuthPassword()
     {
         return $this->password;
     }
 
-    // 🔹 Mutator: siempre guarda la contraseña hasheada
+    /**
+     * HASH AUTOMÁTICO PASSWORD
+     */
     public function setPasswordAttribute($value)
     {
-        if ($value) {
+
+        if (!empty($value)) {
+
             $this->attributes['password'] = Hash::make($value);
+
         }
+
     }
 
+    /**
+     * RELACIÓN VALORACIONES
+     */
     public function valoraciones()
     {
-        return $this->hasMany(valoraciones::class, 'idUsuario');
+
+        return $this->hasMany(
+            Valoraciones::class,
+            'idUsuario'
+        );
+
     }
 
+    /**
+     * RELACIÓN HISTORIAL
+     */
     public function historialValoraciones()
     {
-        return $this->hasMany(HistorialValoracion::class, 'idUsuario');
+
+        return $this->hasMany(
+            HistorialValoracion::class,
+            'idUsuario'
+        );
+
     }
 
-    
 }
