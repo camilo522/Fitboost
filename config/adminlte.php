@@ -172,12 +172,12 @@ return [
     |
     */
 
-    'classes_auth_card' => 'card-outline card-primary',
+    'classes_auth_card' => 'card-outline',
     'classes_auth_header' => '',
     'classes_auth_body' => '',
     'classes_auth_footer' => '',
     'classes_auth_icon' => '',
-    'classes_auth_btn' => 'btn-flat btn-primary',
+    'classes_auth_btn' => 'btn-flat text-white',
 
     /*
     |--------------------------------------------------------------------------
@@ -193,7 +193,7 @@ return [
 
     'classes_body' => 'layout-navbar-fixed layout-fixed',
 
-    'classes_brand' => 'bg-success',
+    'classes_brand' => 'text-white',
 
     'classes_brand_text' => 'text-white font-weight-bold',
 
@@ -203,13 +203,13 @@ return [
 
     'classes_content' => '',
 
-    'classes_sidebar' => 'sidebar-dark-success elevation-4',
+    'classes_sidebar' => 'sidebar-dark-success elevation-2',
 
-    'classes_sidebar_nav' => 'nav-flat nav-legacy',
+    'classes_sidebar_nav' => 'nav-flat nav-child-indent',
 
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav' => 'navbar-white navbar-light border-bottom border-success shadow-sm',
 
-    'classes_topnav_nav' => 'navbar-expand',
+    'classes_topnav_nav' => 'navbar-expand-lg',
 
     'classes_topnav_container' => 'container-fluid',
 
@@ -314,20 +314,17 @@ return [
     // Navbar items
     
     [
-        'type' => 'fullscreen-widget ',
+        'type' => 'navbar-search',
+        'text' => 'Buscar',
         'topnav_right' => true,
     ],
-
-    // Sidebar search:
     [
-        'type' => 'sidebar-menu-search',
-        'text' => 'Búsqueda',
+        'type' => 'fullscreen-widget',
+        'topnav_right' => true,
     ],
 
     // Menú principal:
     [
-
-
 
         'text' => 'Inicio',
         'route'  => 'welcome',
@@ -364,14 +361,6 @@ return [
         'route'  => 'planes-nutricionales.index',
         'icon' => 'fas fa-fw fa-utensils',
     ],
-
-    [
-        'text' => 'Entrenamiento Usuario',
-        'route'  => '',
-        'icon' => 'fas fa-fw fa-user',
-    ],
-
-
 ],
 
 

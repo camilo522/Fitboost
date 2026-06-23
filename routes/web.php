@@ -36,7 +36,7 @@ Route::post('/loginsubmit',[usersController::class,'login'])->name('login.submit
 
 Route::get('/logout', function () {
     Auth::logout();
-    return redirect()->route('login');
+    return view('landing');
 })->name('logout');
 
 //RUTAS REGISTRO
