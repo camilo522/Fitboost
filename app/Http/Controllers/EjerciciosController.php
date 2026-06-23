@@ -69,6 +69,13 @@ class EjerciciosController extends Controller
     return redirect()->route('ejercicios.index')->with('success', 'Ejercicio creado correctamente.');
 }
 
+    public function show($id)
+    {
+        $ejercicio = ejercicios::findOrFail($id);
+        return view('ejercicios.show', compact('ejercicio'));
+    }
+
+
     public function edit($id)
     {
         $ejercicio = ejercicios::findOrFail($id);

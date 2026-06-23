@@ -1,87 +1,178 @@
 @extends('layouts.app')
 
-@section('title', 'Editar Plan Nutricional')
-
-@section('titleContent')
-    <h1 class="text-center fw-bold my-4 text-gradient">
-        <i class="bi bi-pencil-square"></i> Editar Plan Nutricional
-    </h1>
-@endsection
+@section('title', 'Editar Plan Nutricional | FitBoost')
 
 @section('content')
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <!-- Tarjeta principal que contiene el formulario -->
-            <div class="card shadow-lg border-0 rounded-4">
-                <div class="card-body p-5">
-                    <form action="{{ route('planes-nutricionales.update', $planNutricional->id) }}" method="POST">
-                        @csrf
-                       
-                         @if ($errors->any())
-        <div class="alert alert-danger" role="alert">
-            <h4 class="alert-heading">¡Por favor, corrige los siguientes errores!</h4>
-            <hr>
-            <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 
-                        <!-- Selección de Usuario -->
-                        <div class="mb-3">
-                            <label for="id_usuario" class="form-label fw-bold">Asignar a Usuario</label>
-                            <select name="id_usuario" id="id_usuario" class="form-select rounded-pill" required>
-                                <option value="">Selecciona un usuario</option>
-                                @foreach ($usuarios as $usuario)
-                                    <option value="{{ $usuario->id }}" {{ $planNutricional->id_usuario == $usuario->id ? 'selected' : '' }}>
-                                        {{ $usuario->nombre }} ({{ $usuario->email }})
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+<style>
+    /* Cabecera estilo Cristal */
+    .glass-header-nutrition {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.04);
+    }
 
-                        <!-- Datos Nutricionales en una fila -->
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="calorias_diarias" class="form-label fw-bold">Calorías Diarias</label>
-                                <input type="number" name="calorias_diarias" class="form-control rounded-pill" value="{{ $planNutricional->calorias_diarias }}" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="proteinas_gramos" class="form-label fw-bold">Proteínas (gramos)</label>
-                                <input type="number" name="proteinas_gramos" class="form-control rounded-pill" value="{{ $planNutricional->proteinas_gramos }}" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="carbohidratos_gramos" class="form-label fw-bold">Carbohidratos (gramos)</label>
-                                <input type="number" name="carbohidratos_gramos" class="form-control rounded-pill" value="{{ $planNutricional->carbohidratos_gramos }}" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="grasas_gramos" class="form-label fw-bold">Grasas (gramos)</label>
-                                <input type="number" name="grasas_gramos" class="form-control rounded-pill" value="{{ $planNutricional->grasas_gramos }}" required>
-                            </div>
-                        </div>
+    /* Contenedor Principal con efecto Cristal */
+    .glass-card-nutrition {
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 24px !important;
+        box-shadow: 0 14px 40px rgba(15, 23, 42, 0.05);
+    }
 
-                        <!-- Consejos Adicionales -->
-                        <div class="mb-3 mt-3">
-                            <label for="consejos_adicionales" class="form-label fw-bold">Consejos Adicionales</label>
-                            <textarea name="consejos_adicionales" class="form-control rounded-4" rows="3">{{ $planNutricional->consejos_adicionales }}</textarea>
-                        </div>
+    /* Inputs, Selects y Textareas Estilizados */
+    .form-control-custom {
+        border-radius: 12px !important;
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        padding: 0.65rem 1rem;
+        background-color: #ffffff;
+        color: #334155;
+        font-size: 0.92rem;
+        transition: all 0.2s ease;
+    }
+    .form-control-custom:focus {
+        border-color: #11cb64;
+        box-shadow: 0 0 0 3px rgba(17, 203, 100, 0.15);
+        background-color: #ffffff;
+    }
 
-                        <!-- Botones de acción -->
-                        <div class="d-flex justify-content-between mt-4">
-                            <a href="{{ route('planes-nutricionales.index') }}" class="btn btn-secondary rounded-pill">
-                                <i class="bi bi-arrow-left-circle me-2"></i> Volver
-                            </a>
-                            <button type="submit" class="btn text-white fw-bold rounded-pill px-4 shadow-sm" style="background: linear-gradient(90deg, #11cb64, #03c937);">
-                                <i class="bi bi-save me-2"></i> Actualizar Plan
-                            </button>
-                        </div>
-                    </form>
+    /* Botones estilo píldora */
+    .btn-panel-pill {
+        border-radius: 30px !important;
+        padding: 0.55rem 1.5rem;
+        font-weight: 700;
+        font-size: 0.85rem;
+        transition: all 0.25s ease;
+    }
+    .btn-panel-pill:hover {
+        transform: translateY(-2px);
+    }
+    .btn-update-nutrition {
+        background: linear-gradient(90deg, #11cb64, #03c937);
+        border: none;
+    }
+    .btn-update-nutrition:hover {
+        background: linear-gradient(90deg, #0eb357, #02b02f);
+        box-shadow: 0 4px 15px rgba(3, 201, 55, 0.3);
+    }
+</style>
+
+<div class="container-fluid py-4" style="max-width: 900px;">
+
+    {{-- CABECERA SECCIÓN --}}
+    <div class="card glass-header-nutrition rounded-4 border-0 mb-4 p-2">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <div>
+                    <h2 class="fw-bold text-success mb-1" style="letter-spacing: -0.5px;">
+                        <i class="bi bi-pencil-square me-2"></i>Editar Plan Nutricional
+                    </h2>
+                    <p class="text-muted mb-0 small">
+                        Modifique los objetivos energéticos y la distribución de macros asignada al usuario.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
+
+    {{-- FORMULARIO PRINCIPAL --}}
+    <div class="card glass-card-nutrition border-0">
+        <div class="card-body p-4">
+            
+            <form action="{{ route('planes-nutricionales.update', $planNutricional->id) }}" method="POST">
+                @csrf
+
+                @if ($errors->any())
+                    <div class="alert alert-danger border-0 shadow-sm rounded-4 p-3 mb-4" style="background-color: rgba(239, 68, 68, 0.1); color: #ef4444;">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-exclamation-triangle-fill fs-5 me-2"></i>
+                            <strong>¡Atención! Revisa los siguientes campos:</strong>
+                        </div>
+                        <ul class="mb-0 ps-4 small">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <div class="row g-4">
+                    {{-- Selección de Usuario --}}
+                    <div class="col-12">
+                        <label for="id_usuario" class="form-label fw-bold text-dark small">Asignar a Usuario</label>
+                        <select name="id_usuario" id="id_usuario" class="form-select form-control-custom" required>
+                            <option value="">Selecciona un usuario...</option>
+                            @foreach ($usuarios as $usuario)
+                                <option value="{{ $usuario->id }}" {{ $planNutricional->id_usuario == $usuario->id ? 'selected' : '' }}>
+                                    {{ $usuario->nombre }} ({{ $usuario->email }})
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    {{-- Calorías Diarias --}}
+                    <div class="col-md-6">
+                        <label for="calorias_diarias" class="form-label fw-bold text-dark small">Calorías Diarias</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 12px 0 0 12px; border-color: rgba(226, 232, 240, 0.8);"><i class="bi bi-fire"></i></span>
+                            <input type="number" name="calorias_diarias" id="calorias_diarias" class="form-control form-control-custom ps-2" style="border-radius: 0 12px 12px 0 !important;" value="{{ old('calorias_diarias', $planNutricional->calorias_diarias) }}" required>
+                        </div>
+                    </div>
+
+                    {{-- Proteínas --}}
+                    <div class="col-md-6">
+                        <label for="proteinas_gramos" class="form-label fw-bold text-dark small">Proteínas (gramos)</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 12px 0 0 12px; border-color: rgba(226, 232, 240, 0.8);"><i class="bi bi-egg-fried"></i></span>
+                            <input type="number" name="proteinas_gramos" id="proteinas_gramos" class="form-control form-control-custom ps-2" style="border-radius: 0 12px 12px 0 !important;" value="{{ old('proteinas_gramos', $planNutricional->proteinas_gramos) }}" required>
+                        </div>
+                    </div>
+
+                    {{-- Carbohidratos --}}
+                    <div class="col-md-6">
+                        <label for="carbohidratos_gramos" class="form-label fw-bold text-dark small">Carbohidratos (gramos)</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 12px 0 0 12px; border-color: rgba(226, 232, 240, 0.8);"><i class="bi bi-wheat"></i></span>
+                            <input type="number" name="carbohidratos_gramos" id="carbohidratos_gramos" class="form-control form-control-custom ps-2" style="border-radius: 0 12px 12px 0 !important;" value="{{ old('carbohidratos_gramos', $planNutricional->carbohidratos_gramos) }}" required>
+                        </div>
+                    </div>
+
+                    {{-- Grasas --}}
+                    <div class="col-md-6">
+                        <label for="grasas_gramos" class="form-label fw-bold text-dark small">Grasas (gramos)</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 12px 0 0 12px; border-color: rgba(226, 232, 240, 0.8);"><i class="bi bi-droplet"></i></span>
+                            <input type="number" name="grasas_gramos" id="grasas_gramos" class="form-control form-control-custom ps-2" style="border-radius: 0 12px 12px 0 !important;" value="{{ old('grasas_gramos', $planNutricional->grasas_gramos) }}" required>
+                        </div>
+                    </div>
+
+                    {{-- Consejos Adicionales --}}
+                    <div class="col-12">
+                        <label for="consejos_adicionales" class="form-label fw-bold text-dark small">Consejos Adicionales</label>
+                        <textarea name="consejos_adicionales" id="consejos_adicionales" class="form-control form-control-custom" rows="4" placeholder="Recomendaciones estratégicas...">{{ old('consejos_adicionales', $planNutricional->consejos_adicionales) }}</textarea>
+                    </div>
+                </div>
+
+                {{-- BOTONES DE ACCIÓN --}}
+                <div class="d-flex justify-content-between align-items-center mt-5 pt-3 border-top">
+                    <a href="{{ route('planes-nutricionales.index') }}" 
+                       class="btn btn-outline-secondary btn-panel-pill bg-white shadow-sm">
+                        <i class="bi bi-arrow-left-circle me-2"></i> Cancelar
+                    </a>
+
+                    <button type="submit" 
+                            class="btn text-white btn-panel-pill btn-update-nutrition shadow-sm px-4">
+                        <i class="bi bi-save me-2"></i> Actualizar Plan
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
 </div>
+
 @endsection

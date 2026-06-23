@@ -51,6 +51,8 @@ Route::post('/ejercicios/store/', [EjerciciosController::class, 'store'])->name(
 Route::get('/ejercicios/edit/{id}', [EjerciciosController::class, 'edit'])->name('ejercicios.edit');
 Route::post('/ejercicios/update/{id}', [EjerciciosController::class, 'update'])->name('ejercicios.update');
 Route::post('/ejercicios/destroy/{id}', [EjerciciosController::class, 'destroy'])->name('ejercicios.destroy');
+Route::get('/ejercicios/show/{id}', [EjerciciosController::class, 'show'])->name('ejercicios.show');
+
 
 // ------------------- ENTRENAMIENTOS -------------------
 Route::get('/entrenamientos/index/', [EntrenamientosController::class, 'index'])->name('entrenamientos.index');
