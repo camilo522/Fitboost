@@ -1,37 +1,88 @@
 @extends('layouts.app')
 
-@section('title')
-    Usuarios
-@endsection
-
-@section('titleContent')
-<div class="sena-header shadow-sm rounded-4 mb-4">
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-        
-        <div>
-            <h1 class="fw-bold text-white mb-1">
-                <i class="bi bi-people-fill me-2"></i>
-                Gestión de Usuarios
-            </h1>
-
-            <p class="text-white-50 mb-0">
-                Administración de aprendices y usuarios del sistema
-            </p>
-        </div>
-
-        <div>
-            <a href="{{ route('usuario.create')}}" 
-               class="btn btn-light rounded-pill px-4 fw-bold shadow-sm">
-                <i class="bi bi-person-plus-fill me-2"></i>
-                Nuevo Usuario
-            </a>
-        </div>
-
-    </div>
-</div>
-@endsection
+@section('title', 'Usuarios | FitBoost')
 
 @section('content')
+
+{{-- Estilos integrados dedicados a la estética Glassmorphism para la vista de listados --}}
+<style>
+    /* Cabecera estilizada de cristal suave */
+    .glass-header {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+    }
+
+    /* Contenedor de la tabla con efecto Glass */
+    .glass-card-table {
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px 0 rgba(15, 23, 42, 0.04);
+        overflow: hidden;
+    }
+
+    /* Ajuste fino para la cabecera de la tabla */
+    .table-thead-custom {
+        background-color: rgba(57, 169, 0, 0.08) !important;
+        border-bottom: 2px solid rgba(57, 169, 0, 0.2);
+    }
+    .table-thead-custom th {
+        color: #1e3a1e !important;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+        padding: 16px !important;
+    }
+
+    /* Hover fluido e impecable para las filas de la tabla */
+    .table-hover-custom tbody tr {
+        transition: background-color 0.2s ease;
+    }
+    .table-hover-custom tbody tr:hover {
+        background-color: rgba(57, 169, 0, 0.04) !important;
+    }
+
+    /* Rediseño del avatar del usuario */
+    .avatar-shape-sm {
+        width: 36px;
+        height: 36px;
+        background: rgba(57, 169, 0, 0.12);
+        color: #2d8200;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+    }
+
+    /* Badges refinados estilo píldora */
+    .pill-badge-success {
+        background: rgba(57, 169, 0, 0.12);
+        color: #2d8200;
+        padding: 0.45rem 1rem;
+        font-weight: 600;
+        border-radius: 30px;
+        font-size: 0.8rem;
+    }
+
+    /* Botones estilo píldora para acciones de la tabla */
+    .btn-action-pill {
+        border-radius: 30px;
+        padding: 0.35rem 1.1rem;
+        font-weight: 600;
+        font-size: 0.825rem;
+        transition: all 0.2s ease;
+    }
+    .btn-action-pill:hover {
+        transform: translateY(-2px);
+    }
+</style>
 
 {{-- ALERTA SUCCESS --}}
 @if(session('success'))
@@ -63,296 +114,138 @@
 </script>
 @endif
 
-<div class="container-fluid">
+<div class="container-fluid py-2">
 
-{{-- BOTÓN NUEVO USUARIO --}}
-<div class="d-flex justify-content-end mb-4">
-
-    <a href="{{ route('usuario.create') }}"
-       class="btn btn-sena rounded-pill px-4 py-2 fw-bold shadow-sm">
-
-        <i class="bi bi-person-plus-fill me-2"></i>
-        Crear Nuevo Usuario
-
-    </a>
-
-</div>
-
-    {{-- CARD PRINCIPAL --}}
-    <div class="card sena-card border-0">
-
+    {{-- CABECERA SECCIÓN --}}
+    <div class="card glass-header rounded-4 border-0 mb-4 p-2">
         <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <div>
+                    <h2 class="fw-bold text-success mb-1" style="letter-spacing: -0.5px;">
+                        <i class="bi bi-people-fill me-2"></i>Gestión de Usuarios
+                    </h2>
+                    <p class="text-muted mb-0 small">
+                        Administración de aprendices y usuarios registrados en el sistema
+                    </p>
+                </div>
+                <div>
+                    <a href="{{ route('usuario.create') }}" class="btn btn-success btn-panel-pill px-4 shadow-sm">
+                        <i class="bi bi-person-plus-fill me-2"></i>Nuevo Usuario
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    {{-- CARD TABLA PRINCIPAL --}}
+    <div class="card glass-card-table border-0">
+        <div class="card-body p-0">
             <div class="table-responsive">
-
-                <table class="table align-middle table-hover">
-
-                    <thead class="sena-table">
-
+                <table class="table table-hover-custom align-middle mb-0">
+                    <thead class="table-thead-custom">
                         <tr>
+                            <th style="padding-left: 24px !important;">Nombre / Usuario</th>
                             <th>Email</th>
-                            <th>Nombre</th>
                             <th>Fecha Registro</th>
-                            <th class="text-center">Acciones</th>
+                            <th class="text-center" style="padding-right: 24px !important;">Acciones</th>
                         </tr>
-
                     </thead>
-
                     <tbody>
-
                         @forelse ($usuarios as $usuario)
-
                         <tr>
-
+                            <td style="padding-left: 24px !important;">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="avatar-shape-sm">
+                                        <i class="bi bi-person-fill"></i>
+                                    </div>
+                                    <div>
+                                        <span class="fw-bold text-dark">{{ $usuario->nombre }}</span>
+                                    </div>
+                                </div>
+                            </td>
                             <td>
-                                <div class="fw-semibold text-dark">
+                                <div class="text-secondary fw-semibold">
                                     {{ $usuario->email }}
                                 </div>
                             </td>
-
                             <td>
-                                <div class="d-flex align-items-center gap-2">
-
-                                    <div class="user-icon">
-                                        <i class="bi bi-person-fill"></i>
-                                    </div>
-
-                                    <span class="fw-semibold">
-                                        {{ $usuario->nombre }}
-                                    </span>
-
-                                </div>
-                            </td>
-
-                            <td>
-                                <span class="badge sena-badge">
-                                    {{ $usuario->fechaRegistro }}
+                                <span class="pill-badge-success">
+                                    <i class="bi bi-calendar3 me-1"></i> {{ $usuario->fechaRegistro }}
                                 </span>
                             </td>
-
-                            <td class="text-center">
-
-                                <div class="d-flex justify-content-center flex-wrap gap-2">
-
+                            <td style="padding-right: 24px !important;">
+                                <div class="d-flex justify-content-center gap-2">
                                     {{-- PERFIL --}}
                                     <a href="{{ route('usuario.show', $usuario->id) }}"
-                                       class="btn btn-perfil btn-sm rounded-pill px-3">
-
-                                        <i class="bi bi-person-vcard me-1"></i>
-                                        Perfil
-
+                                       class="btn btn-outline-primary btn-action-pill">
+                                        <i class="bi bi-person-vcard me-1"></i> Perfil
                                     </a>
 
                                     {{-- EDITAR --}}
                                     <a href="{{ route('usuario.edit', $usuario->id) }}"
-                                       class="btn btn-editar btn-sm rounded-pill px-3">
-
-                                        <i class="bi bi-pencil-square me-1"></i>
-                                        Editar
-
+                                       class="btn btn-outline-success btn-action-pill">
+                                        <i class="bi bi-pencil-square me-1"></i> Editar
                                     </a>
 
                                     {{-- ELIMINAR --}}
-                                    <form action="{{ route('usuario.destroy', $usuario->id) }}"
-                                          method="POST">
-
+                                    <form action="{{ route('usuario.destroy', $usuario->id) }}" method="POST" class="d-inline">
                                         @csrf
-
-                                        <button type="submit"
-                                                class="btn btn-eliminar btn-sm rounded-pill px-3"
+                                        <button type="submit" class="btn btn-outline-danger btn-action-pill"
                                                 onclick="confirmarEliminacion(event)">
-
-                                            <i class="bi bi-trash-fill me-1"></i>
-                                            Eliminar
-
+                                            <i class="bi bi-trash-fill me-1"></i> Eliminar
                                         </button>
-
                                     </form>
-
                                 </div>
-
                             </td>
-
                         </tr>
-
                         @empty
-
                         <tr>
-
-                            <td colspan="4">
-
-                                <div class="empty-state text-center py-5">
-
-                                    <i class="bi bi-people display-3 text-muted"></i>
-
-                                    <h5 class="mt-3 text-muted">
-                                        No hay usuarios registrados
-                                    </h5>
-
+                            <td colspan="4" class="text-center py-5">
+                                <div class="text-muted py-4">
+                                    <i class="bi bi-people display-3 opacity-50 mb-3 d-block"></i>
+                                    <h5 class="fw-bold">No hay usuarios registrados</h5>
+                                    <p class="small text-secondary mb-0">Crea un nuevo registro para comenzar a poblar el sistema.</p>
                                 </div>
-
                             </td>
-
                         </tr>
-
                         @endforelse
-
                     </tbody>
-
                 </table>
-
             </div>
-
         </div>
-
     </div>
 
-    {{-- BOTÓN VOLVER --}}
+    {{-- PIE DE PÁGINA / REGRESAR --}}
     <div class="mt-4">
-
-        <a href="{{ route('welcome') }}"
-           class="btn btn-sena rounded-pill px-4 fw-bold">
-
-            <i class="bi bi-arrow-left-circle me-2"></i>
-            Volver al panel
-
+        <a href="{{ route('welcome') }}" class="btn btn-outline-secondary btn-panel-pill shadow-sm bg-white">
+            <i class="bi bi-arrow-left-circle me-2"></i>Volver al panel
         </a>
-
     </div>
 
 </div>
 
 {{-- SWEET ALERT --}}
 <script>
-
     function confirmarEliminacion(event) {
-
         event.preventDefault();
-
         const form = event.target.closest('form');
 
         Swal.fire({
-
             title: '¿Eliminar usuario?',
-            text: 'Esta acción no se puede deshacer.',
+            text: 'Esta acción no se puede deshacer de forma directa.',
             icon: 'warning',
-
             showCancelButton: true,
-
             confirmButtonColor: '#39A900',
-            cancelButtonColor: '#d33',
-
+            cancelButtonColor: '#6c757d',
             confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-
+            cancelButtonText: 'Cancelar',
+            focusCancel: true
         }).then((result) => {
-
             if (result.isConfirmed) {
-
                 form.submit();
-
             }
-
         });
-
     }
-
 </script>
-
-{{-- ESTILOS --}}
-<style>
-
-    .sena-header{
-        background: linear-gradient(135deg, #39A900, #007832);
-        padding: 30px;
-    }
-
-    .sena-card{
-        border-radius: 25px;
-        overflow: hidden;
-        box-shadow: 0 10px 35px rgba(0,0,0,0.08);
-    }
-
-    .sena-table{
-        background: #39A900;
-        color: white;
-    }
-
-    .sena-table th{
-        padding: 18px !important;
-        border: none;
-        font-size: 15px;
-    }
-
-    .table tbody tr{
-        transition: 0.3s ease;
-    }
-
-    .table tbody tr:hover{
-        transform: scale(1.01);
-        background: rgba(57,169,0,0.05);
-    }
-
-    .user-icon{
-        width: 38px;
-        height: 38px;
-        background: #39A900;
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .sena-badge{
-        background: rgba(57,169,0,0.15);
-        color: #007832;
-        padding: 10px 15px;
-        border-radius: 20px;
-        font-size: 13px;
-    }
-
-    .btn-sena{
-    background: linear-gradient(135deg, #39A900, #007832);
-    color: white;
-    border: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(57,169,0,0.25);
-    }
-
-    .btn-sena:hover{
-        background: linear-gradient(135deg, #2d8700, #006128);
-        color: white;
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(57,169,0,0.35);
-    }
-
-    .btn-perfil{
-        background: #0d6efd;
-        color: white;
-    }
-
-    .btn-editar{
-        background: #39A900;
-        color: white;
-    }
-
-    .btn-eliminar{
-        background: #dc3545;
-        color: white;
-    }
-
-    .btn-perfil:hover,
-    .btn-editar:hover,
-    .btn-eliminar:hover{
-        color: white;
-        transform: translateY(-2px);
-    }
-
-    .empty-state{
-        opacity: 0.7;
-    }
-
-</style>
 
 @endsection

@@ -22,92 +22,79 @@ body{
 }
 
 /* ======================
-   NAVBAR
+   NAVBAR (ESTILO GLASSMORPHISM & SENA)
 ====================== */
 
-.main-header{
-    background: #ffffff !important;
-    border-bottom: 1px solid rgba(57,169,0,0.18);
-    box-shadow: 0 2px 24px rgba(15, 23, 42, 0.08);
+/* Barra de navegación principal translúcida */
+.main-header.navbar-glass {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.7) !important;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04) !important;
 }
 
-.main-header .navbar-brand,
-.main-header .navbar-brand:hover{
-    color: var(--sena-dark) !important;
-}
-
-.main-header .navbar-nav .nav-link{
+/* Enlaces del Navbar */
+.main-header .navbar-nav .nav-link {
     color: #475569 !important;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+}
+
+/* Estado Hover y Activo en links superiores */
+.main-header .navbar-nav .nav-link:hover,
+.main-header .navbar-nav .nav-link:focus {
+    color: var(--sena-primary) !important;
+}
+
+/* Menú desplegable del usuario estilizado */
+.main-header .navbar-nav .dropdown-menu {
+    border: 1px solid rgba(15, 23, 42, 0.05);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+}
+
+.main-header .navbar-nav .dropdown-menu .dropdown-item {
+    color: #334155;
+    padding: 0.6rem 1.2rem;
     font-weight: 500;
 }
 
-.main-header .navbar-nav .nav-link:hover,
-.main-header .navbar-nav .nav-link:focus{
+.main-header .navbar-nav .dropdown-menu .dropdown-item:hover {
+    background-color: rgba(57, 169, 0, 0.08);
     color: var(--sena-dark) !important;
 }
 
-.main-header .navbar-nav .dropdown-menu{
-    border-radius: 16px;
-    box-shadow: 0 14px 40px rgba(15, 23, 42, 0.14);
+/* Contenedor de Búsqueda Integrada */
+.main-header .form-control-navbar {
+    border-radius: 20px;
+    background: rgba(241, 245, 249, 0.8) !important;
+    border: 1px solid rgba(148, 163, 184, 0.15) !important;
+    color: #334155 !important;
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+    font-size: 0.9rem;
+    transition: all 0.25s ease;
 }
 
-.main-header .navbar-nav .dropdown-menu .dropdown-item{
-    color: #334155;
+.main-header .form-control-navbar:focus {
+    background: #ffffff !important;
+    border-color: var(--sena-primary) !important;
+    box-shadow: 0 0 0 3px rgba(57, 169, 0, 0.12) !important;
 }
 
-.main-header .form-control-navbar{
-    border-radius: 999px;
-    background: #f8fafc;
-    border: 1px solid rgba(148,163,184,0.25);
-    padding-left: 1rem;
-    padding-right: 1rem;
-    max-width: 260px;
-    width: 100%;
+/* Corrección visual para los botones del widget de búsqueda */
+.main-header .btn-navbar {
+    color: #64748b !important;
 }
 
-.main-header .form-control-navbar:focus{
-    box-shadow: 0 0 0 0.2rem rgba(57,169,0,0.15) !important;
-}
-
-.navbar-search-block{
-    position: relative !important;
-    padding: 0 !important;
-    max-width: 280px;
-    width: 100%;
-    margin-right: 0.75rem;
-    display: none;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.navbar-search-block.navbar-search-open{
-    display: flex !important;
-}
-
-.navbar-search-block .input-group{
-    width: 100%;
-}
-
-.navbar-search-block .form-control-navbar{
-    width: 100%;
-    min-width: 180px;
-    border-radius: 999px 0 0 999px;
-}
-
-.navbar-search-block .input-group-append .btn-navbar{
-    border-radius: 0 999px 999px 0;
-    background: #f8fafc;
-}
-
-.navbar-search-block .btn-navbar{
-    color: var(--sena-dark) !important;
-}
-
-@media (max-width: 992px) {
-    .navbar-search-block{
-        max-width: 220px;
-        margin-right: 0.5rem;
-    }
+.main-header .btn-navbar:hover {
+    color: var(--sena-primary) !important;
 }
 
 /* ======================

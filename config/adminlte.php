@@ -207,7 +207,7 @@ return [
 
     'classes_sidebar_nav' => 'nav-flat nav-child-indent',
 
-    'classes_topnav' => 'navbar-white navbar-light border-bottom border-success shadow-sm',
+    'classes_topnav' => 'navbar-glass navbar-expand border-bottom-0 shadow-sm',
 
     'classes_topnav_nav' => 'navbar-expand-lg',
 
