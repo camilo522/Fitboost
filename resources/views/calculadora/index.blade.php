@@ -101,6 +101,12 @@
                 <i class="bi bi-gear-fill me-2 text-secondary"></i>Calcula tu Plan Ideal
             </h4>
 
+            @php
+                $selectedUserId = old('id_usuario', $selectedUsuario->id ?? '');
+                $prefillPeso = old('peso', $lastValoracion->peso ?? '');
+                $prefillAltura = old('altura', $lastValoracion->altura ?? '');
+            @endphp
+
             <form action="{{ route('calculadora.calcular') }}" method="POST">
                 @csrf
 
@@ -109,14 +115,32 @@
                     <div class="col-12">
                         <label for="id_usuario" class="form-label fw-bold text-dark small">Asignar a Usuario</label>
                         <select class="form-select form-control-custom" id="id_usuario" name="id_usuario" required>
-                            <option value="" disabled {{ old('id_usuario') ? '' : 'selected' }}>Selecciona un usuario...</option>
+                            <option value="" disabled {{ $selectedUserId ? '' : 'selected' }}>Selecciona un usuario...</option>
                             @foreach($usuarios as $usuario)
-                                <option value="{{ $usuario->id }}" {{ old('id_usuario') == $usuario->id ? 'selected' : '' }}>
+                                <option value="{{ $usuario->id }}" {{ $selectedUserId == $usuario->id ? 'selected' : '' }}>
                                     {{ $usuario->nombre }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
+
+                    @if($selectedUsuario && $lastValoracion)
+                        <div class="col-12">
+                            <div class="alert alert-success rounded-4 py-3 px-4">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                Valores cargados desde la última valoración de <strong>{{ $selectedUsuario->nombre }}</strong>: 
+                                <strong>{{ $lastValoracion->peso }} kg</strong> y <strong>{{ $lastValoracion->altura }} cm</strong>.
+                            </div>
+                        </div>
+                    @elseif($selectedUsuario)
+                        <div class="col-12">
+                            <div class="alert alert-warning rounded-4 py-3 px-4">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                <strong>{{ $selectedUsuario->nombre }}</strong> no tiene una valoración registrada para completar peso y altura automáticamente.
+                                Ingresa esos valores antes de calcular.
+                            </div>
+                        </div>
+                    @endif
 
                     {{-- Género --}}
                     <div class="col-12">
@@ -149,7 +173,7 @@
                     {{-- Peso --}}
                     <div class="col-md-4">
                         <label for="peso" class="form-label fw-bold text-dark small">Peso (kg)</label>
-                        <input type="number" step="0.1" class="form-control form-control-custom @error('peso') is-invalid @enderror" id="peso" name="peso" value="{{ old('peso') }}" placeholder="Ej: 70.5">
+                        <input type="number" step="0.1" class="form-control form-control-custom @error('peso') is-invalid @enderror" id="peso" name="peso" value="{{ old('peso', $prefillPeso) }}" placeholder="Ej: 70.5">
                         @error('peso')
                             <div class="text-danger mt-1 small fw-semibold"><i class="bi bi-x-circle me-1"></i>{{ $message }}</div>
                         @enderror
@@ -158,7 +182,7 @@
                     {{-- Altura --}}
                     <div class="col-md-4">
                         <label for="altura" class="form-label fw-bold text-dark small">Altura (cm)</label>
-                        <input type="number" class="form-control form-control-custom @error('altura') is-invalid @enderror" id="altura" name="altura" value="{{ old('altura') }}" placeholder="Ej: 175">
+                        <input type="number" class="form-control form-control-custom @error('altura') is-invalid @enderror" id="altura" name="altura" value="{{ old('altura', $prefillAltura) }}" placeholder="Ej: 175">
                         @error('altura')
                             <div class="text-danger mt-1 small fw-semibold"><i class="bi bi-x-circle me-1"></i>{{ $message }}</div>
                         @enderror

@@ -12,10 +12,10 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             UsuarioSeeder::class,
             ValoracionSeeder::class,
+            EjercicioSeeder::class,
             EntrenamientoSeeder::class,
             RutinaSeeder::class,
-            EjercicioSeeder::class,
-            RutinaEjercicioSeeder::class,
+            RutinaEjercicioSeeder::class,     
             PlanNutricionalSeeder::class,
             AsigEntreUsuarioSeeder::class,
         ]);

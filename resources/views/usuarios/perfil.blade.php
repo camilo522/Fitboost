@@ -228,6 +228,25 @@
 
     </div>
 
+    {{-- NUEVA TARJETA: CALCULADORA PERSONALIZADA --}}
+    <div class="row g-4 mb-4">
+        <div class="col-12">
+            <div class="card glass-card-sub border-0 p-3">
+                <div class="card-body d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
+                    <div>
+                        <h5 class="fw-bold text-dark mb-2">Macros para {{ $usuario->nombre }}</h5>
+                        <p class="text-muted small mb-0">
+                            Abre la calculadora con este usuario preseleccionado y revisa su resultado de macronutrientes.
+                        </p>
+                    </div>
+                    <a href="{{ route('calculadora.index', ['id_usuario' => $usuario->id]) }}" class="btn btn-success btn-panel-pill text-white shadow-sm">
+                        <i class="bi bi-calculator me-1"></i> Ir a Calculadora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{-- ACCIÓN DE REGRESO --}}
     <div class="mt-4">
         <a href="{{ route('usuario.index') }}" class="btn btn-outline-secondary btn-panel-pill bg-white shadow-sm">

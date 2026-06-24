@@ -149,7 +149,7 @@
                                 <td class="text-start fw-semibold text-dark">
                                     {{ $entrenamiento->nombre }}
                                 </td>
-                                <td class="text-start text-muted small" style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                <td class="text-start text-muted small" style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ $entrenamiento->descripcion }}">
                                     {{ $entrenamiento->descripcion }}
                                 </td>
                                 <td class="text-center small fw-medium">
@@ -164,10 +164,10 @@
                                     </span>
                                 </td>
                                 <td class="text-center fw-medium">
-                                    {{ $entrenamiento->diasSemana }} días
+                                    {{ $entrenamiento->dias_semana ?? $entrenamiento->diasSemana }} días
                                 </td>
                                 <td class="text-center">
-                                    @if($entrenamiento->estado == 'Activo')
+                                    @if(strcasecmp($entrenamiento->estado, 'Activo') === 0)
                                         <span class="badge bg-success-subtle text-success badge-pill-custom">Activo</span>
                                     @else
                                         <span class="badge bg-secondary-subtle text-secondary badge-pill-custom">Inactivo</span>
@@ -184,9 +184,10 @@
                                               method="POST" 
                                               class="d-inline-block m-0">
                                             @csrf
-                                            <button type="submit" 
+                                            @method('DELETE')
+                                            <button type="button" 
                                                     class="btn btn-sm btn-outline-danger rounded-pill px-3 shadow-sm d-inline-flex align-items-center"
-                                                    onclick="confirmarEliminacion(event)">
+                                                    onclick="confirmarEliminacion(this)">
                                                 <i class="bi bi-trash me-1"></i> Eliminar
                                             </button>
                                         </form>
@@ -207,6 +208,13 @@
         </div>
     </div>
 
+    {{-- ENLACES DE PAGINACIÓN (Opcional, se activa si usas ->paginate() en el Controlador) --}}
+    @if(method_exists($entrenamientos, 'links'))
+        <div class="d-flex justify-content-center mt-3">
+            {{ $entrenamientos->links() }}
+        </div>
+    @endif
+
     {{-- BOTÓN DE REGRESO INFERIOR --}}
     <div class="d-flex justify-content-between mt-4">
         <a href="{{ route('welcome') }}" class="btn btn-outline-secondary btn-panel-pill bg-white shadow-sm">
@@ -218,16 +226,15 @@
 
 {{-- SCRIPT PARA CONFIRMACIÓN DE SWEETALERT2 --}}
 <script>
-    function confirmarEliminacion(event) {
-        event.preventDefault();
-        const form = event.target.closest('form');
+    function confirmarEliminacion(button) {
+        const form = button.closest('form');
 
         Swal.fire({
             title: '¿Estás seguro?',
             text: "El entrenamiento se eliminará de forma permanente.",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#39A900', // Color Verde SENA principal
+            confirmButtonColor: '#39A900', // Color Verde principal
             cancelButtonColor: '#d33',
             confirmButtonText: 'Sí, eliminar',
             cancelButtonText: 'Cancelar',

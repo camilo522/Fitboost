@@ -334,15 +334,15 @@
 
 @endsection
 
-@push('styles')
+@section('custom_css')
     <style>
         .modal-fade { opacity: 0; transition: opacity 0.3s ease; }
         .modal-fade.show { opacity: 1; }
         .cursor-pointer { cursor: pointer; }
     </style>
-@endpush
+@endsection
 
-@push('scripts')
+@section('custom_js')
     <script>
         const modal = document.getElementById('modalGIF');
         const modalVideo = document.getElementById('modalVideo');
@@ -404,4 +404,4 @@
             });
         }
     </script>
-@endpush
+@endsection

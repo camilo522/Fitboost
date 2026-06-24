@@ -10,13 +10,26 @@ class CalculadoraController extends Controller
             /**
          * Muestra el formulario de la calculadora.
          */
-        public function index()
+        public function index(Request $request)
         {
             // Obtenemos todos los usuarios de la base de datos
             $usuarios = \App\Models\Usuario::all();
 
-            // Pasamos la lista de usuarios a la vista
-            return view('calculadora.index', compact('usuarios'));
+            $selectedUsuario = null;
+            $lastValoracion = null;
+            $idUsuarioSeleccionado = $request->query('id_usuario');
+
+            if ($idUsuarioSeleccionado) {
+                $selectedUsuario = \App\Models\Usuario::find($idUsuarioSeleccionado);
+                if ($selectedUsuario) {
+                    $lastValoracion = $selectedUsuario->valoraciones()
+                        ->orderBy('fecha', 'desc')
+                        ->first();
+                }
+            }
+
+            // Pasamos la lista de usuarios y la selección opcional a la vista
+            return view('calculadora.index', compact('usuarios', 'selectedUsuario', 'lastValoracion'));
         }
 
     

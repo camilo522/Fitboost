@@ -192,6 +192,10 @@
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-center gap-2">
+                                            <a href="{{ route('planes-nutricionales.show', $plan->id) }}" 
+                                               class="btn btn-sm btn-outline-info btn-panel-pill px-3">
+                                                <i class="bi bi-eye me-1"></i> Ver plan
+                                            </a>
                                             <a href="{{ route('planes-nutricionales.edit', $plan->id) }}" 
                                                class="btn btn-sm btn-outline-primary btn-panel-pill px-3">
                                                 <i class="bi bi-pencil-square me-1"></i> Editar
@@ -257,7 +261,10 @@
                                     </div>
                                 </div>
 
-                                <div class="d-flex justify-content-end gap-2 pt-2 border-top">
+                                <div class="d-flex justify-content-end gap-2 pt-2 border-top flex-wrap">
+                                    <a href="{{ route('planes-nutricionales.show', $plan->id) }}" class="btn btn-sm btn-outline-info btn-panel-pill px-3 py-1">
+                                        <i class="bi bi-eye me-1"></i> Ver plan
+                                    </a>
                                     <a href="{{ route('planes-nutricionales.edit', $plan->id) }}" class="btn btn-sm btn-outline-primary btn-panel-pill px-3 py-1">
                                         <i class="bi bi-pencil-square me-1"></i> Editar
                                     </a>

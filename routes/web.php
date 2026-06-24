@@ -8,21 +8,16 @@ use App\Http\Controllers\EntrenamientosController;
 use App\Http\Controllers\PlanNutricionalController;
 use App\Http\Controllers\RutinaEjerciciosController;
 use App\Http\Controllers\RutinasController;
-use App\Http\Controllers\usersController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ValoracionesController;
 use App\Models\PlanNutricional;
 use Illuminate\Support\Facades\Auth;
 
-//RUTA PRINCIPAL
-Route::get('/login', function () {
-    return redirect()->route('login');
-});
-
 // Página inicial (landing con el logo de FitBoost)
 Route::get('/', function () {
     return view('landing');
-});
+})->name('landing');
 
 
 Route::get('/welcome', function () {
@@ -31,17 +26,13 @@ Route::get('/welcome', function () {
 
 
 //rutas para login
-Route::get('/login',[usersController::class,'verlogin'])->name('login');
-Route::post('/loginsubmit',[usersController::class,'login'])->name('login.submit');
-
-Route::get('/logout', function () {
-    Auth::logout();
-    return view('landing');
-})->name('logout');
+Route::get('/login',[AuthController::class,'verlogin'])->name('login');
+Route::post('/loginsubmit',[AuthController::class,'login'])->name('login.submit');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //RUTAS REGISTRO
-Route::get('/registro', [usersController::class, 'verRegistro'])->name('registro');
-Route::post('/registro-submit', [usersController::class, 'registro'])->name('registro.submit');
+Route::get('/registro', [UsersController::class, 'verRegistro'])->name('registro');
+Route::post('/registro-submit', [UsersController::class, 'registro'])->name('registro.submit');
 
 
 // ------------------- EJERCICIOS -------------------
@@ -50,7 +41,7 @@ Route::get('/ejercicios/create/', [EjerciciosController::class, 'create'])->name
 Route::post('/ejercicios/store/', [EjerciciosController::class, 'store'])->name('ejercicios.store');
 Route::get('/ejercicios/edit/{id}', [EjerciciosController::class, 'edit'])->name('ejercicios.edit');
 Route::post('/ejercicios/update/{id}', [EjerciciosController::class, 'update'])->name('ejercicios.update');
-Route::post('/ejercicios/destroy/{id}', [EjerciciosController::class, 'destroy'])->name('ejercicios.destroy');
+Route::delete('/ejercicios/destroy/{id}', [EjerciciosController::class, 'destroy'])->name('ejercicios.destroy');
 Route::get('/ejercicios/show/{id}', [EjerciciosController::class, 'show'])->name('ejercicios.show');
 
 
@@ -99,9 +90,10 @@ Route::get('/valoraciones/{id}/historial', [App\Http\Controllers\ValoracionesCon
 Route::get('/planes-nutricionales/index/', [PlanNutricionalController::class, 'index'])->name('planes-nutricionales.index');
 Route::get('/planes-nutricionales/create/', [PlanNutricionalController::class, 'create'])->name('planes-nutricionales.create');
 Route::post('/planes-nutricionales/store/', [PlanNutricionalController::class, 'store'])->name('planes-nutricionales.store');
+Route::get('/planes-nutricionales/{id}', [PlanNutricionalController::class, 'show'])->name('planes-nutricionales.show');
 Route::get('/planes-nutricionales/edit/{id}', [PlanNutricionalController::class, 'edit'])->name('planes-nutricionales.edit');
 Route::post('/planes-nutricionales/update/{id}', [PlanNutricionalController::class, 'update'])->name('planes-nutricionales.update');
-Route::post('/planes-nutricionales/destroy/{id}', [PlanNutricionalController::class, 'destroy'])->name('planes-nutricionales.destroy');
+Route::delete('/planes-nutricionales/destroy/{id}', [PlanNutricionalController::class, 'destroy'])->name('planes-nutricionales.destroy');
 
 
 // Rutas para la Calculadora de Macronutrientes
