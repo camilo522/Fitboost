@@ -1,61 +1,214 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏋️‍♂️ FitBoost - Sistema de Gestión de Entrenamientos y Nutrición
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+FitBoost es una plataforma web desarrollada en **Laravel** diseñada para automatizar la gestión de programas de acondicionamiento físico, rutinas de ejercicios, valoraciones antropométricas y planes nutricionales.
 
-## About Laravel
+El sistema cuenta con una interfaz administrativa moderna basada en **AdminLTE** con estilos visuales tipo **Glassmorphism**.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# 📋 Requisitos Previos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Antes de iniciar el proyecto, asegúrate de tener instalado lo siguiente:
 
-## Learning Laravel
+* **PHP** >= 8.2
+* **Composer**
+* **MySQL o MariaDB**
+* **Node.js y NPM**
+* **Git**
+* Un entorno local como:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+  * XAMPP
+  * Laragon
+  * DBngin
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# 🚀 Instalación del Proyecto
 
-## Laravel Sponsors
+Sigue estos pasos para ejecutar FitBoost en tu entorno local.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 1️⃣ Clonar el repositorio
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```bash
+git clone https://github.com/camilo522/Fitboost.git
+cd Fitboost
+```
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 2️⃣ Instalar dependencias de PHP
 
-## Code of Conduct
+Instala todas las dependencias del proyecto usando Composer:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+composer install
+```
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 3️⃣ Instalar y configurar AdminLTE
 
-## License
+El proyecto utiliza la plantilla administrativa AdminLTE.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Ejecuta los siguientes comandos:
+
+```bash
+composer require jeroennoten/laravel-adminlte
+php artisan adminlte:install
+```
+
+---
+
+## 4️⃣ Configurar el archivo `.env`
+
+Copia el archivo de entorno:
+
+```bash
+cp .env.example .env
+```
+
+Luego abre el archivo `.env` y configura tu conexión a MySQL:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=fitboost
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+> Si utilizas XAMPP, normalmente la contraseña de MySQL está vacía.
+
+---
+
+## 5️⃣ Generar la clave de Laravel
+
+```bash
+php artisan key:generate
+```
+
+---
+
+## 6️⃣ Instalar dependencias del frontend
+
+Instala los paquetes de Node.js:
+
+```bash
+npm install
+```
+
+---
+
+## 7️⃣ Compilar assets del proyecto
+
+Para desarrollo:
+
+```bash
+npm run dev
+```
+
+Para producción:
+
+```bash
+npm run build
+```
+
+---
+
+## 8️⃣ Ejecutar migraciones y seeders
+
+Este comando:
+
+* crea todas las tablas,
+* ejecuta migraciones,
+* inserta datos de prueba,
+* crea usuarios iniciales,
+* carga ejercicios y demostraciones GIF.
+
+```bash
+php artisan optimize:clear
+php artisan migrate:fresh --seed
+```
+
+---
+
+## 9️⃣ Iniciar el servidor de desarrollo
+
+```bash
+php artisan serve
+```
+
+La aplicación estará disponible en:
+
+```txt
+http://127.0.0.1:8000
+```
+
+---
+
+# 👥 Usuarios de Prueba
+
+El sistema crea automáticamente usuarios iniciales mediante `UsersSeeder`.
+
+## 🔑 Contraseña para todos los usuarios
+
+```txt
+12345678
+```
+
+## 👤 Administrador
+
+```txt
+Correo: admin@fitboost.com
+```
+
+## 👤 Entrenador
+
+```txt
+Correo: trainer@fitboost.com
+```
+
+---
+
+# 🧹 Limpieza de Caché
+
+Si Laravel no reconoce cambios en rutas, vistas o configuraciones:
+
+```bash
+php artisan optimize:clear
+```
+
+---
+
+# 🏗️ Tecnologías Utilizadas
+
+* Laravel
+* PHP 8.2
+* MySQL
+* AdminLTE
+* Bootstrap
+* JavaScript
+* Node.js
+* NPM
+
+---
+
+# 📂 Funcionalidades Principales
+
+✅ Gestión de usuarios
+✅ Rutinas de entrenamiento
+✅ Planes nutricionales
+✅ Valoraciones antropométricas
+✅ Panel administrativo
+✅ Sistema de autenticación
+✅ Seeders automáticos
+✅ Gestión de ejercicios con GIFs
+
+---
+
+# 📌 Autor
+
+Proyecto desarrollado por el equipo de desarrollo de **FitBoost**.
