@@ -14,6 +14,12 @@ class PlanNutricionalController extends Controller
         return view('planes_nutricionales.index', compact('planes'));
     }
 
+    public function show($id)
+    {
+        $plan = PlanNutricional::with('usuario')->findOrFail($id);
+        return view('planes_nutricionales.show', compact('plan'));
+    }
+
     public function create()
     {
         $usuarios = Usuario::all();
@@ -36,12 +42,11 @@ class PlanNutricionalController extends Controller
 
         PlanNutricional::create($request->all());
 
-        return redirect()->route('planes-nutricionlaes.index')->with('success', 'Plan creado correctamente.');
+        return redirect()->route('planes-nutricionales.index')->with('success', 'Plan creado correctamente.');
     }
 
     public function edit($id)
     {
-        // Cambiado para que coincida con tu estilo
         $planNutricional = PlanNutricional::findOrFail($id);
         $usuarios = Usuario::all();
 
@@ -50,7 +55,6 @@ class PlanNutricionalController extends Controller
 
     public function update(Request $request, $id)
     {
-        // CAMBIO CLAVE: Ahora recibe $id, no el Modelo
         $planNutricional = PlanNutricional::findOrFail($id);
 
         $request->validate([
@@ -69,10 +73,26 @@ class PlanNutricionalController extends Controller
 
     public function destroy($id)
     {
-        // CAMBIO CLAVE: Ahora recibe $id, no el Modelo
         $planNutricional = PlanNutricional::findOrFail($id);
-        $planNutricional->delete();
+        
+        try {
+            $planNutricional->delete();
+            return redirect()->route('planes-nutricionales.index')
+                ->with('success', 'Plan nutricional eliminado correctamente.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->route('planes-nutricionales.index')
+                ->with('error', 'No se puede eliminar este plan nutricional porque tiene valoraciones u otros datos asociados.');
+        }
+    }
 
-        return redirect()->route('planes-nutricionales.index')->with('success', 'Plan eliminado correctamente.');
+    /**
+     * Si necesitas que la ruta 'calculadora.resultados' del botón 'Ver' se procese 
+     * en este mismo controlador, puedes usar esta función:
+     */
+    public function resultados($id)
+    {
+        $plan = PlanNutricional::with('usuario')->findOrFail($id);
+        // Retorna la vista dedicada a mostrar los resultados numéricos de la calculadora
+        return view('calculadora.resultados', compact('plan'));
     }
 }

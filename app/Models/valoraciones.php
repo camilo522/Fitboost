@@ -49,4 +49,21 @@ class Valoraciones extends Model
     }
 
     
+    // app/Models/Valoracion.php
+
+    public function getImcAttribute()
+    {
+        if (!$this->peso || !$this->altura) {
+            return null;
+        }
+
+        // Altura viene en cm → convertir a metros
+        $alturaMetros = $this->altura / 100;
+
+        // Fórmula IMC = peso / altura²
+        return round($this->peso / ($alturaMetros ** 2), 2);
+    }
+
+
+    
 }

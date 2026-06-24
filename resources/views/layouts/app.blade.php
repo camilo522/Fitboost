@@ -3,66 +3,52 @@
 @section('title', 'FitBoost')
 
 @section('content_header')
-	<h1>FitBoost</h1>
 @stop
 
 @section('content')
-	<p>Welcome to this beautiful admin panel.</p>
+<div class="container-fluid pt-3 animate__animated animate__fadeIn">
+    
+    {{-- TARJETA PRINCIPAL DEL APLICATIVO (Integra cabecera y contenido) --}}
+    <div class="card shadow-sm border-0" style="border-radius: 16px; overflow: hidden;">
+        
+        {{-- CABECERA INTERNA DE LA TARJETA: El logo ahora vive aquí adentro --}}
+        <div class="card-header bg-white border-bottom p-4">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div>
+                    <h1 class="fw-bold mb-1" style="color: var(--sena-dark); font-size: 1.8rem; letter-spacing: -0.5px;">
+                        <i class="bi bi-activity me-2" style="color: var(--sena-green);"></i>FitBoost
+                    </h1>
+                    <p class="text-muted mb-0 small">Plataforma de entrenamiento y seguimiento físico</p>
+                </div>
+                <div>
+                    <span class="badge p-2 text-white" style="background-color: var(--sena-green); font-size: 0.9rem; border-radius: 8px; font-weight: 600;">
+                        SENA
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        {{-- CUERPO DE LA TARJETA: Espacio dinámico para tus vistas hijas --}}
+        <div class="card-body p-3 p-md-4" style="background: rgba(248, 250, 252, 0.5);">
+            @yield('contenido')
+        </div>
+
+    </div>
+
+</div>
 @stop
 
 @section('css')
-	<link rel="stylesheet" href="/css/admin_custom.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-        }
-        .welcome-bg {
-            min-height: 100vh;
-            background: url('/images/fitboost.jpg') no-repeat center center/cover;
-            position: relative;
-        }
-        .welcome-bg::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 0;
-        }
-        .welcome-bg .container-fluid {
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn-gradient {
-    background: linear-gradient(90deg, #6a11cb, #2575fc);
-    color: #fff !important;
-    border: none;
-    font-weight: bold;
-    padding: 0.6rem 1.2rem;
-    border-radius: 50px;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0px 4px 12px rgba(106, 17, 203, 0.3);
-}
-.btn-gradient:hover {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0px 6px 16px rgba(37, 117, 252, 0.5);
-}
-
-
-
-    </style>
-
+    <!-- Cargamos los estilos personalizados -->
+    <link rel="stylesheet" href="{{ asset('css/admin_custom.css') }}">
+    <!-- Iconos de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Animaciones sutiles para transiciones de página -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    @yield('custom_css')
 @stop
 
 @section('js')
-	<script> console.log('Hi!'); </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @yield('custom_js')
 @stop
-    
-    

@@ -9,36 +9,56 @@ class RutinaSeeder extends Seeder
 {
     public function run(): void
     {
+        // 1. Crear las Rutinas vinculadas a los entrenamientos
         DB::table('rutinas')->insert([
             [
+                'id' => 1,
                 'idEntrenamiento' => 1,
-                'nombre' => 'Usuario 1',
-                'horario' => '06:00:00',
-                'descripcion' => 'Rutina enfocada en fuerza y resistencia para el usuario 1.'
-            ],
-            [
-                'idEntrenamiento' => 2,
-                'nombre' => 'Usuario 2',
-                'horario' => '09:00:00',
-                'descripcion' => 'Rutina enfocada en fuerza y resistencia para el usuario 2.'
-            ],
-            [
-                'idEntrenamiento' => 3,
-                'nombre' => 'Usuario 3',
-                'horario' => '07:30:00',
-                'descripcion' => 'Rutina enfocada en fuerza y resistencia para el usuario 3.'
-            ],
-            [
-                'idEntrenamiento' => 1,
-                'nombre' => 'Usuario 4',
+                'nombre' => 'Rutina A: Torso y Brazos',
                 'horario' => '08:00:00',
-                'descripcion' => 'Rutina enfocada en fuerza y resistencia para el usuario 4.'
+                'descripcion' => 'Enfoque en tren superior con alta densidad de trabajo.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
-                'idEntrenamiento' => 2,
-                'nombre' => 'Usuario 5',
-                'horario' => '10:00:00',
-                'descripcion' => 'Rutina enfocada en fuerza y resistencia para el usuario 5.'
+                'id' => 2,
+                'idEntrenamiento' => 1,
+                'nombre' => 'Rutina B: Piernas Completas',
+                'horario' => '16:00:00',
+                'descripcion' => 'Trabajo pesado enfocado en cuádriceps e isquios.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        ]);
+
+        // 2. Sembrar la tabla de asignación intermedia rutina_ejercicios
+        DB::table('rutina_ejercicios')->insert([
+            [
+                'idRutina' => 1,
+                'idEjercicio' => 1, // Press de Banca
+                'series' => 4,
+                'repeticiones' => 10,
+                'orden' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'idRutina' => 1,
+                'idEjercicio' => 3, // Curl de Bíceps
+                'series' => 3,
+                'repeticiones' => 12,
+                'orden' => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'idRutina' => 2,
+                'idEjercicio' => 2, // Sentadillas
+                'series' => 4,
+                'repeticiones' => 8,
+                'orden' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalculadoraController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EjerciciosController;
@@ -7,18 +8,32 @@ use App\Http\Controllers\EntrenamientosController;
 use App\Http\Controllers\PlanNutricionalController;
 use App\Http\Controllers\RutinaEjerciciosController;
 use App\Http\Controllers\RutinasController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ValoracionesController;
 use App\Models\PlanNutricional;
+use Illuminate\Support\Facades\Auth;
 
 // Página inicial (landing con el logo de FitBoost)
 Route::get('/', function () {
     return view('landing');
-});
+})->name('landing');
+
 
 Route::get('/welcome', function () {
-    return view('welcome'); // aquí va el welcome
+    return view('welcome');
 })->name('welcome');
+
+
+//rutas para login
+Route::get('/login',[AuthController::class,'verlogin'])->name('login');
+Route::post('/loginsubmit',[AuthController::class,'login'])->name('login.submit');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+//RUTAS REGISTRO
+Route::get('/registro', [UsersController::class, 'verRegistro'])->name('registro');
+Route::post('/registro-submit', [UsersController::class, 'registro'])->name('registro.submit');
+
 
 // ------------------- EJERCICIOS -------------------
 Route::get('/ejercicios/index/', [EjerciciosController::class, 'index'])->name('ejercicios.index');
@@ -26,7 +41,9 @@ Route::get('/ejercicios/create/', [EjerciciosController::class, 'create'])->name
 Route::post('/ejercicios/store/', [EjerciciosController::class, 'store'])->name('ejercicios.store');
 Route::get('/ejercicios/edit/{id}', [EjerciciosController::class, 'edit'])->name('ejercicios.edit');
 Route::post('/ejercicios/update/{id}', [EjerciciosController::class, 'update'])->name('ejercicios.update');
-Route::post('/ejercicios/destroy/{id}', [EjerciciosController::class, 'destroy'])->name('ejercicios.destroy');
+Route::delete('/ejercicios/destroy/{id}', [EjerciciosController::class, 'destroy'])->name('ejercicios.destroy');
+Route::get('/ejercicios/show/{id}', [EjerciciosController::class, 'show'])->name('ejercicios.show');
+
 
 // ------------------- ENTRENAMIENTOS -------------------
 Route::get('/entrenamientos/index/', [EntrenamientosController::class, 'index'])->name('entrenamientos.index');
@@ -73,11 +90,32 @@ Route::get('/valoraciones/{id}/historial', [App\Http\Controllers\ValoracionesCon
 Route::get('/planes-nutricionales/index/', [PlanNutricionalController::class, 'index'])->name('planes-nutricionales.index');
 Route::get('/planes-nutricionales/create/', [PlanNutricionalController::class, 'create'])->name('planes-nutricionales.create');
 Route::post('/planes-nutricionales/store/', [PlanNutricionalController::class, 'store'])->name('planes-nutricionales.store');
+Route::get('/planes-nutricionales/{id}', [PlanNutricionalController::class, 'show'])->name('planes-nutricionales.show');
 Route::get('/planes-nutricionales/edit/{id}', [PlanNutricionalController::class, 'edit'])->name('planes-nutricionales.edit');
 Route::post('/planes-nutricionales/update/{id}', [PlanNutricionalController::class, 'update'])->name('planes-nutricionales.update');
-Route::post('/planes-nutricionales/destroy/{id}', [PlanNutricionalController::class, 'destroy'])->name('planes-nutricionales.destroy');
+Route::delete('/planes-nutricionales/destroy/{id}', [PlanNutricionalController::class, 'destroy'])->name('planes-nutricionales.destroy');
 
 
 // Rutas para la Calculadora de Macronutrientes
 Route::get('/calculadora', [CalculadoraController::class, 'index'])->name('calculadora.index');
 Route::post('/calculadora/calcular', [CalculadoraController::class, 'calcular'])->name('calculadora.calcular');
+
+//rutas para login 
+
+Route::get('/login', [AuthController::class, 'verlogin'])->name('login');
+Route::post('/loginsubmit', [AuthController::class, 'login'])->name('login.submit');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+//perfil usuario
+
+Route::get('/usuario/{id}/perfil', [UsuarioController::class, 'show'])->name('usuario.show');
+
+Route::get('/rutina/asignar/{id}', [RutinasController::class, 'asignar'])->name('rutina.asignar');
+
+Route::get('/plan/{id}/asignar', [PlanNutricionalController::class, 'asignar'])->name('plan.asignar');
+
+Route::post('/usuario/{id}/foto', [UsuarioController::class, 'subirFoto'])->name('usuario.subirFoto');
+
+
+

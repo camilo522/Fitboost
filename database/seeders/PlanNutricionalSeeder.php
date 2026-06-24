@@ -2,28 +2,50 @@
 
 namespace Database\Seeders;
 
-use App\Models\PlanNutricional;
-use App\Models\Usuario;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class PlanNutricionalSeeder extends Seeder
 {
     public function run(): void
     {
-        // Obtenemos algunos usuarios a los que asignaremos un plan
-        $usuarios = Usuario::take(5)->get();
+        // Limpiar la tabla antes de sembrar
+        DB::table('planes_nutricionales')->truncate();
 
-        foreach ($usuarios as $usuario) {
-            PlanNutricional::create([
-                'id_usuario' => $usuario->id,
-                'calorias_diarias' => rand(1800, 3000),
-                'proteinas_gramos' => rand(120, 200),
-                'carbohidratos_gramos' => rand(200, 350),
-                'grasas_gramos' => rand(60, 90),
-                'consejos_adicionales' => 'Bebe al menos 2 litros de agua al día. Prioriza alimentos integrales y no olvides incluir frutas y verduras en cada comida.',
+        DB::table('planes_nutricionales')->insert([
+            [
+                'id_usuario' => 1, // Camilo Rojas
+                'calorias_diarias' => 2200,
+                'proteinas_gramos' => 160,
+                'carbohidratos_gramos' => 200,
+                'grasas_gramos' => 70,
+                'consejos_adicionales' => 'Priorizar el consumo de agua antes y durante el entreno. Mantener déficits moderados.',
                 'activo' => true,
-            ]);
-        }
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_usuario' => 2, // Kevin Sanchez
+                'calorias_diarias' => 3200,
+                'proteinas_gramos' => 180,
+                'carbohidratos_gramos' => 400,
+                'grasas_gramos' => 95,
+                'consejos_adicionales' => 'Mantener un superávit limpio controlando harinas refinadas e incluyendo grasas saludables.',
+                'activo' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_usuario' => 3, // Cristian Solano
+                'calorias_diarias' => 2600,
+                'proteinas_gramos' => 165,
+                'carbohidratos_gramos' => 280,
+                'grasas_gramos' => 80,
+                'consejos_adicionales' => 'Plan enfocado en normocalorías para recomposición corporal y rendimiento deportivo en fútbol.',
+                'activo' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 }

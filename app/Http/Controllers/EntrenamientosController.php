@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EntrenamientoRequest;
 use App\Models\entrenamientos;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class EntrenamientosController extends Controller
     /**
      * Guarda un nuevo entrenamiento.
      */
-    public function store(Request $request)
+    public function store(EntrenamientoRequest $request)
     {
         // 🔒 Validación básica
         $request->validate([
@@ -82,13 +83,19 @@ class EntrenamientosController extends Controller
     /**
      * Elimina un entrenamiento.
      */
-    public function destroy($id)
+    public function destroy( $id)
     {
-        $entrenamiento = entrenamientos::findOrFail($id);
-        $entrenamiento->delete();
-
-        return redirect()
-            ->route('entrenamientos.index')
-            ->with('success', 'Entrenamiento eliminado correctamente.');
+    {
+        
+        $entrenamiento = entrenamientos::FindorFail($id);
+        try{
+        $entrenamiento -> delete();
+        return redirect()->route('entrenamientos.index')
+        ->with('success', 'Entrenamiento eliminado correctamente.');
+       }  catch (\Illuminate\Database\QueryException $e) {
+        return redirect()->route('entrenamientos.index')
+                ->with('error', 'No se puede eliminar este Entrenamiento porque tiene Rutinas asociadas.');
+        }
+    }
     }
 }

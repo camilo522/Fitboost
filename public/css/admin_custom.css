@@ -1,0 +1,515 @@
+/* =====================================================
+   FITBOOST - TEMA SENA PROFESIONAL
+===================================================== */
+
+:root{
+    --sena-primary: #39A900;
+    --sena-dark: #007832;
+    --sena-secondary: #0f172a;
+    --sena-muted: #64748b;
+    --sena-surface: #f8fafc;
+    --sena-bg: #e7eef4;
+    --fit-white: #ffffff;
+}
+
+/* ======================
+   BODY
+====================== */
+
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--sena-bg) !important;
+}
+
+/* ======================
+   NAVBAR (ESTILO GLASSMORPHISM & SENA)
+====================== */
+
+/* Barra de navegación principal translúcida */
+.main-header.navbar-glass {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.7) !important;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04) !important;
+}
+
+/* Enlaces del Navbar */
+.main-header .navbar-nav .nav-link {
+    color: #475569 !important;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+}
+
+/* Estado Hover y Activo en links superiores */
+.main-header .navbar-nav .nav-link:hover,
+.main-header .navbar-nav .nav-link:focus {
+    color: var(--sena-primary) !important;
+}
+
+/* Menú desplegable del usuario estilizado */
+.main-header .navbar-nav .dropdown-menu {
+    border: 1px solid rgba(15, 23, 42, 0.05);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+}
+
+.main-header .navbar-nav .dropdown-menu .dropdown-item {
+    color: #334155;
+    padding: 0.6rem 1.2rem;
+    font-weight: 500;
+}
+
+.main-header .navbar-nav .dropdown-menu .dropdown-item:hover {
+    background-color: rgba(57, 169, 0, 0.08);
+    color: var(--sena-dark) !important;
+}
+
+/* Contenedor de Búsqueda Integrada */
+.main-header .form-control-navbar {
+    border-radius: 20px;
+    background: rgba(241, 245, 249, 0.8) !important;
+    border: 1px solid rgba(148, 163, 184, 0.15) !important;
+    color: #334155 !important;
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+    font-size: 0.9rem;
+    transition: all 0.25s ease;
+}
+
+.main-header .form-control-navbar:focus {
+    background: #ffffff !important;
+    border-color: var(--sena-primary) !important;
+    box-shadow: 0 0 0 3px rgba(57, 169, 0, 0.12) !important;
+}
+
+/* Corrección visual para los botones del widget de búsqueda */
+.main-header .btn-navbar {
+    color: #64748b !important;
+}
+
+.main-header .btn-navbar:hover {
+    color: var(--sena-primary) !important;
+}
+
+/* ======================
+   SIDEBAR
+====================== */
+
+.main-sidebar{
+    background: linear-gradient(180deg, #111827 0%, #0f172a 100%) !important;
+}
+
+.brand-link{
+    background: linear-gradient(135deg, #39A900 0%, #007832 100%) !important;
+    border-bottom: none !important;
+}
+
+.brand-link .brand-image{
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.22);
+}
+
+.brand-link .brand-text{
+    color: white !important;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.nav-sidebar .nav-item{
+    margin: 6px 8px;
+}
+
+.nav-sidebar .nav-link{
+    border-radius: 14px;
+    color: #cbd5e1 !important;
+    transition: transform 0.28s ease, background 0.28s ease;
+}
+
+.nav-sidebar .nav-link:hover{
+    background: rgba(57,169,0,0.20);
+    color: #ffffff !important;
+    transform: translateX(4px);
+}
+
+.nav-sidebar .nav-link.active{
+    background: linear-gradient(90deg, #39A900 0%, #007832 100%) !important;
+    color: white !important;
+    box-shadow: 0 6px 24px rgba(57,169,0,0.28);
+}
+
+.nav-sidebar .nav-icon{
+    color: #94a3b8 !important;
+}
+
+.nav-sidebar .nav-link.active .nav-icon,
+.nav-sidebar .nav-link:hover .nav-icon{
+    color: white !important;
+}
+
+.sidebar-dark-success .nav-sidebar>.nav-item>.nav-link.active{
+    border-left: 4px solid rgba(255,255,255,0.15);
+}
+
+/* ======================
+   CONTENT
+====================== */
+
+.content-wrapper{
+    background-color: var(--sena-bg) !important;
+}
+
+.content-header{
+    padding: 1.2rem 1.5rem;
+}
+
+.content-header .container-fluid{
+    padding: 0;
+}
+
+.content-header h1{
+    color: var(--sena-dark);
+    font-weight: 700;
+}
+
+.content-header p{
+    color: var(--sena-muted);
+    margin-top: 0.15rem;
+}
+
+/* ======================
+   CARDS
+====================== */
+
+.card{
+    border: none !important;
+    border-radius: 22px !important;
+    overflow: hidden;
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover{
+    transform: translateY(-4px);
+}
+
+.card-header{
+    border-bottom: none !important;
+    background: transparent !important;
+}
+
+.card-body{
+    padding: 1.5rem;
+}
+
+/* ======================
+   BOTONES
+====================== */
+
+.btn-success{
+    background: var(--sena-primary) !important;
+    border: none !important;
+    border-radius: 14px;
+    padding: 11px 20px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.btn-success:hover{
+    background: #006a2c !important;
+}
+
+.btn-outline-secondary{
+    border-radius: 14px;
+}
+
+/* ======================
+   TABLAS
+====================== */
+
+.table thead{
+    background: linear-gradient(90deg, #39A900, #007832);
+    color: white;
+}
+
+.table{
+    border-radius: 18px;
+    overflow: hidden;
+    background: white;
+}
+
+.table td,
+.table th{
+    vertical-align: middle;
+}
+
+/* ======================
+   INPUTS
+====================== */
+
+.form-control{
+    border-radius: 14px !important;
+    border: 1px solid #d1d5db;
+}
+
+.form-control:focus{
+    border-color: var(--sena-primary);
+    box-shadow: 0 0 0 0.2rem rgba(57,169,0,0.14);
+}
+
+/* ======================
+   FOOTER
+====================== */
+
+.main-footer{
+    background: #ffffff;
+    border-top: 1px solid #e2e8f0;
+    color: #475569;
+}
+
+.main-footer .float-right{
+    color: #64748b;
+}
+
+/* ======================
+   SCROLLBAR
+====================== */
+
+::-webkit-scrollbar{
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background: var(--sena-primary);
+    border-radius: 20px;
+}
+
+/* ======================
+   DASHBOARD CARDS
+====================== */
+
+.small-box{
+    border-radius: 22px !important;
+    overflow: hidden;
+}
+
+.dashboard-icon{
+    width: 88px;
+    height: 88px;
+    margin: auto;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 32px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
+}
+
+.small-box .icon i{
+    font-size: 60px !important;
+}
+
+/* ======================
+   LOGIN
+====================== */
+
+.login-page,
+.register-page{
+    background:
+    linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.88)),
+    url('/imagenes/gym-bg.jpg');
+
+    background-size: cover;
+    background-position: center;
+}
+
+.login-box,
+.register-box{
+    width: 420px;
+}
+
+.login-card-body,
+.register-card-body{
+    border-radius: 22px;
+    background: rgba(255,255,255,0.92) !important;
+}
+
+.login-logo a,
+.register-logo a{
+    color: var(--sena-primary) !important;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+/* ======================
+   ANIMACIONES
+====================== */
+
+.card,
+.btn,
+.nav-link{
+    transition: all .25s ease;
+}
+
+
+.dashboard-card{
+transition: all .3s ease;
+}
+
+.dashboard-card:hover{
+transform: translateY(-8px);
+}
+
+.dashboard-icon{
+width: 85px;
+height: 85px;
+margin: auto;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-size: 32px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.small-box .icon i{
+font-size: 60px !important;
+}
+
+/* =========================================
+LOGIN PROFESIONAL
+========================================= */
+
+.login-page-custom{
+background:
+linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.85)),
+url('/imagenes/gym-bg.jpg');
+
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
+
+min-height: 100vh;
+
+position: relative;
+
+overflow: hidden;
+
+}
+
+.login-overlay{
+position: absolute;
+inset: 0;
+
+background:
+radial-gradient(circle at top left,
+rgba(57,169,0,.20),
+transparent 30%),
+
+radial-gradient(circle at bottom right,
+rgba(57,169,0,.15),
+transparent 30%);
+
+}
+
+.login-glass-card{
+
+background: rgba(255,255,255,0.08);
+
+backdrop-filter: blur(14px);
+
+border: 1px solid rgba(255,255,255,0.12);
+
+border-radius: 28px;
+
+padding: 45px;
+
+box-shadow:
+0 8px 32px rgba(0,0,0,.35);
+
+position: relative;
+z-index: 2;
+
+}
+
+.login-logo-img{
+width: 95px;
+height: 95px;
+object-fit: contain;
+}
+
+.login-input{
+border-radius: 0 12px 12px 0 !important;
+border: none !important;
+padding: 14px;
+}
+
+.login-input:focus{
+box-shadow: none !important;
+}
+
+.login-input-icon{
+border-radius: 12px 0 0 12px !important;
+
+background: #39A900 !important;
+
+border: none !important;
+
+color: white !important;
+
+}
+
+.login-btn{
+padding: 14px;
+border-radius: 14px !important;
+font-weight: bold;
+font-size: 16px;
+}
+
+.login-link{
+color: #7dff48;
+text-decoration: none;
+font-weight: 600;
+}
+
+.login-link:hover{
+color: white;
+}
+
+/* Responsive */
+
+@media(max-width: 768px){
+
+.login-glass-card{
+    padding: 30px;
+}
+
+}
+/* Correcciones y mejoras visuales del Dashboard */
+.dashboard-card-custom {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease !important;
+    border-radius: 16px !important;
+}
+
+.dashboard-card-custom:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 12px 24px rgba(57, 169, 0, 0.12) !important;
+}
+
+.style-welcome-card {
+    border-left: 5px solid var(--sena-green) !important;
+    border-radius: 14px !important;
+}
+
+/* Transición limpia al hacer hover en botones de los módulos */
+.dashboard-card-custom .btn:hover {
+    background-color: var(--sena-dark) !important;
+}

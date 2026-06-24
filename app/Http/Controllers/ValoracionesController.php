@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
-   
+use App\Http\Requests\ValoracionRequest;
 use App\Models\Valoraciones;
 use App\Models\Usuario;
 use App\Models\HistorialValoracion;
@@ -23,7 +22,7 @@ class ValoracionesController extends Controller
         return view('valoraciones.create', compact('usuarios'));
     }
 
-   public function store(Request $request)
+   public function store(ValoracionRequest $request)
     {
     // ✅ Validación
     $validated = $request->validate([
@@ -48,7 +47,6 @@ class ValoracionesController extends Controller
     // ✅ Crear nueva valoración
     $valoracion = Valoraciones::create($validated);
 
-    // ✅ AHORA SÍ, registrar en historial MANUALMENTE
     
 
     return redirect()->route('valoraciones.index')
@@ -56,6 +54,8 @@ class ValoracionesController extends Controller
     }
 
 
+
+    
     public function edit($id)
     {
         $valoraciones = Valoraciones::findOrFail($id);
@@ -63,6 +63,10 @@ class ValoracionesController extends Controller
         return view('valoraciones.edit', compact('valoraciones', 'usuarios'));
     }
 
+    
+    
+    
+    
     public function update(Request $request, $id)
     {
     $valoracion = Valoraciones::findOrFail($id);
@@ -97,18 +101,22 @@ class ValoracionesController extends Controller
                      ->with('success', 'Valoración actualizada correctamente');
     }
 
-    public function destroy($id)
-    {
-        $valoracion = Valoraciones::findOrFail($id);
+   
 
-        try {
-            $valoracion->delete();
-            return redirect()->route('valoraciones.index')
-                             ->with('success', 'Valoración eliminada correctamente');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('valoraciones.index')
-                             ->with('error', 'No se puede eliminar esta valoración porque tiene entrenamientos asociados.');
+    public function destroy( $id)
+    {
+    {
+        
+        $valoracion = Valoraciones::FindorFail($id);
+        try{
+        $valoracion -> delete();
+        return redirect()->route('valoraciones.index')
+        ->with('success', 'valoracion eliminado correctamente.');
+       }  catch (\Illuminate\Database\QueryException $e) {
+        return redirect()->route('valoraciones.index')
+                ->with('error', 'No se puede eliminar esta valoracion porque tiene Planes nutricionales asociadas.');
         }
+    }
     }
 
     public function historial($id)
@@ -117,6 +125,8 @@ class ValoracionesController extends Controller
       $valoracion = Valoraciones::with(['usuario', 'historial.usuario'])->findOrFail($id);
         return view('valoraciones.historial', compact('valoracion'));
     }
+
+    
 
 
 }
