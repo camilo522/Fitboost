@@ -93,8 +93,34 @@
                 <div class="card-body p-4 p-md-5">
 
                     {{-- Formulario configurado nativamente con POST tal como estaba --}}
-                    <form action="{{ route('usuario.update', $usuario->id) }}" method="POST">
+                    <form action="{{ route('usuario.update', $usuario->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
+
+                        {{-- FOTO DE PERFIL --}}
+                        <div class="mb-4">
+                            <label for="foto" class="form-label fw-bold text-secondary mb-2">
+                                <i class="bi bi-image me-1"></i> Foto de Perfil
+                            </label>
+                            <div class="d-flex align-items-center gap-3 flex-wrap">
+                                @if($usuario->foto)
+                                    <img src="{{ asset('storage/' . $usuario->foto) }}" alt="Foto de {{ $usuario->nombre }}" class="rounded-circle" width="80" height="80">
+                                @else
+                                    <div class="avatar-circle-lg shadow-sm">
+                                        <i class="bi bi-person-fill"></i>
+                                    </div>
+                                @endif
+                            </div>
+                            <input type="file"
+                                   class="form-control mt-3 @error('foto') is-invalid @enderror"
+                                   id="foto"
+                                   name="foto"
+                                   accept="image/jpeg,image/png">
+                            @error('foto')
+                                <div class="text-danger small mt-1 fw-semibold">
+                                    <i class="bi bi-exclamation-circle me-1"></i> {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
 
                         {{-- NOMBRE --}}
                         <div class="mb-4">

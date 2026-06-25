@@ -94,4 +94,20 @@ class Usuario extends Authenticatable
 
     }
 
+    /**
+     * RELACIÓN PLANES NUTRICIONALES
+     */
+    public function planesNutricionales()
+    {
+        return $this->hasMany(PlanNutricional::class, 'id_usuario');
+    }
+
+    /**
+     * URL pública de la foto de perfil
+     */
+    public function getFotoUrlAttribute()
+    {
+        return $this->foto ? asset('storage/' . $this->foto) : null;
+    }
+
 }

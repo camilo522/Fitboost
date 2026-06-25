@@ -30,6 +30,11 @@ class Valoraciones extends Model
         'fechaRegistro'
     ];
 
+    protected $casts = [
+        'fecha' => 'date',
+        'fechaRegistro' => 'datetime',
+    ];
+
     // 🔗 Relación con Usuario
     public function usuario()
     {
