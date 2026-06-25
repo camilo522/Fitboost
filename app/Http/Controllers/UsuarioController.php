@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\PlanNutricional;
 use App\Models\Usuario;
+use App\Models\rutinas;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\QueryException;
 
 class UsuarioController extends Controller
@@ -41,13 +44,20 @@ class UsuarioController extends Controller
         'email' => 'required|email|unique:usuarios,email',
         'password' => 'required|min:8',
         'fechaRegistro' => 'required|date',
+        'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
     ]);
+
+    $fotoPath = null;
+    if ($request->hasFile('foto')) {
+        $fotoPath = $request->file('foto')->store('imagenes/perfiles', 'public');
+    }
 
     Usuario::create([
         'nombre' => $request->nombre,
         'email' => $request->email,
         'password' => $request->password,
         'fechaRegistro' => $request->fechaRegistro,
+        'foto' => $fotoPath,
     ]);
 
     return redirect()
@@ -74,10 +84,21 @@ class UsuarioController extends Controller
             ->where('activo', true)
             ->first();
 
+        $historialValoraciones = $usuario->historialValoraciones()
+            ->latest('fecha_historial')
+            ->take(5)
+            ->get();
+
+        $rutinasUsuario = rutinas::whereHas('entrenamiento.valoracion', function ($query) use ($id) {
+            $query->where('idUsuario', $id);
+        })->with('entrenamiento')->get();
+
         return view('usuarios.perfil', compact(
             'usuario',
             'ultimaValoracion',
-            'planNutricional'
+            'planNutricional',
+            'historialValoraciones',
+            'rutinasUsuario'
         ));
     }
 
@@ -113,6 +134,8 @@ class UsuarioController extends Controller
 
             'fechaRegistro' => 'required|date',
 
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+
         ]);
 
         $usuario->nombre = $request->nombre;
@@ -120,6 +143,13 @@ class UsuarioController extends Controller
         $usuario->email = $request->email;
 
         $usuario->fechaRegistro = $request->fechaRegistro;
+
+        if ($request->hasFile('foto')) {
+            if ($usuario->foto) {
+                Storage::disk('public')->delete($usuario->foto);
+            }
+            $usuario->foto = $request->file('foto')->store('imagenes/perfiles', 'public');
+        }
 
         // SOLO ACTUALIZA PASSWORD SI SE ESCRIBE
         if ($request->filled('password')) {
@@ -147,6 +177,10 @@ class UsuarioController extends Controller
 
         try {
 
+            if ($usuario->foto) {
+                Storage::disk('public')->delete($usuario->foto);
+            }
+
             $usuario->delete();
 
             return redirect()
@@ -164,6 +198,34 @@ class UsuarioController extends Controller
     }
 
 
+    public function reportePdf($id)
+    {
+        $usuario = Usuario::findOrFail($id);
+
+        $ultimaValoracion = $usuario->valoraciones()
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        $planNutricional = PlanNutricional::where('id_usuario', $id)
+            ->where('activo', true)
+            ->first();
+
+        $historialValoraciones = $usuario->historialValoraciones()
+            ->latest('fecha_historial')
+            ->take(5)
+            ->get();
+
+        $rutinasUsuario = rutinas::whereHas('entrenamiento.valoracion', function ($query) use ($id) {
+            $query->where('idUsuario', $id);
+        })->with('entrenamiento')->get();
+
+        $pdf = Pdf::loadView('usuarios.reporte', compact('usuario', 'ultimaValoracion', 'planNutricional', 'historialValoraciones', 'rutinasUsuario'))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download('FitBoost-Reporte-Usuario-' . $usuario->id . '.pdf');
+    }
+
+
     /**
      * SUBIR FOTO PERFIL
      */
@@ -178,14 +240,11 @@ class UsuarioController extends Controller
 
         $usuario = Usuario::findOrFail($id);
 
-        $nombre = time() . '.' . $request->foto->extension();
+        if ($usuario->foto) {
+            Storage::disk('public')->delete($usuario->foto);
+        }
 
-        $request->foto->storeAs(
-            'public/imagenes/perfiles',
-            $nombre
-        );
-
-        $usuario->foto = $nombre;
+        $usuario->foto = $request->file('foto')->store('imagenes/perfiles', 'public');
 
         $usuario->save();
 

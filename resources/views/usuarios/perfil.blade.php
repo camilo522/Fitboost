@@ -70,8 +70,12 @@
     <div class="card glass-profile-hero border-0 mb-4">
         <div class="card-body p-4">
             <div class="d-flex align-items-center flex-wrap gap-4">
-                <div class="avatar-circle-lg shadow-sm">
-                    <i class="bi bi-person-fill"></i>
+                <div class="avatar-circle-lg shadow-sm" style="width: 90px; height: 90px; overflow: hidden;">
+                    @if($usuario->foto)
+                        <img src="{{ asset('storage/' . $usuario->foto) }}" alt="Foto de {{ $usuario->nombre }}" class="img-fluid rounded-circle" style="width: 100%; height: 100%; object-fit: cover;">
+                    @else
+                        <i class="bi bi-person-fill" style="font-size: 1.75rem;"></i>
+                    @endif
                 </div>
                 <div>
                     <h2 class="fw-bold text-dark mb-1" style="letter-spacing: -0.5px;">{{ $usuario->nombre }}</h2>
@@ -82,7 +86,68 @@
             </div>
         </div>
     </div>
+    <div class="row g-4 mb-4">
+        <div class="col-12">
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm rounded-4 mb-4 p-3 bg-white" role="alert" style="border-left: 5px solid var(--sena-primary) !important;">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill text-success fs-4 me-3"></i>
+                        <div class="text-dark fw-semibold">{{ session('success') }}</div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm rounded-4 mb-4 p-3 bg-white" role="alert" style="border-left: 5px solid #dc3545 !important;">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-exclamation-octagon-fill text-danger fs-4 me-3"></i>
+                        <div class="text-dark fw-semibold">{{ session('error') }}</div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+        </div>
 
+        <div class="col-12 col-lg-6">
+            <div class="card glass-card-sub border-0 p-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <i class="bi bi-camera-fill text-primary fs-4"></i>
+                        <h5 class="fw-bold text-dark mb-0">Actualizar foto de perfil</h5>
+                    </div>
+                    <form action="{{ route('usuario.subirFoto', $usuario->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="foto" class="form-label fw-semibold text-secondary">Selecciona una nueva foto</label>
+                            <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto" accept="image/jpeg,image/png">
+                            @error('foto')
+                                <div class="text-danger small mt-1 fw-semibold">
+                                    <i class="bi bi-exclamation-circle me-1"></i> {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-success btn-panel-pill text-white w-100">
+                            <i class="bi bi-upload me-1"></i> Actualizar foto
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <div class="card glass-card-sub border-0 p-3">
+                <div class="card-body d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+                    <div>
+                        <h5 class="fw-bold text-dark mb-1">Informe PDF del usuario</h5>
+                        <p class="text-muted small mb-0">Genera y descarga un reporte con la última valoración, el plan activo y el historial de seguimiento.</p>
+                    </div>
+                    <a href="{{ route('usuario.reportePdf', $usuario->id) }}" class="btn btn-success btn-panel-pill text-white shadow-sm">
+                        <i class="bi bi-file-earmark-pdf-fill me-1"></i> Descargar PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     {{-- SECCIÓN CENTRAL: VALORACIÓN + NUTRICIÓN --}}
     <div class="row g-4 mb-4">
 

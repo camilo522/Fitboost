@@ -103,8 +103,25 @@
             <div class="card glass-card-form border-0">
                 <div class="card-body p-4 p-md-5">
 
-                    <form action="{{ route('usuario.store') }}" method="POST">
+                    <form action="{{ route('usuario.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+
+                        {{-- FOTO DE PERFIL --}}
+                        <div class="mb-4">
+                            <label for="foto" class="form-label fw-bold text-secondary mb-2">
+                                <i class="bi bi-image me-1"></i> Foto de Perfil (opcional)
+                            </label>
+                            <input type="file"
+                                   class="form-control @error('foto') is-invalid @enderror"
+                                   id="foto"
+                                   name="foto"
+                                   accept="image/jpeg,image/png">
+                            @error('foto')
+                                <div class="text-danger small mt-1 fw-semibold">
+                                    <i class="bi bi-exclamation-circle me-1"></i> {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
 
                         {{-- NOMBRE --}}
                         <div class="mb-4">

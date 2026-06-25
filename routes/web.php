@@ -110,6 +110,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 //perfil usuario
 
 Route::get('/usuario/{id}/perfil', [UsuarioController::class, 'show'])->name('usuario.show');
+Route::get('/usuario/{id}/reporte-pdf', [UsuarioController::class, 'reportePdf'])->name('usuario.reportePdf');
 
 Route::get('/rutina/asignar/{id}', [RutinasController::class, 'asignar'])->name('rutina.asignar');
 

@@ -36,6 +36,12 @@ class HistorialValoracion extends Model
         'fecha_historial'
     ];
 
+    protected $casts = [
+        'fecha' => 'date',
+        'fechaRegistro' => 'datetime',
+        'fecha_historial' => 'datetime',
+    ];
+
     // 🔗 Relación con la valoración original
     public function valoracion()
     {
