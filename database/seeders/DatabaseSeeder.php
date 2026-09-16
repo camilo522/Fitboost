@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
             RutinaSeeder::class,
             RutinaEjercicioSeeder::class,     
             PlanNutricionalSeeder::class,
-            AsigEntreUsuarioSeeder::class,
         ]);
     }
 }
