@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\valoraciones;
 use App\Observers\ValoracionObserver;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-         valoraciones::observe(ValoracionObserver::class);
+        valoraciones::observe(ValoracionObserver::class);
+
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
     }
 }
