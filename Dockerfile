@@ -50,6 +50,10 @@ COPY --from=frontend /app/public/build ./public/build
 # Permisos
 RUN chown -R www-data:www-data storage bootstrap/cache
 
+# Script de inicio
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
