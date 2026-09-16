@@ -17,7 +17,12 @@ RUN npm run build
 FROM php:8.4-apache
 
 # Extensiones necesarias para Laravel + MySQL
-RUN docker-php-ext-install pdo pdo_mysql
+RUN apt-get update \
+    && apt-get install -y \
+        libzip-dev \
+        unzip \
+    && docker-php-ext-install pdo pdo_mysql zip \
+    && rm -rf /var/lib/apt/lists/*
 
 # Habilitar mod_rewrite
 RUN a2enmod rewrite
