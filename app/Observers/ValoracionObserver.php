@@ -4,13 +4,13 @@ namespace App\Observers;
 
 use App\Models\Valoracion;
 use App\Models\HistorialValoracion;
-use App\Models\valoraciones;
+use App\Models\Valoraciones;
 
 class ValoracionObserver
 {
     private $creadas = [];
 
-    public function created(valoraciones $valoracion)
+    public function created(Valoraciones $valoracion)
     {
         $this->creadas[] = $valoracion->id;
         $this->registrarHistorial($valoracion, 'CREACIÓN');

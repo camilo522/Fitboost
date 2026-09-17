@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\valoraciones;
+use App\Models\Valoraciones;
 use App\Observers\ValoracionObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
